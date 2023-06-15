@@ -52,13 +52,14 @@
                      <center>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TableView layoutX="15.0" layoutY="66.0" prefHeight="600.0" prefWidth="1000.0">
+                              <TableView layoutX="15.0" layoutY="66.0" prefHeight="381.0" prefWidth="1000.0">
                                  <columns>
                                     <TableColumn editable="false" prefWidth="32.0" text="ID" />
                                     <TableColumn editable="false" minWidth="0.0" prefWidth="967.0" text="Name" />
                                  </columns>
                               </TableView>
-                              <TextField layoutX="713.0" layoutY="14.0" prefHeight="33.0" prefWidth="301.0" promptText="Search by name" />
+                              <TextField layoutX="713.0" layoutY="14.0" prefHeight="33.0" prefWidth="301.0" promptText="Search" />
+                              <AnchorPane layoutX="15.0" layoutY="457.0" prefHeight="200.0" prefWidth="1000.0" />
                            </children>
                         </AnchorPane>
                      </center>
@@ -68,7 +69,7 @@
                               <Line endX="100.0" layoutX="122.0" layoutY="14.0" startX="-100.0" />
                               <Button layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
                               <ToggleButton layoutX="12.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Doctor" />
-                              <ToggleButton layoutX="12.0" layoutY="28.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Department" />
+                              <ToggleButton disable="true" layoutX="12.0" layoutY="28.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Department" />
                               <Line endX="100.0" layoutX="125.0" layoutY="604.0" startX="-100.0" />
                               <ToggleButton layoutX="12.0" layoutY="168.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Medicine" />
                            </children>

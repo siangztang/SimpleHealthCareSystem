@@ -68,6 +68,10 @@
                               <Label layoutX="13.0" layoutY="200.0" text="Department:" />
                               <TextField disable="true" editable="false" layoutX="94.0" layoutY="196.0" text="ENT" />
                               <Line endX="100.0" layoutX="122.0" layoutY="14.0" startX="-100.0" />
+                              <Label layoutX="23.0" layoutY="235.0" text="History ID:" />
+                              <Label layoutX="23.0" layoutY="270.0" text="Course ID:" />
+                              <TextField disable="true" editable="false" layoutX="94.0" layoutY="231.0" text="H0000000001" />
+                              <TextField disable="true" editable="false" layoutX="94.0" layoutY="266.0" text="C0000000001" />
                            </children>
                         </AnchorPane>
                      </left>
@@ -109,23 +113,6 @@
                                           </AnchorPane>
                                     </content>
                                   </Tab>
-                                    <Tab text="Medicine">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <TableView layoutX="15.0" layoutY="14.0" prefHeight="381.0" prefWidth="1000.0">
-                                                   <columns>
-                                                      <TableColumn prefWidth="252.79999387264252" text="Medicine Name" />
-                                                      <TableColumn minWidth="0.0" prefWidth="636.7998962402344" text="Description" />
-                                                      <TableColumn prefWidth="75.99993896484375" text="Amount" />
-                                                      <TableColumn prefWidth="65.599853515625" text="Dosage" />
-                                                   </columns>
-                                                </TableView>
-                                                <AnchorPane layoutX="15.0" layoutY="405.0" prefHeight="200.0" prefWidth="1000.0" />
-                                             </children>
-                                          </AnchorPane>
-                                       </content>
-                                    </Tab>
                                     <Tab text="Analysis">
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1030.0">
@@ -138,8 +125,19 @@
                                                                <children>
                                                                   <TableView layoutX="15.0" layoutY="5.0" prefHeight="381.0" prefWidth="1000.0">
                                                                     <columns>
-                                                                      <TableColumn prefWidth="848.0" />
-                                                                      <TableColumn prefWidth="182.0" text="Values" />
+                                                                        <TableColumn prefWidth="75.0" text="ID" />
+                                                                      <TableColumn prefWidth="82.66665649414062" text="Red Cells" />
+                                                                      <TableColumn prefWidth="100.0" text="Haemoglobin" />
+                                                                        <TableColumn prefWidth="90.0" text="Color" />
+                                                                        <TableColumn prefWidth="75.0" text="Parasites" />
+                                                                        <TableColumn text="White Cells" />
+                                                                        <TableColumn minWidth="0.66668701171875" prefWidth="0.66668701171875" text="Stab Neuthrophil" />
+                                                                        <TableColumn text="Lymphocytes" />
+                                                                        <TableColumn minWidth="0.0" prefWidth="41.33331298828125" text="ESR" />
+                                                                        <TableColumn minWidth="0.0" prefWidth="61.3333740234375" text="Platelets" />
+                                                                        <TableColumn minWidth="0.0" prefWidth="160.0" text="Mean Corpuscular Volume" />
+                                                                        <TableColumn prefWidth="200.0" text="Mean Corpuscular Haemoglobin" />
+                                                                        <TableColumn prefWidth="75.0" text="Haematocrit" />
                                                                     </columns>
                                                                   </TableView>
                                                                   <AnchorPane layoutX="14.0" layoutY="391.0" prefHeight="200.0" prefWidth="1000.0" />
@@ -152,8 +150,14 @@
                                                                <children>
                                                                   <TableView layoutX="15.0" layoutY="5.0" prefHeight="381.0" prefWidth="1000.0">
                                                                      <columns>
-                                                                        <TableColumn prefWidth="848.0" />
-                                                                        <TableColumn prefWidth="182.0" text="Values" />
+                                                                        <TableColumn prefWidth="125.0" text="ID" />
+                                                                        <TableColumn prefWidth="125.0" text="RW Result" />
+                                                                        <TableColumn prefWidth="125.0" text="Aids Date" />
+                                                                        <TableColumn prefWidth="125.0" text="Aids Result" />
+                                                                        <TableColumn prefWidth="125.0" text="Syphilis Date" />
+                                                                        <TableColumn prefWidth="125.0" text="Syphilis Result" />
+                                                                        <TableColumn prefWidth="125.0" text="Hepatitis Date" />
+                                                                        <TableColumn prefWidth="125.0" text="Hepatitis Result" />
                                                                      </columns>
                                                                   </TableView>
                                                                   <AnchorPane layoutX="15.0" layoutY="391.0" prefHeight="200.0" prefWidth="1000.0" />
@@ -166,8 +170,18 @@
                                                                <children>
                                                                   <TableView layoutX="15.0" layoutY="5.0" prefHeight="381.0" prefWidth="1000.0">
                                                                      <columns>
-                                                                        <TableColumn prefWidth="848.0" />
-                                                                        <TableColumn prefWidth="182.0" text="Values" />
+                                                                        <TableColumn prefWidth="75.0" text="ID" />
+                                                                        <TableColumn prefWidth="72.0" text="Createnine" />
+                                                                        <TableColumn prefWidth="70.0" text="Sigar" />
+                                                                        <TableColumn prefWidth="71.99996948242188" text="Biluribin" />
+                                                                        <TableColumn prefWidth="111.33331298828125" text="Direct Biluribin" />
+                                                                        <TableColumn prefWidth="70.0" text="AST" />
+                                                                        <TableColumn prefWidth="70.0" text="ALT" />
+                                                                        <TableColumn prefWidth="91.3333740234375" text="Cholesterol" />
+                                                                        <TableColumn prefWidth="107.99993896484375" text="Triglycerides" />
+                                                                        <TableColumn prefWidth="70.0" text="HDL" />
+                                                                        <TableColumn prefWidth="70.0" text="LDL" />
+                                                                        <TableColumn prefWidth="117.3333740234375" text="Akaline Phospatase" />
                                                                      </columns>
                                                                   </TableView>
                                                                   <AnchorPane layoutX="15.0" layoutY="391.0" prefHeight="200.0" prefWidth="1000.0" />
@@ -180,8 +194,16 @@
                                                                <children>
                                                                   <TableView layoutX="15.0" layoutY="5.0" prefHeight="381.0" prefWidth="1000.0">
                                                                      <columns>
-                                                                        <TableColumn prefWidth="848.0" />
-                                                                        <TableColumn prefWidth="182.0" text="Values" />
+                                                                        <TableColumn prefWidth="100.0" text="ID" />
+                                                                        <TableColumn prefWidth="100.0" text="Color" />
+                                                                        <TableColumn prefWidth="100.0" text="Reaction" />
+                                                                        <TableColumn prefWidth="100.0" text="Transparency" />
+                                                                        <TableColumn prefWidth="100.0" text="Density" />
+                                                                        <TableColumn prefWidth="100.0" text="Protein" />
+                                                                        <TableColumn prefWidth="100.0" text="Glucose" />
+                                                                        <TableColumn prefWidth="100.0" text="Ketones" />
+                                                                        <TableColumn prefWidth="100.0" text="Nitrites" />
+                                                                        <TableColumn prefWidth="100.0" text="Leukocytes" />
                                                                      </columns>
                                                                   </TableView>
                                                                   <AnchorPane layoutX="14.0" layoutY="391.0" prefHeight="200.0" prefWidth="1000.0" />

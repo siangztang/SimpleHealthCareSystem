@@ -56,7 +56,7 @@
                               <Line endX="100.0" layoutX="125.0" layoutY="604.0" startX="-100.0" />
                               <Button fx:id="manageDptBtn" layoutX="12.0" layoutY="28.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Departments" />
                               <Button fx:id="manageDocBtn" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Doctors" />
-                              <Button fx:id="manageDocBtn1" layoutX="12.0" layoutY="168.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Medicine" />
+                              <Button fx:id="manageDocBtn1" disable="true" layoutX="12.0" layoutY="168.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Medicine" />
                            </children>
                         </AnchorPane>
                      </left>

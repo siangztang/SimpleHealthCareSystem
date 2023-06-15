@@ -36,6 +36,9 @@ public class PatientListController {
     private Button manageDptBtn;
 
     @FXML
+    private Button manageMedicineBtn;
+
+    @FXML
     private TableColumn<Patient, String> patAgeCol;
 
     @FXML
@@ -48,10 +51,10 @@ public class PatientListController {
     private TableColumn<Patient, String> patDepartmentCol;
 
     @FXML
-    private ComboBox<?> patDepartmentField;
+    private ComboBox<String> patDepartmentField;
 
     @FXML
-    private ComboBox<?> patGenderBox;
+    private ComboBox<String> patGenderBox;
 
     @FXML
     private TableColumn<Patient, String> patGenderCol;
@@ -99,9 +102,48 @@ public class PatientListController {
 
     void initData(Admin admin){
         unameLabel.setText(admin.getUname());
+        patGenderBox.getItems().addAll("M", "F");
+        resetBtn.setOnAction(event -> {
+            resetBtnAction();
+        });
+        unFocusAll();
     }
 
+    public void resetBtnAction(){
+        patIDField.setText("");
+        patNameField.setText("");
+        patICField.setText("");
+        patCotField.setText("");
+        patDepartmentField.setValue("");
+        patGenderBox.setValue("");
+        searchField.setText("");
+        unFocusAll();
+        
+    }
+
+    public void unFocusAll(){
+        manageDptBtn.setFocusTraversable(false);
+        manageDocBtn.setFocusTraversable(false);
+        manageMedicineBtn.setFocusTraversable(false);
+        patListTable.setFocusTraversable(false);
+        searchField.setFocusTraversable(false);
+        patIDField.setFocusTraversable(false);
+        patNameField.setFocusTraversable(false);
+        patICField.setFocusTraversable(false);
+        patCotField.setFocusTraversable(false);
+        patDepartmentField.setFocusTraversable(false);
+        patGenderBox.setFocusTraversable(false);
+        addBtn.setFocusTraversable(false);
+        updateBtn.setFocusTraversable(false);
+        deleteBtn.setFocusTraversable(false);
+        resetBtn.setFocusTraversable(false);
+    }
+
+    
+    
+
     // private ObservableList<Patient> patientList;
+
 
     public void patientShowListData(){
         // patientList = 
