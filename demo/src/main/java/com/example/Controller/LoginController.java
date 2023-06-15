@@ -59,12 +59,15 @@ public class LoginController {
     }
 
     private AlertMessage alert = new AlertMessage();
-
+    private static Admin admin;
     public void login() {
         String uname = UsernameField.getText().trim();
         String password = PasswordField.getText().trim();
-
-        Admin admin = new Admin(uname, password);
+        
+        if (admin == null){
+            admin = new Admin(uname, password);
+        }
+        
 
         switch (admin.isValidLogin()) {
             case 0:
@@ -74,13 +77,12 @@ public class LoginController {
                 alert.successMessage("Login Successful");
                 try {
                     FXMLLoader loader = new FXMLLoader();
-                    Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\Main.fxml"));
+                    Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\PatientList.fxml"));
                     
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
                     stage.setScene(scene);
-                    MainController controller = loader.getController();
-                    System.out.println(controller);
+                    PatientListController controller = loader.getController();
                     controller.initData(admin);
                     stage.show();
                     Stage currentStage = (Stage) lognbtn.getScene().getWindow();
