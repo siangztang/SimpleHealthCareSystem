@@ -75,9 +75,13 @@ public class LoginController {
                 try {
                     FXMLLoader loader = new FXMLLoader();
                     Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\Main.fxml"));
+                    
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
                     stage.setScene(scene);
+                    MainController controller = loader.getController();
+                    System.out.println(controller);
+                    controller.initData(admin);
                     stage.show();
                     Stage currentStage = (Stage) lognbtn.getScene().getWindow();
                     currentStage.close();

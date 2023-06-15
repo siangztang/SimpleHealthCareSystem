@@ -2,6 +2,9 @@ package com.example.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.example.Admin;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -40,8 +43,15 @@ public class MainController {
 
     @FXML
     void initialize() {
-        
+        patient_list_page.setVisible(true);
 
+    }
+
+    void initData(Admin admin){
+        unamelabel1.setText(admin.getUname());
+        unamelabel2.setText(admin.getUname());
+        unamelabel3.setText(admin.getUname());
+        unamelabel4.setText(admin.getUname());
     }
 
 }
