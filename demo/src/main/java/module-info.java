@@ -1,5 +1,5 @@
 module com.example {
-    requires javafx.controls;
+    requires transitive javafx.controls;
     requires javafx.fxml;
     requires transitive javafx.graphics;
 
@@ -7,4 +7,5 @@ module com.example {
     exports com.example;
     exports com.example.Controller;
     opens com.example.Controller to javafx.fxml;
+    
 }

@@ -60,6 +60,7 @@ public class LoginController {
 
     private AlertMessage alert = new AlertMessage();
     private static Admin admin;
+
     public void login() {
         String uname = UsernameField.getText().trim();
         String password = PasswordField.getText().trim();
@@ -95,5 +96,9 @@ public class LoginController {
             default:
                 break;
         }
+    }
+
+    public static Admin getAdmin() {
+        return admin;
     }
 }

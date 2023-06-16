@@ -3,7 +3,10 @@ package com.example.Controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 import com.example.Admin;
+import com.example.Patient;
+import com.example.SwitchPage;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,6 +19,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 
 public class PatientListController {
+
+    @FXML
+    private StackPane pages;
 
     @FXML
     private ResourceBundle resources;
@@ -96,9 +102,21 @@ public class PatientListController {
     private Button updateBtn;
 
     @FXML
-    void initialize() {
-        
+    void initialize(){
+        manageDptBtn.setOnAction(event -> {
+            SwitchPage.switchPage(event, manageDptBtn);
+        });
+
+        manageDocBtn.setOnAction(event -> {
+            SwitchPage.switchPage(event, manageDocBtn);
+        });
+
+        manageMedicineBtn.setOnAction(event -> {
+            SwitchPage.switchPage(event, manageMedicineBtn);
+        });
+
     }
+
 
     void initData(Admin admin){
         unameLabel.setText(admin.getUname());
@@ -138,9 +156,6 @@ public class PatientListController {
         deleteBtn.setFocusTraversable(false);
         resetBtn.setFocusTraversable(false);
     }
-
-    
-    
 
     // private ObservableList<Patient> patientList;
 

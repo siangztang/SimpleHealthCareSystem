@@ -55,7 +55,7 @@
                               <Button layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
                               <Line endX="100.0" layoutX="125.0" layoutY="604.0" startX="-100.0" />
                               <Button fx:id="manageDptBtn" layoutX="12.0" layoutY="28.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Departments" />
-                              <Button fx:id="manageDocBtn" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Doctor" />
+                              <Button fx:id="manageDocBtn" disable="true" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Doctor" />
                               <Button fx:id="manageDocBtn1" layoutX="12.0" layoutY="168.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Medicine" />
                            </children>
                         </AnchorPane>
@@ -63,7 +63,7 @@
                      <center>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TableView layoutX="15.0" layoutY="66.0" prefHeight="600.0" prefWidth="1000.0">
+                              <TableView layoutX="15.0" layoutY="66.0" prefHeight="381.0" prefWidth="1000.0">
                                  <columns>
                                     <TableColumn editable="false" prefWidth="105.0" text="ID" />
                                     <TableColumn editable="false" minWidth="0.0" prefWidth="272.6667175292969" text="Doctor Name" />
@@ -73,6 +73,7 @@
                                  </columns>
                               </TableView>
                               <TextField fx:id="searchField" layoutX="713.0" layoutY="14.0" prefHeight="33.0" prefWidth="301.0" promptText="Search" />
+                              <AnchorPane layoutX="15.0" layoutY="457.0" prefHeight="200.0" prefWidth="1000.0" />
                            </children>
                         </AnchorPane>
                      </center>
