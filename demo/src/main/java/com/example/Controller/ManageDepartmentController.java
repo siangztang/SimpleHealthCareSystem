@@ -55,6 +55,10 @@ public class ManageDepartmentController {
         manageMedicineBtn.setOnAction(event -> {
             SwitchPage.switchPage(event, manageMedicineBtn);
         });
+
+        managePatienttBtn.setOnAction(event -> {
+            SwitchPage.switchPage(event, managePatienttBtn);
+        });
     }
 
     public void initData(Admin admin){

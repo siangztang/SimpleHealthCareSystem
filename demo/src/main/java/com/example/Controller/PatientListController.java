@@ -114,17 +114,17 @@ public class PatientListController {
         manageMedicineBtn.setOnAction(event -> {
             SwitchPage.switchPage(event, manageMedicineBtn);
         });
-
-    }
-
-
-    void initData(Admin admin){
-        unameLabel.setText(admin.getUname());
         patGenderBox.getItems().addAll("M", "F");
         resetBtn.setOnAction(event -> {
             resetBtnAction();
         });
         unFocusAll();
+    }
+
+
+    void initData(Admin admin){
+        unameLabel.setText(admin.getUname());
+        
     }
 
     public void resetBtnAction(){

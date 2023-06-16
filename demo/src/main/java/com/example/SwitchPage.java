@@ -26,54 +26,72 @@ public class SwitchPage {
         if (buttonId.equals("manageDptBtn")){
             
             try {
-                    FXMLLoader loader = new FXMLLoader();
-                    Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ManageDepartment.fxml"));
-                    
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    ManageDepartmentController controller = loader.getController();
-                    controller.initData(admin);
-                    stage.show();
-                    Stage currentStage = (Stage) btnId.getScene().getWindow();
-                    currentStage.close();
-                    
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ManageDepartment.fxml"));
+                
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                ManageDepartmentController controller = loader.getController();
+                controller.initData(admin);
+                stage.show();
+                Stage currentStage = (Stage) btnId.getScene().getWindow();
+                currentStage.close();
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         } else if (buttonId.equals("manageDocBtn")){
-            System.out.println("manageDocBtn");
+
             try {
-                    FXMLLoader loader = new FXMLLoader();
-                    Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ManageDoctor.fxml"));
-                    
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.show();
-                    Stage currentStage = (Stage) btnId.getScene().getWindow();
-                    currentStage.close();
-                    
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ManageDoctor.fxml"));
+                
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+                Stage currentStage = (Stage) btnId.getScene().getWindow();
+                currentStage.close();
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         } else if (buttonId.equals("manageMedicineBtn")){
-            System.out.println("manageMedicineBtn");
+
             try {
-                    FXMLLoader loader = new FXMLLoader();
-                    Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ManageMedicine.fxml"));
-                    
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.show();
-                    Stage currentStage = (Stage) btnId.getScene().getWindow();
-                    currentStage.close();
-                    
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ManageMedicine.fxml"));
+                
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+                Stage currentStage = (Stage) btnId.getScene().getWindow();
+                currentStage.close();
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            
+            
+        } else if (buttonId.equals("managePatienttBtn")){
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\PatientList.fxml"));
+                
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+                Stage currentStage = (Stage) btnId.getScene().getWindow();
+                currentStage.close();
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }   
         }
         
     }
