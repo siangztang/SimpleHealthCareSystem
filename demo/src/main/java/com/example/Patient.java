@@ -1,7 +1,5 @@
 package com.example;
 
-import java.util.List;
-
 public class Patient {
 
     private String id;
