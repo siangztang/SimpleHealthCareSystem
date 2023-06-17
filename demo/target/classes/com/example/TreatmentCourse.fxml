@@ -56,7 +56,7 @@
                               <TextField disable="true" editable="false" layoutX="93.0" layoutY="21.0" text="P0000000000" />
                               <TextField disable="true" editable="false" layoutX="93.0" layoutY="56.0" text="PATIENT JOHN" />
                               <Line endX="100.0" layoutX="125.0" layoutY="603.0" startX="-100.0" />
-                              <Button layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
+                              <Button id="managePatientBtn" layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
                               <Label layoutX="57.0" layoutY="95.0" text="Age:" />
                               <TextField disable="true" editable="false" layoutX="93.0" layoutY="91.0" text="18" />
                               <Label layoutX="36.0" layoutY="130.0" text="Gender:" />

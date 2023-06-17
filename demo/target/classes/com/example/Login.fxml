@@ -42,30 +42,26 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.LoginController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane prefHeight="400.0" prefWidth="350.0">
          <children>
-            <AnchorPane prefHeight="400.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Label layoutX="91.0" layoutY="46.0" text="Admin Login Portal" textAlignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="UsernameField" layoutX="37.0" layoutY="124.0" prefHeight="40.0" prefWidth="275.0" promptText="Username" />
-                  <PasswordField fx:id="PasswordField" layoutX="37.0" layoutY="200.0" prefHeight="40.0" prefWidth="275.0" promptText="Password" />
-                  <Button fx:id="lognbtn" layoutX="37.0" layoutY="288.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="275.0" text="Login" />
-                  <Label layoutX="39.0" layoutY="174.0" text="Password">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="37.0" layoutY="98.0" text="Username">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
+            <Label layoutX="91.0" layoutY="46.0" text="Admin Login Portal" textAlignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="UsernameField" layoutX="37.0" layoutY="124.0" prefHeight="40.0" prefWidth="275.0" promptText="Username" />
+            <PasswordField fx:id="PasswordField" layoutX="37.0" layoutY="200.0" prefHeight="40.0" prefWidth="275.0" promptText="Password" />
+            <Button id="loginBtn" fx:id="lognbtn" layoutX="37.0" layoutY="288.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="275.0" text="Login" />
+            <Label layoutX="39.0" layoutY="174.0" text="Password">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="37.0" layoutY="98.0" text="Username">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>
