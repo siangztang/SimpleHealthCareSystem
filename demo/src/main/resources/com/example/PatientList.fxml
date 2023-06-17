@@ -54,9 +54,9 @@
                            <children>
                               <Label layoutX="55.0" layoutY="24.0" />
                               <Line endX="100.0" layoutX="122.0" layoutY="14.0" startX="-100.0" />
-                              <Button fx:id="manageDptBtn" layoutX="12.0" layoutY="28.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Departments" />
-                              <Button fx:id="manageDocBtn" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Doctors" />
-                              <Button fx:id="manageMedicineBtn" layoutX="12.0" layoutY="168.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Medicine" />
+                              <Button id="manageDptBtn" fx:id="manageDptBtn" layoutX="12.0" layoutY="28.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Departments" />
+                              <Button id="manageDocBtn" fx:id="manageDocBtn" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Doctors" />
+                              <Button id="manageMedicineBtn" fx:id="manageMedicineBtn" layoutX="12.0" layoutY="168.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Medicine" />
                            </children>
                         </AnchorPane>
                      </left>
@@ -112,11 +112,11 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="updateBtn" layoutX="679.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
-                                    <Button fx:id="deleteBtn" layoutX="770.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
-                                    <Button fx:id="resetBtn" layoutX="917.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />
+                                    <Button id="updateBtn" fx:id="updateBtn" layoutX="679.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
+                                    <Button id="delBtn" fx:id="deleteBtn" layoutX="770.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
+                                    <Button id="resetBtn" fx:id="resetBtn" layoutX="917.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />
                                     <ComboBox fx:id="patDepartmentField" layoutX="437.0" layoutY="14.0" prefWidth="150.0" />
-                                    <Button fx:id="addBtn" layoutX="587.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Add" />
+                                    <Button id="addBtn" fx:id="addBtn" layoutX="587.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Add" />
                                  </children>
                               </AnchorPane>
                            </children>
