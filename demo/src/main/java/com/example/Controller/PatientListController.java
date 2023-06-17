@@ -126,15 +126,21 @@ public class PatientListController {
             if (event.getClickCount() == 1) {
                 Patient selectedPatient = patListTable.getSelectionModel().getSelectedItem();
                 if (selectedPatient != null) {
-                    // Do something with the selected patient data
-                    System.out.println("Selected patient ID: " + selectedPatient.getId());
+                    patIDField .setText(selectedPatient.getId());
+                    patNameField.setText(selectedPatient.getName());
+                    patICField.setText(String.valueOf(selectedPatient.getIc()));
+                    patCotField.setText(String.valueOf(selectedPatient.getContact_info()));
+                    patDepartmentField.setValue(selectedPatient.getDepartment());
+                    patGenderBox.setValue(String.valueOf(selectedPatient.getGender()));
+
                 }
             } else if (event.getClickCount() == 2) {
                 Patient selectedPatient = patListTable.getSelectionModel().getSelectedItem();
                 if (selectedPatient != null) {
                     // Do something with the selected patient data
                     System.out.println("Selected patient ID: " + selectedPatient.getId());
-                    // SwitchPage.switchPage(event, patListTable);
+                    SwitchPage.switchPage(event);
+                    System.out.println(patListTable);
                 }
             }
         });

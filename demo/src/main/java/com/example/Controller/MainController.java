@@ -43,7 +43,6 @@ public class MainController {
 
     @FXML
     void initialize() {
-        patient_list_page.setVisible(true);
 
     }
 

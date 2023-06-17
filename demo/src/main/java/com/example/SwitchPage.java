@@ -8,10 +8,11 @@ import com.example.Controller.ManageDepartmentController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
@@ -95,22 +96,22 @@ public class SwitchPage {
         }
         
     }
-    
-    // public void switchPage(ActionEvent event, TableView<Type> tableView) {
-        
-    //     try {
-    //         FXMLLoader loader = new FXMLLoader();
-    //         Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\PatientHistory.fxml"));
+
+    public static void switchPage(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\PatientHistory.fxml"));
             
-    //         Scene scene = new Scene(root);
-    //         Stage stage = new Stage();
-    //         stage.setScene(scene);
-    //         stage.show();
-    //         Stage currentStage = (Stage) tableView.getScene().getWindow();
-    //         currentStage.close();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+            Node node = (Node) event.getSource();
+            Stage currentStage = (Stage) node.getScene().getWindow();
+            currentStage.close();
             
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
