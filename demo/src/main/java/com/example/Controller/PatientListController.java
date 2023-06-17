@@ -8,6 +8,8 @@ import com.example.Admin;
 import com.example.Patient;
 import com.example.SwitchPage;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -119,12 +121,14 @@ public class PatientListController {
             resetBtnAction();
         });
         unFocusAll();
+        patListTable.getColumns().forEach(e -> e.setReorderable(false));
+        
+        patientShowListData();
     }
 
 
     void initData(Admin admin){
         unameLabel.setText(admin.getUname());
-        
     }
 
     public void resetBtnAction(){
@@ -157,20 +161,20 @@ public class PatientListController {
         resetBtn.setFocusTraversable(false);
     }
 
-    // private ObservableList<Patient> patientList;
-
-
     public void patientShowListData(){
-        // patientList = 
-        patIDCol.setCellValueFactory(new PropertyValueFactory<>("patID"));
-        patNameCol.setCellValueFactory(new PropertyValueFactory<>("patName"));
-        patICCol.setCellValueFactory(new PropertyValueFactory<>("patIC"));
-        patAgeCol.setCellValueFactory(new PropertyValueFactory<>("patAge"));
-        patGenderCol.setCellValueFactory(new PropertyValueFactory<>("patGender"));
-        patCotInfoCol.setCellValueFactory(new PropertyValueFactory<>("patCotInfo"));
-        patDepartmentCol.setCellValueFactory(new PropertyValueFactory<>("patDepartment"));
+
+        ObservableList<Patient> listData = FXCollections.observableArrayList();
+        listData.add(new Patient("P0001", "John", 12345612234L, 20, 'M', 12345L, "Emergency"));
+
+        patIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        patNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        patICCol.setCellValueFactory(new PropertyValueFactory<>("ic"));
+        patAgeCol.setCellValueFactory(new PropertyValueFactory<>("age"));
+        patGenderCol.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        patCotInfoCol.setCellValueFactory(new PropertyValueFactory<>("contact_info"));
+        patDepartmentCol.setCellValueFactory(new PropertyValueFactory<>("department"));
         
-        // patListTable.setItems(patientList);
+        patListTable.setItems(listData);
 
     }
 
