@@ -58,6 +58,7 @@ public class ManageDepartmentController {
 
         managePatienttBtn.setOnAction(event -> {
             SwitchPage.switchPage(event, managePatienttBtn);
+            System.out.println("managePatienttBtn");
         });
     }
 

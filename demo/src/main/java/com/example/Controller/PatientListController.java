@@ -122,7 +122,22 @@ public class PatientListController {
         });
         unFocusAll();
         patListTable.getColumns().forEach(e -> e.setReorderable(false));
-        
+        patListTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                Patient selectedPatient = patListTable.getSelectionModel().getSelectedItem();
+                if (selectedPatient != null) {
+                    // Do something with the selected patient data
+                    System.out.println("Selected patient ID: " + selectedPatient.getId());
+                }
+            } else if (event.getClickCount() == 2) {
+                Patient selectedPatient = patListTable.getSelectionModel().getSelectedItem();
+                if (selectedPatient != null) {
+                    // Do something with the selected patient data
+                    System.out.println("Selected patient ID: " + selectedPatient.getId());
+                    // SwitchPage.switchPage(event, patListTable);
+                }
+            }
+        });
         patientShowListData();
     }
 
@@ -165,6 +180,7 @@ public class PatientListController {
 
         ObservableList<Patient> listData = FXCollections.observableArrayList();
         listData.add(new Patient("P0001", "John", 12345612234L, 20, 'M', 12345L, "Emergency"));
+        listData.add(new Patient("P0002", "Mary", 12345612234L, 20, 'F', 12345L, "Emergency"));
 
         patIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         patNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));

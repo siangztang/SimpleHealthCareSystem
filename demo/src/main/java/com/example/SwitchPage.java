@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 
@@ -22,7 +23,6 @@ public class SwitchPage {
         
         Button clickedButton = (Button) event.getSource();
         String buttonId = clickedButton.getId();
-
         if (buttonId.equals("manageDptBtn")){
             
             try {
@@ -77,7 +77,7 @@ public class SwitchPage {
             }
             
             
-        } else if (buttonId.equals("managePatienttBtn")){
+        } else if (buttonId.equals("managePatientBtn")){
             try {
                 FXMLLoader loader = new FXMLLoader();
                 Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\PatientList.fxml"));
@@ -95,4 +95,22 @@ public class SwitchPage {
         }
         
     }
+    
+    // public void switchPage(ActionEvent event, TableView<Type> tableView) {
+        
+    //     try {
+    //         FXMLLoader loader = new FXMLLoader();
+    //         Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\PatientHistory.fxml"));
+            
+    //         Scene scene = new Scene(root);
+    //         Stage stage = new Stage();
+    //         stage.setScene(scene);
+    //         stage.show();
+    //         Stage currentStage = (Stage) tableView.getScene().getWindow();
+    //         currentStage.close();
+            
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 }
