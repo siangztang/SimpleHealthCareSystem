@@ -53,18 +53,18 @@
                            <children>
                               <Label layoutX="29.0" layoutY="25.0" text="Patient ID:" />
                               <Label layoutX="9.0" layoutY="60.0" text="Patient Name:" />
-                              <TextField disable="true" editable="false" layoutX="93.0" layoutY="21.0" text="P0000000000" />
-                              <TextField disable="true" editable="false" layoutX="93.0" layoutY="56.0" text="PATIENT JOHN" />
+                              <TextField fx:id="patHisIDTextField" disable="true" editable="false" layoutX="93.0" layoutY="21.0" text="P0000000000" />
+                              <TextField fx:id="patHisNameTextField" disable="true" editable="false" layoutX="93.0" layoutY="56.0" text="PATIENT JOHN" />
                               <Line endX="100.0" layoutX="125.0" layoutY="602.0" startX="-100.0" />
-                              <Button id="managePatientBtn" layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
+                              <Button id="managePatientBtn" fx:id="managePatientBtn" layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
                               <Label layoutX="57.0" layoutY="95.0" text="Age:" />
-                              <TextField disable="true" editable="false" layoutX="93.0" layoutY="91.0" text="18" />
+                              <TextField fx:id="patHisAgeTextField" disable="true" editable="false" layoutX="93.0" layoutY="91.0" text="18" />
                               <Label layoutX="36.0" layoutY="130.0" text="Gender:" />
-                              <TextField disable="true" editable="false" layoutX="93.0" layoutY="126.0" text="MALE" />
+                              <TextField fx:id="patHisGenderTextField" disable="true" editable="false" layoutX="93.0" layoutY="126.0" text="MALE" />
                               <Label layoutX="15.0" layoutY="165.0" text="Contact No:" />
-                              <TextField disable="true" editable="false" layoutX="93.0" layoutY="161.0" text="0123456789" />
+                              <TextField fx:id="patHisContactTextField" disable="true" editable="false" layoutX="93.0" layoutY="161.0" text="0123456789" />
                               <Label layoutX="13.0" layoutY="200.0" text="Department:" />
-                              <TextField disable="true" editable="false" layoutX="94.0" layoutY="196.0" text="ENT" />
+                              <TextField fx:id="patHisDepartmentTextField" disable="true" editable="false" layoutX="94.0" layoutY="196.0" text="ENT" />
                               <Line endX="100.0" layoutX="122.0" layoutY="14.0" startX="-100.0" />
                            </children>
                         </AnchorPane>
@@ -72,16 +72,16 @@
                      <center>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TableView layoutX="15.0" layoutY="63.0" prefHeight="381.0" prefWidth="1000.0">
+                              <TableView fx:id="patientHistoryTable" layoutX="15.0" layoutY="63.0" prefHeight="381.0" prefWidth="1000.0">
                                  <columns>
-                                    <TableColumn prefWidth="31.0" text="ID" />
-                                    <TableColumn prefWidth="55.0" text="Ward No" />
-                                    <TableColumn prefWidth="106.0" text="Movement Means" />
-                                    <TableColumn prefWidth="70.0" text="Directed By" />
-                                    <TableColumn prefWidth="122.0" text="Major Complications" />
-                                    <TableColumn prefWidth="48.0" text="Results" />
-                                    <TableColumn prefWidth="495.0" text="Special Comments" />
-                                    <TableColumn minWidth="0.0" prefWidth="72.0" text="History ID" />
+                                    <TableColumn fx:id="patHisIDCol" prefWidth="31.0" text="ID" />
+                                    <TableColumn fx:id="patHisWardCol" prefWidth="55.0" text="Ward No" />
+                                    <TableColumn fx:id="patHisMovementMeansCol" prefWidth="106.0" text="Movement Means" />
+                                    <TableColumn fx:id="patHisDirectedByCol" prefWidth="70.0" text="Directed By" />
+                                    <TableColumn fx:id="patHisMajorComplicationsCol" prefWidth="122.0" text="Major Complications" />
+                                    <TableColumn fx:id="patHisResultsCol" prefWidth="48.0" text="Results" />
+                                    <TableColumn fx:id="patHisSpecialCommentsCol" prefWidth="495.0" text="Special Comments" />
+                                    <TableColumn fx:id="patHisHIDCol" minWidth="0.0" prefWidth="72.0" text="History ID" />
                                  </columns>
                               </TableView>
                               <Label layoutX="14.0" layoutY="4.0" text="Patient History">

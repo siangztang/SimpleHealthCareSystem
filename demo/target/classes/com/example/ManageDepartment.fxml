@@ -66,11 +66,11 @@
                         <AnchorPane prefHeight="680.0" prefWidth="250.0" BorderPane.alignment="CENTER">
                            <children>
                               <Line endX="100.0" layoutX="122.0" layoutY="14.0" startX="-100.0" />
-                              <Button id="managePatientBtn" fx:id="managePatienttBtn" layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
+                              <Button fx:id="managePatientBtn" layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
                               <Line endX="100.0" layoutX="125.0" layoutY="604.0" startX="-100.0" />
-                              <Button id="manageDptBtn" disable="true" layoutX="12.0" layoutY="28.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Department" />
-                              <Button id="manageDocBtn" fx:id="manageDocBtn" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Doctor" />
-                              <Button id="manageMedicineBtn" fx:id="manageMedicineBtn" layoutX="12.0" layoutY="168.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Medicine" />
+                              <Button disable="true" layoutX="12.0" layoutY="28.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Department" />
+                              <Button fx:id="manageDocBtn" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Doctor" />
+                              <Button fx:id="manageMedicineBtn" layoutX="12.0" layoutY="168.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Medicine" />
                            </children>
                         </AnchorPane>
                      </left>
