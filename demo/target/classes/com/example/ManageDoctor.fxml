@@ -52,24 +52,24 @@
                         <AnchorPane prefHeight="680.0" prefWidth="250.0" BorderPane.alignment="CENTER">
                            <children>
                               <Line endX="100.0" layoutX="122.0" layoutY="14.0" startX="-100.0" />
-                              <Button id="managePatientBtn" layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
+                              <Button fx:id="managePatientBtn" layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
                               <Line endX="100.0" layoutX="125.0" layoutY="604.0" startX="-100.0" />
-                              <Button id="manageDptBtn" fx:id="manageDptBtn" layoutX="12.0" layoutY="28.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Departments" />
-                              <Button id="manageDocBtn" fx:id="manageDocBtn" disable="true" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Doctor" />
-                              <Button id="manageMedicineBtn" fx:id="manageDocBtn1" layoutX="12.0" layoutY="168.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Medicine" />
+                              <Button fx:id="manageDptBtn" layoutX="12.0" layoutY="28.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Departments" />
+                              <Button fx:id="manageDocBtn" disable="true" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Doctor" />
+                              <Button fx:id="manageMedicineBtn" layoutX="12.0" layoutY="168.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Medicine" />
                            </children>
                         </AnchorPane>
                      </left>
                      <center>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TableView layoutX="15.0" layoutY="66.0" prefHeight="381.0" prefWidth="1000.0">
+                              <TableView fx:id="docTable" layoutX="15.0" layoutY="66.0" prefHeight="381.0" prefWidth="1000.0">
                                  <columns>
-                                    <TableColumn editable="false" prefWidth="105.0" text="ID" />
-                                    <TableColumn editable="false" minWidth="0.0" prefWidth="272.6667175292969" text="Doctor Name" />
-                                    <TableColumn editable="false" prefWidth="251.99993896484375" text="Specialization" />
-                                    <TableColumn editable="false" minWidth="2.0" prefWidth="192.00006103515625" text="Qualification" />
-                                    <TableColumn editable="false" prefWidth="178.0" text="Contact Info" />
+                                    <TableColumn fx:id="docIDCol" editable="false" prefWidth="105.0" text="ID" />
+                                    <TableColumn fx:id="docNameCol" editable="false" minWidth="0.0" prefWidth="272.6667175292969" text="Doctor Name" />
+                                    <TableColumn fx:id="docSpecializationCol" editable="false" prefWidth="251.99993896484375" text="Specialization" />
+                                    <TableColumn fx:id="docContactCol" editable="false" prefWidth="178.0" text="Contact Info" />
+                                    <TableColumn fx:id="docQualificationCol" editable="false" minWidth="2.0" prefWidth="192.00006103515625" text="Qualification" />
                                  </columns>
                               </TableView>
                               <TextField fx:id="searchField" layoutX="713.0" layoutY="14.0" prefHeight="33.0" prefWidth="301.0" promptText="Search" />
