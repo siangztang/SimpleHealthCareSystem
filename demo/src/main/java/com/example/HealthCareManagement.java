@@ -18,7 +18,6 @@ public class HealthCareManagement extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\Login.fxml"));
-        // Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);

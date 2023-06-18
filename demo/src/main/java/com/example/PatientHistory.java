@@ -20,6 +20,11 @@ public class PatientHistory extends Patient{
         this.history_id = history_id;
     }
 
+    public PatientHistory(String history_id){
+        super("");
+        this.history_id = history_id;
+    }
+
     public int getWard_no() {
         return ward_no;
     }

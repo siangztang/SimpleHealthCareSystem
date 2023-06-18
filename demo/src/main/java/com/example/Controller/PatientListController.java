@@ -126,7 +126,7 @@ public class PatientListController {
             if (event.getClickCount() == 1) {
                 Patient selectedPatient = patListTable.getSelectionModel().getSelectedItem();
                 if (selectedPatient != null) {
-                    patIDField .setText(selectedPatient.getId());
+                    patIDField .setText(selectedPatient.getPatient_id());
                     patNameField.setText(selectedPatient.getName());
                     patICField.setText(String.valueOf(selectedPatient.getIc()));
                     patCotField.setText(String.valueOf(selectedPatient.getContact_info()));
@@ -138,7 +138,7 @@ public class PatientListController {
                 Patient selectedPatient = patListTable.getSelectionModel().getSelectedItem();
                 if (selectedPatient != null) {
                     // Do something with the selected patient data
-                    System.out.println("Selected patient ID: " + selectedPatient.getId());
+                    System.out.println("Selected patient ID: " + selectedPatient.getPatient_id());
                     SwitchPage.switchPage(event);
                     System.out.println(patListTable);
                 }
@@ -188,7 +188,7 @@ public class PatientListController {
         listData.add(new Patient("P0001", "John", 12345612234L, 20, 'M', 12345L, "Emergency"));
         listData.add(new Patient("P0002", "Mary", 12345612234L, 20, 'F', 12345L, "Emergency"));
 
-        patIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        patIDCol.setCellValueFactory(new PropertyValueFactory<>("patient_id"));
         patNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         patICCol.setCellValueFactory(new PropertyValueFactory<>("ic"));
         patAgeCol.setCellValueFactory(new PropertyValueFactory<>("age"));

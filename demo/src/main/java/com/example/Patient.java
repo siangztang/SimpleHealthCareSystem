@@ -2,7 +2,7 @@ package com.example;
 
 public class Patient {
 
-    private String id;
+    private String patient_id;
     private String name;
     private long ic;
     private int age;
@@ -12,8 +12,8 @@ public class Patient {
 
 
 
-    public Patient(String id, String name, long ic, int age, char gender, long contact_info, String department) {
-        this.id = id;
+    public Patient(String patient_id, String name, long ic, int age, char gender, long contact_info, String department) {
+        this.patient_id = patient_id;
         this.name = name;
         this.ic = ic;
         this.age = age;
@@ -22,12 +22,12 @@ public class Patient {
         this.department = department;
     }
 
-    public Patient(String id) {
-        this.id = id;
+    public Patient(String patient_id) {
+        this.patient_id = patient_id;
     }
-
-    public String getId() {
-        return id;
+    
+    public String getPatient_id() {
+        return patient_id;
     }
 
     public String getName() {
