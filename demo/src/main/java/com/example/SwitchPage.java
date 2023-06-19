@@ -5,14 +5,13 @@ import java.io.IOException;
 
 import com.example.Controller.LoginController;
 import com.example.Controller.ManageDepartmentController;
+import com.example.Controller.PatientListController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
@@ -86,6 +85,8 @@ public class SwitchPage {
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
+                PatientListController controller = loader.getController();
+                controller.initData(admin);
                 stage.show();
                 Stage currentStage = (Stage) btnId.getScene().getWindow();
                 currentStage.close();
@@ -95,23 +96,5 @@ public class SwitchPage {
             }   
         }
         
-    }
-
-    public static void switchPage(MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\PatientHistory.fxml"));
-            
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
-            Node node = (Node) event.getSource();
-            Stage currentStage = (Stage) node.getScene().getWindow();
-            currentStage.close();
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
