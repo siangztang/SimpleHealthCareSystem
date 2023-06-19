@@ -37,7 +37,7 @@ public class ManageDepartmentController {
     private Button manageMedicineBtn;
 
     @FXML
-    private Button managePatienttBtn;
+    private Button managePatientBtn;
 
     @FXML
     private TextField searchField;
@@ -56,9 +56,8 @@ public class ManageDepartmentController {
             SwitchPage.switchPage(event, manageMedicineBtn);
         });
 
-        managePatienttBtn.setOnAction(event -> {
-            SwitchPage.switchPage(event, managePatienttBtn);
-            System.out.println("managePatienttBtn");
+        managePatientBtn.setOnAction(event -> {
+            SwitchPage.switchPage(event, managePatientBtn);
         });
     }
 
