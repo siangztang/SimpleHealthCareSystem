@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.PatientHistoryController">
+   <children>
+      <StackPane fx:id="patient_history_page" prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <BorderPane layoutX="484.0" layoutY="213.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <top>
+                        <AnchorPane prefHeight="40.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <AnchorPane layoutY="4.0" prefHeight="40.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1030.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label layoutX="20.0" layoutY="8.0" text="Digital Healthcare System">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <Label layoutX="250.0" layoutY="7.0" text="Patient Details">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="unameLabel" layoutX="1143.0" layoutY="7.0" text="ADMIN">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="1056.0" layoutY="7.0" text="Welcome,">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </top>
+                     <left>
+                        <AnchorPane prefHeight="680.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label layoutX="29.0" layoutY="25.0" text="Patient ID:" />
+                              <Label layoutX="9.0" layoutY="60.0" text="Patient Name:" />
+                              <TextField fx:id="patInfoID" disable="true" editable="false" layoutX="93.0" layoutY="21.0" text="P0000000000" />
+                              <TextField fx:id="patInfoName" disable="true" editable="false" layoutX="93.0" layoutY="56.0" text="PATIENT JOHN" />
+                              <Line endX="100.0" layoutX="125.0" layoutY="602.0" startX="-100.0" />
+                              <Button id="managePatientBtn" fx:id="managePatientBtn" layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
+                              <Label layoutX="57.0" layoutY="95.0" text="Age:" />
+                              <TextField fx:id="patInfoAge" disable="true" editable="false" layoutX="93.0" layoutY="91.0" text="18" />
+                              <Label layoutX="36.0" layoutY="130.0" text="Gender:" />
+                              <TextField fx:id="patInfoGender" disable="true" editable="false" layoutX="93.0" layoutY="126.0" text="MALE" />
+                              <Label layoutX="15.0" layoutY="165.0" text="Contact No:" />
+                              <TextField fx:id="patInfoContactInfo" disable="true" editable="false" layoutX="93.0" layoutY="161.0" text="0123456789" />
+                              <Label layoutX="13.0" layoutY="200.0" text="Department:" />
+                              <TextField fx:id="patInfoDep" disable="true" editable="false" layoutX="94.0" layoutY="196.0" text="ENT" />
+                              <Line endX="100.0" layoutX="122.0" layoutY="14.0" startX="-100.0" />
+                           </children>
+                        </AnchorPane>
+                     </left>
+                     <center>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <TableView fx:id="patientHistoryTable" layoutX="15.0" layoutY="63.0" prefHeight="381.0" prefWidth="1000.0">
+                                 <columns>
+                                    <TableColumn fx:id="patHisWardCol" prefWidth="88.0" text="Ward No" />
+                                    <TableColumn fx:id="patHisMovementMeansCol" prefWidth="128.66668701171875" text="Movement Means" />
+                                    <TableColumn fx:id="patHisDirectedByCol" minWidth="4.666748046875" prefWidth="79.33349609375" text="Directed By" />
+                                    <TableColumn fx:id="patHisMajorComplicationsCol" prefWidth="136.666748046875" text="Major Complications" />
+                                    <TableColumn fx:id="patHisResultsCol" prefWidth="78.6666259765625" text="Results" />
+                                    <TableColumn fx:id="patHisSpecialCommentsCol" prefWidth="402.666748046875" text="Special Comments" />
+                                    <TableColumn fx:id="patHisHIDCol" minWidth="0.0" prefWidth="82.0" text="History ID" />
+                                 </columns>
+                              </TableView>
+                              <Label layoutX="14.0" layoutY="4.0" text="Patient History">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="searchField" layoutX="713.0" layoutY="17.0" prefHeight="33.0" prefWidth="301.0" promptText="Search" />
+                              <AnchorPane layoutX="14.0" layoutY="456.0" prefHeight="200.0" prefWidth="1000.0">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="14.0" text="Ward No.: ">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="14.0" layoutY="50.0" text="Movement Means: ">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="14.0" layoutY="88.0" text="Direct By: ">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="14.0" layoutY="123.0" text="Major Complications: ">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="14.0" layoutY="160.0" text="Result: ">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="patHisWardField" layoutX="168.0" layoutY="14.0" prefHeight="25.0" prefWidth="321.0" />
+                                    <TextField fx:id="patHisMovementMeansField" layoutX="168.0" layoutY="50.0" prefHeight="25.0" prefWidth="321.0" />
+                                    <TextField fx:id="patHisDirectedByField" layoutX="168.0" layoutY="88.0" prefHeight="25.0" prefWidth="321.0" />
+                                    <TextField fx:id="patHisMajorComplicationsField" layoutX="168.0" layoutY="123.0" prefHeight="25.0" prefWidth="321.0" />
+                                    <TextField fx:id="patHisResultsField" layoutX="168.0" layoutY="160.0" prefHeight="25.0" prefWidth="321.0" />
+                                    <Label layoutX="525.0" layoutY="14.0" text="Special Comments: ">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextArea fx:id="patHisSpecialCommentsField" layoutX="664.0" layoutY="13.0" prefHeight="115.0" prefWidth="328.0" />
+                                    <Button id="updateBtn" fx:id="updateBtn" layoutX="679.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
+                                    <Button id="delBtn" fx:id="deleteBtn" layoutX="770.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
+                                    <Button id="resetBtn" fx:id="resetBtn" layoutX="917.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />
+                                    <Button id="addBtn" fx:id="addBtn" layoutX="587.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Add" />
+                                 </children></AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </center>
+                  </BorderPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+   </children>
+</StackPane>

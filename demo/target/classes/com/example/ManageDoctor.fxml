@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <BorderPane layoutX="484.0" layoutY="213.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <top>
+                        <AnchorPane prefHeight="40.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <AnchorPane layoutY="4.0" prefHeight="40.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1030.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label layoutX="20.0" layoutY="8.0" text="Digital Healthcare System">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <Label layoutX="250.0" layoutY="7.0" text="Doctor list">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="1143.0" layoutY="7.0" text="ADMIN">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="1056.0" layoutY="7.0" text="Welcome,">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </top>
+                     <left>
+                        <AnchorPane prefHeight="680.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Line endX="100.0" layoutX="122.0" layoutY="14.0" startX="-100.0" />
+                              <Button fx:id="managePatientBtn" layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
+                              <Line endX="100.0" layoutX="125.0" layoutY="604.0" startX="-100.0" />
+                              <Button fx:id="manageDptBtn" layoutX="12.0" layoutY="28.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Departments" />
+                              <Button fx:id="manageDocBtn" disable="true" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Doctor" />
+                              <Button fx:id="manageMedicineBtn" layoutX="12.0" layoutY="168.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Manage Medicine" />
+                           </children>
+                        </AnchorPane>
+                     </left>
+                     <center>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <TableView fx:id="docTable" layoutX="15.0" layoutY="66.0" prefHeight="381.0" prefWidth="1000.0">
+                                 <columns>
+                                    <TableColumn fx:id="docIDCol" editable="false" prefWidth="105.0" text="ID" />
+                                    <TableColumn fx:id="docNameCol" editable="false" minWidth="0.0" prefWidth="272.6667175292969" text="Doctor Name" />
+                                    <TableColumn fx:id="docSpecializationCol" editable="false" prefWidth="251.99993896484375" text="Specialization" />
+                                    <TableColumn fx:id="docContactCol" editable="false" prefWidth="178.0" text="Contact Info" />
+                                    <TableColumn fx:id="docQualificationCol" editable="false" minWidth="2.0" prefWidth="192.00006103515625" text="Qualification" />
+                                 </columns>
+                              </TableView>
+                              <TextField fx:id="searchField" layoutX="713.0" layoutY="14.0" prefHeight="33.0" prefWidth="301.0" promptText="Search" />
+                              <AnchorPane layoutX="15.0" layoutY="457.0" prefHeight="200.0" prefWidth="1000.0" />
+                           </children>
+                        </AnchorPane>
+                     </center>
+                  </BorderPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+   </children>
+</StackPane>
