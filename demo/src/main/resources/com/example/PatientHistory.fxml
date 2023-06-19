@@ -72,7 +72,7 @@
                      <center>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TableView fx:id="patientHistoryTable" layoutX="15.0" layoutY="63.0" prefHeight="381.0" prefWidth="1000.0">
+                              <TableView fx:id="patHisTable" layoutX="15.0" layoutY="63.0" prefHeight="381.0" prefWidth="1000.0">
                                  <columns>
                                     <TableColumn fx:id="patHisIDCol" prefWidth="31.0" text="ID" />
                                     <TableColumn fx:id="patHisWardCol" prefWidth="55.0" text="Ward No" />

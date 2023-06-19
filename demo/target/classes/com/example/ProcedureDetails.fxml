@@ -53,25 +53,25 @@
                            <children>
                               <Label layoutX="29.0" layoutY="25.0" text="Patient ID:" />
                               <Label layoutX="9.0" layoutY="60.0" text="Patient Name:" />
-                              <TextField disable="true" editable="false" layoutX="93.0" layoutY="21.0" text="P0000000000" />
-                              <TextField disable="true" editable="false" layoutX="93.0" layoutY="56.0" text="PATIENT JOHN" />
+                              <TextField fx:id="prodDetIDTextField" disable="true" editable="false" layoutX="93.0" layoutY="21.0" text="P0000000000" />
+                              <TextField fx:id="prodDetNameTextField" disable="true" editable="false" layoutX="93.0" layoutY="56.0" text="PATIENT JOHN" />
                               <Line endX="100.0" layoutX="125.0" layoutY="603.0" startX="-100.0" />
                               <Button id="managePatientBtn" layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
                               <Label layoutX="57.0" layoutY="95.0" text="Age:" />
-                              <TextField disable="true" editable="false" layoutX="93.0" layoutY="91.0" text="18" />
+                              <TextField fx:id="prodDetAgeTextField" disable="true" editable="false" layoutX="93.0" layoutY="91.0" text="18" />
                               <Label layoutX="36.0" layoutY="130.0" text="Gender:" />
-                              <TextField disable="true" editable="false" layoutX="93.0" layoutY="126.0" text="MALE" />
+                              <TextField fx:id="prodDetGenderTextField" disable="true" editable="false" layoutX="93.0" layoutY="126.0" text="MALE" />
                               <Label layoutX="15.0" layoutY="165.0" text="Contact No:" />
-                              <TextField disable="true" editable="false" layoutX="93.0" layoutY="161.0" text="0123456789" />
+                              <TextField fx:id="prodDetContactTextField" disable="true" editable="false" layoutX="93.0" layoutY="161.0" text="0123456789" />
                               <Label layoutX="13.0" layoutY="200.0" text="Department:" />
-                              <TextField disable="true" editable="false" layoutX="94.0" layoutY="196.0" text="ENT" />
+                              <TextField fx:id="prodDetDeptTextField" disable="true" editable="false" layoutX="94.0" layoutY="196.0" text="ENT" />
                               <Line endX="100.0" layoutX="122.0" layoutY="14.0" startX="-100.0" />
                               <Label layoutX="23.0" layoutY="235.0" text="History ID: " />
                               <Label layoutX="23.0" layoutY="270.0" text="Course ID: " />
                               <Label layoutX="7.0" layoutY="305.0" prefHeight="17.0" prefWidth="77.0" text="Procedure ID: " />
-                              <TextField disable="true" editable="false" layoutX="94.0" layoutY="231.0" text="H0000000001" />
-                              <TextField disable="true" editable="false" layoutX="94.0" layoutY="266.0" text="C0000000001" />
-                              <TextField disable="true" editable="false" layoutX="94.0" layoutY="301.0" text="P0000000001" />
+                              <TextField fx:id="prodDetHistIDTextField" disable="true" editable="false" layoutX="94.0" layoutY="231.0" text="H0000000001" />
+                              <TextField fx:id="prodDetCourseIDTextField" disable="true" editable="false" layoutX="94.0" layoutY="266.0" text="C0000000001" />
+                              <TextField fx:id="prodDetProcedureIDTextField" disable="true" editable="false" layoutX="94.0" layoutY="301.0" text="P0000000001" />
                            </children>
                         </AnchorPane>
                      </left>
@@ -83,9 +83,9 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TableView layoutX="15.0" layoutY="43.0" prefHeight="600.0" prefWidth="1000.0">
+                              <TableView fx:id="prodDetTable" layoutX="15.0" layoutY="43.0" prefHeight="600.0" prefWidth="1000.0">
                                 <columns>
-                                  <TableColumn prefWidth="1000.0" text="Medicine Name" />
+                                  <TableColumn fx:id="prodDetMedNameCol" prefWidth="1000.0" text="Medicine Name" />
                                 </columns>
                               </TableView>
                               <AnchorPane layoutX="15.0" layoutY="432.0" prefHeight="200.0" prefWidth="1000.0" />
