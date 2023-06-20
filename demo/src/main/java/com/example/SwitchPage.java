@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import com.example.Controller.LoginController;
 import com.example.Controller.ManageDepartmentController;
+import com.example.Controller.ManageDoctorController;
+import com.example.Controller.ManageMedicineController;
 import com.example.Controller.PatientListController;
 
 import javafx.event.ActionEvent;
@@ -28,7 +30,6 @@ public class SwitchPage {
             try {
                 FXMLLoader loader = new FXMLLoader();
                 Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ManageDepartment.fxml"));
-                
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
@@ -47,10 +48,11 @@ public class SwitchPage {
             try {
                 FXMLLoader loader = new FXMLLoader();
                 Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ManageDoctor.fxml"));
-                
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
+                ManageDoctorController controller = loader.getController();
+                controller.initData(admin);
                 stage.show();
                 Stage currentStage = (Stage) btnId.getScene().getWindow();
                 currentStage.close();
@@ -64,10 +66,11 @@ public class SwitchPage {
             try {
                 FXMLLoader loader = new FXMLLoader();
                 Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ManageMedicine.fxml"));
-                
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
+                ManageMedicineController controller = loader.getController();
+                controller.initData(admin);
                 stage.show();
                 Stage currentStage = (Stage) btnId.getScene().getWindow();
                 currentStage.close();

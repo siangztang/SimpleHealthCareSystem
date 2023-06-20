@@ -1,6 +1,11 @@
 package com.example.Controller;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -8,14 +13,22 @@ import com.example.Admin;
 import com.example.SwitchPage;
 import com.example.TreatmentCourse;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class TreatmentCourseController {
 
@@ -59,7 +72,7 @@ public class TreatmentCourseController {
     private Button resetBtn;
 
     @FXML
-    private TableColumn<TreatmentCourse, Date> treatmentCourseEndDateCol;
+    private TableColumn<TreatmentCourse, String> treatmentCourseEndDateCol;
 
     @FXML
     private DatePicker treatmentCourseEndDateField;
@@ -68,13 +81,7 @@ public class TreatmentCourseController {
     private TableColumn<TreatmentCourse, String> treatmentCourseIDCol;
 
     @FXML
-    private TableColumn<TreatmentCourse, String> treatmentCourseNameCol;
-
-    @FXML
-    private TextField treatmentCourseNameField;
-
-    @FXML
-    private TableColumn<TreatmentCourse, Date> treatmentCourseStartDateCol;
+    private TableColumn<TreatmentCourse, String> treatmentCourseStartDateCol;
 
     @FXML
     private DatePicker treatmentCourseStartDateField;
@@ -105,16 +112,60 @@ public class TreatmentCourseController {
         treatmentCourseTable.getColumns().forEach(e -> e.setReorderable(false));
         unFocusAll();
 
+        treatmentCourseTable.getColumns().forEach(e -> e.setReorderable(false));
+
+        treatmentCourseTable.setOnMouseClicked(event -> {
+            TreatmentCourse selectedTreatmentCourse = treatmentCourseTable.getSelectionModel().getSelectedItem();
+            if (event.getClickCount() == 1) {
+                if (selectedTreatmentCourse != null) {
+                    // Do something with the selected patient data
+                    System.out.println("Selected treatment course ID: " + selectedTreatmentCourse.getTreatment_course_id());
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+                    LocalDate startDate = LocalDate.parse(selectedTreatmentCourse.getStart_date(), formatter);
+                    LocalDate enDate = LocalDate.parse(selectedTreatmentCourse.getEnd_date(), formatter);
+                    treatmentCourseStartDateField.setValue(startDate);
+                    treatmentCourseEndDateField.setValue(enDate);
+                }   
+            } else if (event.getClickCount() == 2) {
+                if (selectedTreatmentCourse != null) {
+                    // Do something with the selected patient data
+                    System.out.println("Selected treatment course ID: " + selectedTreatmentCourse.getTreatment_course_id());
+                    try {
+                        FXMLLoader loader = new FXMLLoader();
+                        Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\TreatmentCourseDetails.fxml"));
+                        Scene scene = new Scene(root);
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.show();
+                        // TreatmentCourseDetailsController controller = loader.getController();
+                        // controller.initData(admin, pat_id, selectedTreatmentCourse.getHistory_id());
+                        Node node = (Node) event.getSource();
+                        Stage currentStage = (Stage) node.getScene().getWindow();
+                        currentStage.close();
+                        
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        TreatmentCourseShowListData();
+
     }
+    
+    private Admin admin;
+    private String pat_id;
 
     public void initData(Admin admin, String pat_id, String history_id){
+        this.admin = admin;
+        this.pat_id = pat_id;
         patInfoID.setText(pat_id);
         patInfoHisID.setText(history_id);
         unameLabel.setText(admin.getUname());
     }
 
     public void resetBtnAction(){
-        treatmentCourseNameField.setText("");
         treatmentCourseStartDateField.setValue(null);
         treatmentCourseEndDateField.setValue(null);
     }
@@ -122,13 +173,29 @@ public class TreatmentCourseController {
     public void unFocusAll(){
         managePatientBtn.setFocusTraversable(false);
         treatmentCourseTable.setFocusTraversable(false);
-        treatmentCourseNameField.setFocusTraversable(false);
         treatmentCourseStartDateField.setFocusTraversable(false);
         treatmentCourseEndDateField.setFocusTraversable(false);
         addBtn.setFocusTraversable(false);
         updateBtn.setFocusTraversable(false);
         deleteBtn.setFocusTraversable(false);
         resetBtn.setFocusTraversable(false);
+    }
+
+    public void TreatmentCourseShowListData(){
+        ObservableList<TreatmentCourse> listData = FXCollections.observableArrayList();
+
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d/M/yyyy");
+        String dateString = dateFormat.format(currentDate);
+
+        listData.add(new TreatmentCourse("H001", "TC001", dateString, dateString));
+
+        treatmentCourseIDCol.setCellValueFactory(new PropertyValueFactory<>("treatment_course_id"));
+        treatmentCourseStartDateCol.setCellValueFactory(new PropertyValueFactory<>("start_date"));
+        treatmentCourseEndDateCol.setCellValueFactory(new PropertyValueFactory<>("end_date"));
+
+        treatmentCourseTable.setItems(listData);
+
     }
 
 }

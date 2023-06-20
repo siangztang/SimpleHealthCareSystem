@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.MainController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseDetailsController">
    <children>
       <StackPane fx:id="treatment_course_details_page" prefHeight="150.0" prefWidth="200.0">
          <children>
@@ -86,10 +86,10 @@
                                              <children>
                                                 <TableView fx:id="treatCourseDetDiagnosisTable" layoutX="15.0" layoutY="14.0" prefHeight="381.0" prefWidth="1000.0">
                                                   <columns>
-                                                    <TableColumn fx:id="treatCourseDetDiagnosisNameCol" prefWidth="258.0" text="Name" />
-                                                    <TableColumn fx:id="treatCourseDetDiagnosisDiagDateCol" minWidth="0.0" prefWidth="128.0" text="Diagnosed Date" />
-                                                      <TableColumn fx:id="treatCourseDetDiagnosisDocNameCol" prefWidth="277.0" text="Doctor Name" />
-                                                      <TableColumn fx:id="treatCourseDetDiagnosisTreatPlanCol" prefWidth="364.66670735677076" text="Treatment Plan" />
+                                                   <TableColumn fx:id="treatCourseDetDiagnosisNameCol" prefWidth="258.0" text="Name" />
+                                                   <TableColumn fx:id="treatCourseDetDiagnosisDiagDateCol" minWidth="0.0" prefWidth="128.0" text="Diagnosed Date" />
+                                                   <TableColumn fx:id="treatCourseDetDiagnosisDocNameCol" prefWidth="277.0" text="Doctor Name" />
+                                                   <TableColumn fx:id="treatCourseDetDiagnosisTreatPlanCol" prefWidth="364.66670735677076" text="Treatment Plan" />
                                                   </columns>
                                                 </TableView>
                                                 <AnchorPane layoutX="15.0" layoutY="405.0" prefHeight="200.0" prefWidth="1000.0" />
@@ -137,7 +137,7 @@
                                                                         <TableColumn fx:id="treatCourseDetBloodAnalysisPlateletsCol" minWidth="0.0" prefWidth="61.3333740234375" text="Platelets" />
                                                                         <TableColumn fx:id="treatCourseDetBloodAnalysisMeanCorpuscularVolumeCol" minWidth="0.0" prefWidth="160.0" text="Mean Corpuscular Volume" />
                                                                         <TableColumn fx:id="treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinCol" prefWidth="200.0" text="Mean Corpuscular Haemoglobin" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisHaematocritCol"prefWidth="75.0" text="Haematocrit" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisHaematocritCol" prefWidth="75.0" text="Haematocrit" />
                                                                     </columns>
                                                                   </TableView>
                                                                   <AnchorPane layoutX="14.0" layoutY="391.0" prefHeight="200.0" prefWidth="1000.0" />
@@ -154,7 +154,7 @@
                                                                         <TableColumn fx:id="treatCourseDetRWAnalysisIDCol" prefWidth="125.0" text="ID" />
                                                                         <TableColumn fx:id="treatCourseDetRWAnalysisRWResultCol" prefWidth="125.0" text="RW Result" />
                                                                         <TableColumn fx:id="treatCourseDetRWAnalysisAidsDateCol" prefWidth="125.0" text="Aids Date" />
-                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisAids ResultCol" prefWidth="125.0" text="Aids Result" />
+                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisAidsResultCol" prefWidth="125.0" text="Aids Result" />
                                                                         <TableColumn fx:id="treatCourseDetRWAnalysisSyphilisDateCol" prefWidth="125.0" text="Syphilis Date" />
                                                                         <TableColumn fx:id="treatCourseDetRWAnalysisSyphilisResultCol" prefWidth="125.0" text="Syphilis Result" />
                                                                         <TableColumn fx:id="treatCourseDetRWAnalysisHepatitisDateCol" prefWidth="125.0" text="Hepatitis Date" />

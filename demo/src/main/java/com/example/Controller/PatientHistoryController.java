@@ -101,7 +101,7 @@ public class PatientHistoryController {
     private TextField patInfoName;
 
     @FXML
-    private TableView<PatientHistory> patientHistoryTable;
+    private TableView<PatientHistory> patHisTable;
 
     @FXML
     private StackPane patient_history_page;
@@ -128,12 +128,13 @@ public class PatientHistoryController {
         resetBtn.setOnAction(event -> {
             resetBtnAction();
         });
+        
         unFocusAll();
 
-        patientHistoryTable.getColumns().forEach(e -> e.setReorderable(false));
-        patientHistoryTable.setOnMouseClicked(event -> {
+        patHisTable.getColumns().forEach(e -> e.setReorderable(false));
+        patHisTable.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
-                PatientHistory selectedPatientHistory = patientHistoryTable.getSelectionModel().getSelectedItem();
+                PatientHistory selectedPatientHistory = patHisTable.getSelectionModel().getSelectedItem();
                 if (selectedPatientHistory != null) {
                     // Do something with the selected patient data
                     System.out.println("Selected patient history ID: " + selectedPatientHistory.getHistory_id());
@@ -146,7 +147,7 @@ public class PatientHistoryController {
 
                 }   
             } else if (event.getClickCount() == 2) {
-                PatientHistory selectedPatientHistory = patientHistoryTable.getSelectionModel().getSelectedItem();
+                PatientHistory selectedPatientHistory = patHisTable.getSelectionModel().getSelectedItem();
                 if (selectedPatientHistory != null) {
                     // Do something with the selected patient data
                     System.out.println("Selected patient history ID: " + selectedPatientHistory.getHistory_id());
@@ -158,7 +159,7 @@ public class PatientHistoryController {
                         stage.setScene(scene);
                         stage.show();
                         TreatmentCourseController controller = loader.getController();
-                        controller.initData(admin, selectedPatientHistory.getPatient_id(), selectedPatientHistory.getHistory_id());
+                        controller.initData(admin, selectedPatientHistory.getPat_id(), selectedPatientHistory.getHistory_id());
                         Node node = (Node) event.getSource();
                         Stage currentStage = (Stage) node.getScene().getWindow();
                         currentStage.close();
@@ -187,12 +188,12 @@ public class PatientHistoryController {
         patHisResultsField.setText("");
         patHisSpecialCommentsField.setText("");
         patHisWardField.setText("");
-        patientHistoryTable.getSelectionModel().clearSelection();
+        patHisTable.getSelectionModel().clearSelection();
     }
 
     public void unFocusAll(){
         managePatientBtn.setFocusTraversable(false);
-        patientHistoryTable.setFocusTraversable(false);
+        patHisTable.setFocusTraversable(false);
         searchField.setFocusTraversable(false);
         patHisDirectedByField.setFocusTraversable(false);
         patHisMajorComplicationsField.setFocusTraversable(false);
@@ -211,7 +212,7 @@ public class PatientHistoryController {
         ObservableList<PatientHistory> listData = FXCollections.observableArrayList();
         listData.add(new PatientHistory("P0001", 1, "Dr. A", "None", "Walking", "Good", "None", "H0001"));
         listData.add(new PatientHistory("P0002", 2, "Dr. B", "None", "Walking", "Good", "None", "H0002")); 
-
+        
         patHisWardCol.setCellValueFactory(new PropertyValueFactory<>("ward_no"));
         patHisDirectedByCol.setCellValueFactory(new PropertyValueFactory<>("directed_by"));
         patHisMajorComplicationsCol.setCellValueFactory(new PropertyValueFactory<>("major_complications"));
@@ -220,7 +221,7 @@ public class PatientHistoryController {
         patHisSpecialCommentsCol.setCellValueFactory(new PropertyValueFactory<>("speacial_comments"));
         patHisHIDCol.setCellValueFactory(new PropertyValueFactory<>("history_id"));
 
-        patientHistoryTable.setItems(listData);
+        patHisTable.setItems(listData);
 
     }
 

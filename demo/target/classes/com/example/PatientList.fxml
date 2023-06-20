@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.PatientListController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.PatientListController">
    <children>
       <StackPane fx:id="patient_list_page" prefHeight="150.0" prefWidth="200.0">
          <children>
@@ -63,7 +63,7 @@
                      <center>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TableView fx:id="patListTable" layoutX="15.0" layoutY="66.0" prefHeight="381.0" prefWidth="1000.0">
+                              <TableView fx:id="patListTable" layoutX="15.0" layoutY="65.0" prefHeight="381.0" prefWidth="1000.0">
                                 <columns>
                                   <TableColumn fx:id="patIDCol" editable="false" prefWidth="95.33331298828125" resizable="false" text="ID" />
                                   <TableColumn fx:id="patNameCol" editable="false" minWidth="0.0" prefWidth="213.33328247070312" resizable="false" text="Name" />

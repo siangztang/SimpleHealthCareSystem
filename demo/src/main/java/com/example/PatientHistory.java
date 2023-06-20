@@ -1,6 +1,8 @@
 package com.example;
 
-public class PatientHistory extends Patient{
+public class PatientHistory{
+
+    private String pat_id;
     private int ward_no;
     private String movement_means;
     private String directed_by;
@@ -10,7 +12,7 @@ public class PatientHistory extends Patient{
     private String history_id;
 
     public PatientHistory(String pat_id, int ward_no, String movement_means, String directed_by, String major_complications, String results, String speacial_comments, String history_id) {
-        super(pat_id);
+        this.pat_id = pat_id;
         this.ward_no = ward_no;
         this.movement_means = movement_means;
         this.directed_by = directed_by;
@@ -20,9 +22,8 @@ public class PatientHistory extends Patient{
         this.history_id = history_id;
     }
 
-    public PatientHistory(String history_id){
-        super("");
-        this.history_id = history_id;
+    public String getPat_id() {
+        return pat_id;
     }
 
     public int getWard_no() {
