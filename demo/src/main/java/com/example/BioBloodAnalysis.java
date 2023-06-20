@@ -4,7 +4,7 @@ public class BioBloodAnalysis extends Analysis{
     
     private double urea;
     private double createnine;
-    private double sigar;
+    private double sugar;
     private double biluribin;
     private double direct_biluribin;
     private double AST;
@@ -15,11 +15,11 @@ public class BioBloodAnalysis extends Analysis{
     private double LDL;
     private double alkaline_phosphatase;
 
-    public BioBloodAnalysis(String analysis_id, String analysis_date, double urea, double createnine, double sigar, double biluribin, double direct_biluribin, double AST, double ALT, double cholesterol, double triglycerides, double HDL, double LDL, double alkaline_phosphatase){
+    public BioBloodAnalysis(String analysis_id, String analysis_date, double urea, double createnine, double sugar, double biluribin, double direct_biluribin, double AST, double ALT, double cholesterol, double triglycerides, double HDL, double LDL, double alkaline_phosphatase){
         super(analysis_id, analysis_date);
         this.urea = urea;
         this.createnine = createnine;
-        this.sigar = sigar;
+        this.sugar = sugar;
         this.biluribin = biluribin;
         this.direct_biluribin = direct_biluribin;
         this.AST = AST;
@@ -39,8 +39,8 @@ public class BioBloodAnalysis extends Analysis{
         return createnine;
     }
 
-    public double getSigar(){
-        return sigar;
+    public double getSugar(){
+        return sugar;
     }
 
     public double getBiluribin(){

@@ -660,9 +660,17 @@ public class TreatmentCourseDetailsController {
 
                     treatCourseDetBioBloodAnalysisDateField.setValue(bio_blood_analysis_date);
                     treatCourseDetBioBloodAnalysisCreatenineField.setText(String.valueOf(selectedBioBloodAnalysis.getCreatenine()));
-                    // treatCourseDetBioBloodAnalysisSugarField
-                    // treatCourseDetBioBloodAnalysisBiluribinField
-                    // treatCourseDetBioBloodAnalysisDirectBiluribinField
+                    treatCourseDetBioBloodAnalysisSugarField.setText(String.valueOf(selectedBioBloodAnalysis.getSugar()));
+                    treatCourseDetBioBloodAnalysisBiluribinField.setText(String.valueOf(selectedBioBloodAnalysis.getBiluribin()));
+                    treatCourseDetBioBloodAnalysisDirectBiluribinField.setText(String.valueOf(selectedBioBloodAnalysis.getDirect_biluribin()));
+                    treatCourseDetBioBloodAnalysisASTField.setText(String.valueOf(selectedBioBloodAnalysis.getAST()));
+                    treatCourseDetBioBloodAnalysisALTField.setText(String.valueOf(selectedBioBloodAnalysis.getALT()));
+                    treatCourseDetBioBloodAnalysisCholesterolField.setText(String.valueOf(selectedBioBloodAnalysis.getCholesterol()));
+                    treatCourseDetBioBloodAnalysisTriglyceridesField.setText(String.valueOf(selectedBioBloodAnalysis.getTriglycerides()));
+                    treatCourseDetBioBloodAnalysisHDLField.setText(String.valueOf(selectedBioBloodAnalysis.getHDL()));
+                    treatCourseDetBioBloodAnalysisLDLField.setText(String.valueOf(selectedBioBloodAnalysis.getLDL()));
+                    treatCourseDetBioBloodAnalysisAkalinePhospataseField.setText(String.valueOf(selectedBioBloodAnalysis.getAlkaline_phosphatase()));
+
                 }
             }
         });
@@ -679,6 +687,18 @@ public class TreatmentCourseDetailsController {
                     LocalDate blood_analysis_date = LocalDate.parse(selectedBloodAnalysis.getAnalysis_date(), formatter);
 
                     treatCourseDetBloodAnalysisDateDateField.setValue(blood_analysis_date);
+                    treatCourseDetBloodAnalysisRedCellsField.setText(String.valueOf(selectedBloodAnalysis.getRed_cells()));
+                    treatCourseDetBloodAnalysisHaemoglobinField.setText(String.valueOf(selectedBloodAnalysis.getHaemoglobin()));
+                    treatCourseDetBloodAnalysisColorField.setText(String.valueOf(selectedBloodAnalysis.getColor()));
+                    treatCourseDetBloodAnalysisParasitesField.setValue(String.valueOf(selectedBloodAnalysis.isParasites()));
+                    treatCourseDetBloodAnalysisWhiteCellsField.setText(String.valueOf(selectedBloodAnalysis.getWhite_cells()));
+                    treatCourseDetBloodAnalysisLymphocytesField.setText(String.valueOf(selectedBloodAnalysis.getLymphocytes()));
+                    treatCourseDetBloodAnalysisESRField.setText(String.valueOf(selectedBloodAnalysis.getESR()));
+                    treatCourseDetBloodAnalysisPlateletsField.setText(String.valueOf(selectedBloodAnalysis.getPlatelets()));
+                    treatCourseDetBloodAnalysisMeanCorpuscularVolumeField.setText(String.valueOf(selectedBloodAnalysis.getMean_corpuscular_volume()));
+                    treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinField.setText(String.valueOf(selectedBloodAnalysis.getMean_corpuscular_haemoglobin()));
+                    treatCourseDetBloodAnalysisHaematocritField.setText(String.valueOf(selectedBloodAnalysis.getHematocrit()));
+                    
                     
                 }
             }
@@ -710,30 +730,136 @@ public class TreatmentCourseDetailsController {
     }
 
     public void diagnosisResetBtnAction(){
+        treatCourseDetDiagnosisNameField.setText("");
+        treatCourseDetDiagnosisDiagDateField.setValue(null);
+        treatCourseDetDiagnosisDocNameField.setValue(""); //unsure if correct
+        treatCourseDetDiagnosisTreatPlanField.setText("");
+        treatCourseDetDiagnosisTable.getSelectionModel().clearSelection(); 
 
     }
 
     public void procedureResetBtnAction(){
+        treatCourseDetProcedureDateField.setValue(null);
+        treatCourseDetProcedureTimeField.setText("");
+        treatCourseDetProcedureTypeField.setText("");
+        //treatCourseDetProcedureMedicineList
+        treatCourseDetProcedureTable.getSelectionModel().clearSelection(); 
 
     }
-
-    public void urineAnalysisResetBtnAction(){
+    
+    public void bloodAnalysisResetBtnAction(){
+        treatCourseDetBloodAnalysisDateDateField.setValue(null);
+        treatCourseDetBloodAnalysisRedCellsField.setText(String.valueOf(""));
+        treatCourseDetBloodAnalysisHaemoglobinField.setText(String.valueOf(""));
+        treatCourseDetBloodAnalysisColorField.setText(String.valueOf(""));
+        treatCourseDetBloodAnalysisParasitesField.setValue(String.valueOf(""));
+        treatCourseDetBloodAnalysisWhiteCellsField.setText(String.valueOf(""));
+        treatCourseDetBloodAnalysisLymphocytesField.setText(String.valueOf(""));
+        treatCourseDetBloodAnalysisESRField.setText(String.valueOf(""));
+        treatCourseDetBloodAnalysisPlateletsField.setText(String.valueOf(""));
+        treatCourseDetBloodAnalysisMeanCorpuscularVolumeField.setText(String.valueOf(""));
+        treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinField.setText(String.valueOf(""));
+        treatCourseDetBloodAnalysisHaematocritField.setText(String.valueOf(""));
+        treatCourseDetBloodAnalysisTable.getSelectionModel().clearSelection(); 
 
     }
 
     public void RWAnalysisResetBtnAction(){
+        treatCourseDetRWAnalysisDateField.setValue(null);
+        treatCourseDetRWAnalysisRWResultField.setText("");
+        treatCourseDetRWAnalysisAidsDateField.setValue(null);
+        treatCourseDetRWAnalysisAidsResultField.setText("");
+        treatCourseDetRWAnalysisSyphilisDateField.setValue(null);
+        treatCourseDetRWAnalysisSyphilisResultField.setText("");
+        treatCourseDetRWAnalysisHepatitisDateField.setValue(null);
+        treatCourseDetRWAnalysisHepatitisResultField.setText("");
+        treatCourseDetRWAnalysisTable.getSelectionModel().clearSelection(); 
 
     }
 
     public void bioBloodAnalysisResetBtnAction(){
-
+        treatCourseDetBioBloodAnalysisDateField.setValue(null);
+        treatCourseDetBioBloodAnalysisCreatenineField.setText(String.valueOf(""));
+        treatCourseDetBioBloodAnalysisSugarField.setText(String.valueOf(""));
+        treatCourseDetBioBloodAnalysisBiluribinField.setText(String.valueOf(""));
+        treatCourseDetBioBloodAnalysisDirectBiluribinField.setText(String.valueOf(""));
+        treatCourseDetBioBloodAnalysisASTField.setText(String.valueOf(""));
+        treatCourseDetBioBloodAnalysisALTField.setText(String.valueOf(""));
+        treatCourseDetBioBloodAnalysisCholesterolField.setText(String.valueOf(""));
+        treatCourseDetBioBloodAnalysisTriglyceridesField.setText(String.valueOf(""));
+        treatCourseDetBioBloodAnalysisHDLField.setText(String.valueOf(""));
+        treatCourseDetBioBloodAnalysisLDLField.setText(String.valueOf(""));
+        treatCourseDetBioBloodAnalysisAkalinePhospataseField.setText(String.valueOf(""));
+        treatCourseDetBioBloodAnalysisTable.getSelectionModel().clearSelection(); 
     }
 
-    public void bloodAnalysisResetBtnAction(){
-
+        public void urineAnalysisResetBtnAction(){
+        treatCourseDetUrineAnalysisDateField.setValue(null);
+        treatCourseDetUrineAnalysisColorField.setText("");
+        treatCourseDetUrineAnalysisReactionField.setText("");
+        treatCourseDetUrineAnalysisTransparencyField.setText("");
+        treatCourseDetUrineAnalysisDensityField.setText("");
+        treatCourseDetUrineAnalysisProteinField.setText("");
+        treatCourseDetUrineAnalysisGlucoseField.setText("");
+        treatCourseDetUrineAnalysisKetonesField.setText("");
+        treatCourseDetUrineAnalysisNitritesField.setText("");
+        treatCourseDetUrineAnalysisTable.getSelectionModel().clearSelection(); 
+        
     }
 
     public void unFocusAll(){
+        managePatientBtn.setFocusTraversable(false);
+        treatCourseDetDiagnosisTable.setFocusTraversable(false);
+        treatCourseDetProcedureTable.setFocusTraversable(false);
+
+        treatCourseDetBloodAnalysisTable.setFocusTraversable(false);
+        treatCourseDetBloodAnalysisDateDateField.setFocusTraversable(false);
+        treatCourseDetBloodAnalysisRedCellsField.setFocusTraversable(false);
+        treatCourseDetBloodAnalysisHaemoglobinField.setFocusTraversable(false);
+        treatCourseDetBloodAnalysisColorField.setFocusTraversable(false);
+        treatCourseDetBloodAnalysisParasitesField.setFocusTraversable(false);
+        treatCourseDetBloodAnalysisWhiteCellsField.setFocusTraversable(false);
+        treatCourseDetBloodAnalysisLymphocytesField.setFocusTraversable(false);
+        treatCourseDetBloodAnalysisESRField.setFocusTraversable(false);
+        treatCourseDetBloodAnalysisPlateletsField.setFocusTraversable(false);
+        treatCourseDetBloodAnalysisMeanCorpuscularVolumeField.setFocusTraversable(false);
+        treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinField.setFocusTraversable(false);
+        treatCourseDetBloodAnalysisHaematocritField.setFocusTraversable(false);
+
+        treatCourseDetRWAnalysisTable.setFocusTraversable(false);
+        treatCourseDetRWAnalysisDateField.setFocusTraversable(false);
+        treatCourseDetRWAnalysisRWResultField.setFocusTraversable(false);
+        treatCourseDetRWAnalysisAidsDateField.setFocusTraversable(false);
+        treatCourseDetRWAnalysisAidsResultField.setFocusTraversable(false);
+        treatCourseDetRWAnalysisSyphilisDateField.setFocusTraversable(false);
+        treatCourseDetRWAnalysisSyphilisResultField.setFocusTraversable(false);
+        treatCourseDetRWAnalysisHepatitisDateField.setFocusTraversable(false);
+        treatCourseDetRWAnalysisHepatitisResultField.setFocusTraversable(false);
+
+        treatCourseDetBioBloodAnalysisTable.setFocusTraversable(false);
+        treatCourseDetBioBloodAnalysisDateField.setFocusTraversable(false);
+        treatCourseDetBioBloodAnalysisCreatenineField.setFocusTraversable(false);
+        treatCourseDetBioBloodAnalysisSugarField.setFocusTraversable(false);
+        treatCourseDetBioBloodAnalysisBiluribinField.setFocusTraversable(false);
+        treatCourseDetBioBloodAnalysisDirectBiluribinField.setFocusTraversable(false);
+        treatCourseDetBioBloodAnalysisASTField.setFocusTraversable(false);
+        treatCourseDetBioBloodAnalysisALTField.setFocusTraversable(false);
+        treatCourseDetBioBloodAnalysisCholesterolField.setFocusTraversable(false);
+        treatCourseDetBioBloodAnalysisTriglyceridesField.setFocusTraversable(false);
+        treatCourseDetBioBloodAnalysisHDLField.setFocusTraversable(false);
+        treatCourseDetBioBloodAnalysisLDLField.setFocusTraversable(false);
+        treatCourseDetBioBloodAnalysisAkalinePhospataseField.setFocusTraversable(false);
+
+        treatCourseDetUrineAnalysisTable.setFocusTraversable(false);
+        treatCourseDetUrineAnalysisDateField.setFocusTraversable(false);
+        treatCourseDetUrineAnalysisColorField.setFocusTraversable(false);
+        treatCourseDetUrineAnalysisReactionField.setFocusTraversable(false);
+        treatCourseDetUrineAnalysisTransparencyField.setFocusTraversable(false);
+        treatCourseDetUrineAnalysisDensityField.setFocusTraversable(false);
+        treatCourseDetUrineAnalysisProteinField.setFocusTraversable(false);
+        treatCourseDetUrineAnalysisGlucoseField.setFocusTraversable(false);
+        treatCourseDetUrineAnalysisKetonesField.setFocusTraversable(false);
+        treatCourseDetUrineAnalysisNitritesField.setFocusTraversable(false);      
 
     }
 
@@ -849,7 +975,7 @@ public class TreatmentCourseDetailsController {
         treatCourseDetBloodAnalysisLymphocytesCol.setCellValueFactory(new PropertyValueFactory<>("lymphocytes"));
         treatCourseDetBloodAnalysisESRCol.setCellValueFactory(new PropertyValueFactory<>("ESR"));
         treatCourseDetBloodAnalysisPlateletsCol.setCellValueFactory(new PropertyValueFactory<>("platelets"));
-        treatCourseDetBloodAnalysisMeanCorpuscularVolumeCol.setCellValueFactory(new PropertyValueFactory<>("mean_corpuscular_volumn"));
+        treatCourseDetBloodAnalysisMeanCorpuscularVolumeCol.setCellValueFactory(new PropertyValueFactory<>("mean_corpuscular_volume"));
         treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinCol.setCellValueFactory(new PropertyValueFactory<>("mean_corpuscular_haemoglobin"));
         treatCourseDetBloodAnalysisHaematocritCol.setCellValueFactory(new PropertyValueFactory<>("hematocrit"));
 

@@ -146,7 +146,7 @@ public class PatientHistoryController {
                     patHisMajorComplicationsField.setText(selectedPatientHistory.getMajor_complications());
                     patHisMovementMeansField.setText(selectedPatientHistory.getMovement_means());
                     patHisResultsField.setText(selectedPatientHistory.getResults());
-                    patHisSpecialCommentsField.setText(selectedPatientHistory.getSpeacial_comments());
+                    patHisSpecialCommentsField.setText(selectedPatientHistory.getSpecial_comments());
                     patHisWardField.setText(String.valueOf(selectedPatientHistory.getWard_no()));
 
                 }   
@@ -223,17 +223,17 @@ public class PatientHistoryController {
 
     public void patientHistoryShowListData(){
 
-        listData.add(new PatientHistory("P0001", 1, "Dr. A", "None", "Walking", "Good", "None", "H0001"));
-        listData.add(new PatientHistory("P0002", 2, "Dr. B", "None", "Walking", "Good", "None", "H0002")); 
+        listData.add(new PatientHistory("H0001","P0001", 1, "Dr. A", "None", "Walking", "Good", "None"));
+        listData.add(new PatientHistory("H0002","P0002", 2, "Dr. B", "None", "Walking", "Good", "None" )); 
         
+        patHisHIDCol.setCellValueFactory(new PropertyValueFactory<>("history_id"));
         patHisWardCol.setCellValueFactory(new PropertyValueFactory<>("ward_no"));
         patHisDirectedByCol.setCellValueFactory(new PropertyValueFactory<>("directed_by"));
         patHisMajorComplicationsCol.setCellValueFactory(new PropertyValueFactory<>("major_complications"));
         patHisMovementMeansCol.setCellValueFactory(new PropertyValueFactory<>("movement_means"));
         patHisResultsCol.setCellValueFactory(new PropertyValueFactory<>("results"));
-        patHisSpecialCommentsCol.setCellValueFactory(new PropertyValueFactory<>("speacial_comments"));
-        patHisHIDCol.setCellValueFactory(new PropertyValueFactory<>("history_id"));
-
+        patHisSpecialCommentsCol.setCellValueFactory(new PropertyValueFactory<>("special_comments"));
+        
         patHisTable.setItems(listData);
 
     }
@@ -256,7 +256,7 @@ public class PatientHistoryController {
                     return true;
                 } else if (patientHistory.getResults().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (patientHistory.getSpeacial_comments().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (patientHistory.getSpecial_comments().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 } else if (String.valueOf(patientHistory.getWard_no()).contains(lowerCaseFilter)) {
                     return true;
