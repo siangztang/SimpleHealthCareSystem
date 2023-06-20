@@ -688,9 +688,6 @@ public class TreatmentCourseDetailsController {
 
     }
 
-    private void typeof(String[] medicine_list) {
-    }
-
     private Admin admin;
     private Patient patient_info;
     private String history_id;
