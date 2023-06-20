@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.example.Admin;
-import com.example.Department;
 import com.example.Doctor;
 import com.example.SwitchPage;
 
