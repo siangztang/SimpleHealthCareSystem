@@ -89,18 +89,18 @@
                               </TableView>
                               <AnchorPane layoutX="15.0" layoutY="432.0" prefHeight="200.0" prefWidth="1000.0">
                                  <children>
-                                    <Label layoutX="14.0" layoutY="14.0" text="Start Date: ">
+                                    <Label layoutX="14.0" layoutY="8.0" text="Start Date: ">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="14.0" layoutY="50.0" text="End Date: ">
+                                    <Label layoutX="14.0" layoutY="48.0" text="End Date: ">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <DatePicker fx:id="treatmentCourseEndDateField" layoutX="102.0" layoutY="50.0" />
-                                    <DatePicker fx:id="treatmentCourseStartDateField" layoutX="102.0" layoutY="14.0" />
+                                    <DatePicker fx:id="treatmentCourseEndDateField" layoutX="102.0" layoutY="48.0" />
+                                    <DatePicker fx:id="treatmentCourseStartDateField" layoutX="102.0" layoutY="8.0" />
                                     <Button id="updateBtn" fx:id="updateBtn" layoutX="679.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                     <Button id="delBtn" fx:id="deleteBtn" layoutX="770.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                     <Button id="resetBtn" fx:id="resetBtn" layoutX="917.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />

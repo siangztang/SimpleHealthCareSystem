@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.PatientHistoryController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.PatientHistoryController">
    <children>
       <StackPane fx:id="patient_history_page" prefHeight="150.0" prefWidth="200.0">
          <children>
@@ -92,12 +92,12 @@
                               <TextField fx:id="searchField" layoutX="713.0" layoutY="17.0" prefHeight="33.0" prefWidth="301.0" promptText="Search" />
                               <AnchorPane layoutX="14.0" layoutY="456.0" prefHeight="200.0" prefWidth="1000.0">
                                  <children>
-                                    <Label layoutX="14.0" layoutY="14.0" text="Ward No.: ">
+                                    <Label layoutX="14.0" layoutY="8.0" text="Ward No.: ">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="14.0" layoutY="50.0" text="Movement Means: ">
+                                    <Label layoutX="14.0" layoutY="48.0" text="Movement Means: ">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -107,27 +107,27 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="14.0" layoutY="123.0" text="Major Complications: ">
+                                    <Label layoutX="14.0" layoutY="128.0" text="Major Complications: ">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="14.0" layoutY="160.0" text="Result: ">
+                                    <Label layoutX="14.0" layoutY="168.0" text="Result: ">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="patHisWardField" layoutX="168.0" layoutY="14.0" prefHeight="25.0" prefWidth="321.0" />
-                                    <TextField fx:id="patHisMovementMeansField" layoutX="168.0" layoutY="50.0" prefHeight="25.0" prefWidth="321.0" />
+                                    <TextField fx:id="patHisWardField" layoutX="168.0" layoutY="8.0" prefHeight="25.0" prefWidth="321.0" />
+                                    <TextField fx:id="patHisMovementMeansField" layoutX="168.0" layoutY="48.0" prefHeight="25.0" prefWidth="321.0" />
                                     <TextField fx:id="patHisDirectedByField" layoutX="168.0" layoutY="88.0" prefHeight="25.0" prefWidth="321.0" />
-                                    <TextField fx:id="patHisMajorComplicationsField" layoutX="168.0" layoutY="123.0" prefHeight="25.0" prefWidth="321.0" />
-                                    <TextField fx:id="patHisResultsField" layoutX="168.0" layoutY="160.0" prefHeight="25.0" prefWidth="321.0" />
-                                    <Label layoutX="525.0" layoutY="14.0" text="Special Comments: ">
+                                    <TextField fx:id="patHisMajorComplicationsField" layoutX="168.0" layoutY="128.0" prefHeight="25.0" prefWidth="321.0" />
+                                    <TextField fx:id="patHisResultsField" layoutX="168.0" layoutY="168.0" prefHeight="25.0" prefWidth="321.0" />
+                                    <Label layoutX="525.0" layoutY="8.0" text="Special Comments: ">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <TextArea fx:id="patHisSpecialCommentsField" layoutX="664.0" layoutY="13.0" prefHeight="115.0" prefWidth="328.0" />
+                                    <TextArea fx:id="patHisSpecialCommentsField" layoutX="664.0" layoutY="8.0" prefHeight="115.0" prefWidth="328.0" />
                                     <Button id="updateBtn" fx:id="updateBtn" layoutX="679.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                     <Button id="delBtn" fx:id="deleteBtn" layoutX="770.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                     <Button id="resetBtn" fx:id="resetBtn" layoutX="917.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />
