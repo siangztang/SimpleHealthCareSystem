@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import java.util.function.Predicate;
 
 import com.example.Admin;
 import com.example.Patient;
@@ -12,6 +12,8 @@ import com.example.SwitchPage;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -162,6 +164,7 @@ public class PatientListController {
             }
         });
         patientShowListData();
+        searchField();
     }
 
     private Admin admin;
@@ -199,9 +202,11 @@ public class PatientListController {
         resetBtn.setFocusTraversable(false);
     }
 
+    ObservableList<Patient> listData = FXCollections.observableArrayList();
+
     public void patientShowListData(){
 
-        ObservableList<Patient> listData = FXCollections.observableArrayList();
+        
         listData.add(new Patient("P0001", "John", 12345612234L, 20, 'M', 12345L, "Emergency"));
         listData.add(new Patient("P0002", "Mary", 12345612234L, 20, 'F', 12345L, "Emergency"));
 
@@ -215,6 +220,46 @@ public class PatientListController {
         
         patListTable.setItems(listData);
 
+    }
+
+    private void searchField(){
+        FilteredList<Patient> filteredData = new FilteredList<>(listData, e -> true);
+        searchField.setOnKeyReleased(e->{
+        
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate((Predicate<? super Patient >) pat -> {
+                if (newValue == null) {
+                    return true;
+                }
+                
+                String toLowerCaseNewValue = newValue.toLowerCase();
+                if(pat.getPatient_id().toLowerCase().contains(toLowerCaseNewValue)){
+                    return true;
+                }else if(pat.getName().toLowerCase().contains(toLowerCaseNewValue)){
+                    return true;
+                }else if(String.valueOf(pat.getIc()).contains(toLowerCaseNewValue)){
+                    return true;
+                }else if(String.valueOf(pat.getAge()).contains(toLowerCaseNewValue)){
+                    return true;
+                }else if(String.valueOf(pat.getGender()).contains(toLowerCaseNewValue)){
+                    return true;
+                }else if(String.valueOf(pat.getContact_info()).contains(toLowerCaseNewValue)){
+                    return true;
+                }else if(pat.getDepartment().toLowerCase().contains(toLowerCaseNewValue)){
+                    return true;
+                }
+
+            return false;
+
+            });
+        });
+            final SortedList<Patient> patients_list = new SortedList<>(filteredData);
+            patients_list.comparatorProperty().bind(patListTable.comparatorProperty());
+            patListTable.setItems(patients_list);
+
+        });
+
+        
     }
 
      
