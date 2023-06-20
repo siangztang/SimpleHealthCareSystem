@@ -9,6 +9,8 @@ import com.example.SwitchPage;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -116,6 +118,7 @@ public class ManageDoctorController {
         });
 
         doctorShowListData();
+        searchField();
     }
 
     public void initData(Admin admin){
@@ -149,9 +152,9 @@ public class ManageDoctorController {
         docSpecializationField.setFocusTraversable(false);
     }
 
-    public void doctorShowListData(){
+    ObservableList<Doctor> listData = FXCollections.observableArrayList();
 
-        ObservableList<Doctor> listData = FXCollections.observableArrayList();
+    public void doctorShowListData(){
 
         listData.add(new Doctor("D001", "Dr. A", "Cardiologist", "MBBS", 1234567890));
         listData.add(new Doctor("D002", "Dr. B", "Dermatologist", "MBBS", 1234567890));
@@ -163,6 +166,39 @@ public class ManageDoctorController {
         docContactCol.setCellValueFactory(new PropertyValueFactory<>("contact_info"));
 
         docTable.setItems(listData);
+    }
+
+    private void searchField(){
+        FilteredList<Doctor> filteredData = new FilteredList<>(listData, b -> true);
+        searchField.setOnKeyReleased(e-> {
+        
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(doctor -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (doctor.getDoctor_name().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                    return true;
+                } else if (doctor.getDoctor_specialization().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (doctor.getQualification().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (String.valueOf(doctor.getContact_info()).indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (doctor.getDoctor_id().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+
+            final SortedList<Doctor> doctor_list = new SortedList<>(filteredData);
+            doctor_list.comparatorProperty().bind(docTable.comparatorProperty());
+            docTable.setItems(doctor_list);
+        });
+
     }
 
 }

@@ -9,6 +9,8 @@ import com.example.SwitchPage;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -92,6 +94,7 @@ public class ManageDepartmentController {
             }
         });
         departmentShowListData();
+        searchFilter();
     }
 
     public void initData(Admin admin){
@@ -117,9 +120,9 @@ public class ManageDepartmentController {
         resetBtn.setFocusTraversable(false);
     }
 
-    public void departmentShowListData(){
+    ObservableList<Department> listData = FXCollections.observableArrayList();
 
-        ObservableList<Department> listData = FXCollections.observableArrayList();
+    public void departmentShowListData(){
 
         listData.add(new Department("D001", "Cardiology"));
         listData.add(new Department("D002", "Dermatology"));
@@ -129,6 +132,33 @@ public class ManageDepartmentController {
 
         departmentTable.setItems(listData);
     
+
+    }
+
+    private void searchFilter(){
+        FilteredList<Department> filteredData = new FilteredList<>(listData, e -> true);
+        searchField.setOnKeyReleased(e->{
+        
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(Department -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (Department.getId().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (Department.getName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+
+            return false;
+
+            });
+        });
+            final SortedList<Department> department_list = new SortedList<>(filteredData);
+            department_list.comparatorProperty().bind(departmentTable.comparatorProperty());
+            departmentTable.setItems(department_list);
+        });
 
     }
 }

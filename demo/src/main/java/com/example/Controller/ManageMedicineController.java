@@ -2,6 +2,7 @@ package com.example.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 import com.example.Admin;
 import com.example.Medicine;
@@ -9,6 +10,8 @@ import com.example.SwitchPage;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -109,6 +112,7 @@ public class ManageMedicineController {
             }
         });
         medicineShowListData();
+        searchFilter();
     }
 
     public void initData(Admin admin){
@@ -140,12 +144,12 @@ public class ManageMedicineController {
         resetBtn.setFocusTraversable(false);
     }
 
+    ObservableList<Medicine> listData = FXCollections.observableArrayList();
+
     public void medicineShowListData() {
 
-        ObservableList<Medicine> listData = FXCollections.observableArrayList();
-
-        listData.add(new Medicine("1", "Paracetamol", "500mg For fever", 100));
-        listData.add(new Medicine("2", "Panadol", "500mg For fever", 100));
+        listData.add(new Medicine("M001", "Paracetamol", "500mg For fever", 100));
+        listData.add(new Medicine("M002", "Panadol", "500mg For fever", 100));
 
         medicineIDCol.setCellValueFactory(new PropertyValueFactory<>("medicine_id"));
         medicineNameCol.setCellValueFactory(new PropertyValueFactory<>("medicine_name"));
@@ -154,6 +158,35 @@ public class ManageMedicineController {
 
         medicineTable.setItems(listData);
 
+    }
+
+    private void searchFilter(){
+        FilteredList<Medicine> filteredData = new FilteredList<>(listData, b -> true);
+        searchField.setOnKeyReleased(e->{
+        
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate((Predicate<? super Medicine>) medicine->{
+                if(newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if(medicine.getMedicine_id().toLowerCase().contains(lowerCaseFilter)){
+                    return true;
+                }else if(medicine.getMedicine_name().toLowerCase().contains(lowerCaseFilter)){
+                    return true;
+                }else if(medicine.getMedicine_description().toLowerCase().contains(lowerCaseFilter)){
+                    return true;
+                }else if(String.valueOf(medicine.getMedicine_amount()).contains(lowerCaseFilter)){
+                    return true;
+                }
+                return false;
+            });
+        });
+            final SortedList<Medicine> medicine_list = new SortedList<>(filteredData);
+            medicine_list.comparatorProperty().bind(medicineTable.comparatorProperty());
+            medicineTable.setItems(medicine_list);  
+
+        });
     }
 
 }

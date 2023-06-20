@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 import com.example.Admin;
 import com.example.Patient;
@@ -12,6 +13,8 @@ import com.example.SwitchPage;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -172,6 +175,7 @@ public class PatientHistoryController {
             }
         });
         patientHistoryShowListData();
+        searchFilter();
     }
 
     private Admin admin;
@@ -215,9 +219,10 @@ public class PatientHistoryController {
         resetBtn.setFocusTraversable(false);
     }
 
+    ObservableList<PatientHistory> listData = FXCollections.observableArrayList();
+
     public void patientHistoryShowListData(){
 
-        ObservableList<PatientHistory> listData = FXCollections.observableArrayList();
         listData.add(new PatientHistory("P0001", 1, "Dr. A", "None", "Walking", "Good", "None", "H0001"));
         listData.add(new PatientHistory("P0002", 2, "Dr. B", "None", "Walking", "Good", "None", "H0002")); 
         
@@ -231,6 +236,42 @@ public class PatientHistoryController {
 
         patHisTable.setItems(listData);
 
+    }
+
+    private void searchFilter(){
+        FilteredList<PatientHistory> filteredData = new FilteredList<>(listData, b -> true);
+        searchField.setOnKeyReleased(e ->{
+        
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate((Predicate<? super PatientHistory>) patientHistory -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (patientHistory.getDirected_by().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (patientHistory.getMajor_complications().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (patientHistory.getMovement_means().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (patientHistory.getResults().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (patientHistory.getSpeacial_comments().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(patientHistory.getWard_no()).contains(lowerCaseFilter)) {
+                    return true;
+                } else if (patientHistory.getHistory_id().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+
+            return false;
+            
+            });
+        });
+            final SortedList<PatientHistory> patient_history_list = new SortedList<>(filteredData);
+            patient_history_list.comparatorProperty().bind(patHisTable.comparatorProperty());
+            patHisTable.setItems(patient_history_list);
+        });
     }
 
 }
