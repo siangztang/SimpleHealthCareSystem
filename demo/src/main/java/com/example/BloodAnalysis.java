@@ -1,7 +1,5 @@
 package com.example;
 
-import java.util.Date;
-
 public class BloodAnalysis extends Analysis{
     
     private int red_cells;
@@ -17,7 +15,7 @@ public class BloodAnalysis extends Analysis{
     private double mean_corpuscular_haemoglobin;
     private double hematocrit;
 
-    public BloodAnalysis(String analysis_id, Date analysis_date, int red_cells, double haemoglobin, String color, boolean parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR, int platelets, double mean_corpuscular_volumn, double mean_corpuscular_haemoglobin, double hematocrit){
+    public BloodAnalysis(String analysis_id, String analysis_date, int red_cells, double haemoglobin, String color, boolean parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR, int platelets, double mean_corpuscular_volumn, double mean_corpuscular_haemoglobin, double hematocrit){
         super(analysis_id, analysis_date);
         this.red_cells = red_cells;
         this.haemoglobin = haemoglobin;

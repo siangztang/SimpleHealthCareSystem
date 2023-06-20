@@ -1,18 +1,16 @@
 package com.example;
 
-import java.util.Date;
-
 public class RWAnalysis extends Analysis{
     
     private String rw_result;
-    private Date adis_date;
+    private String adis_date;
     private String aids_result;
-    private Date syphilis_date;
+    private String syphilis_date;
     private String syphilis_result;
-    private Date hepatitis_date;
+    private String hepatitis_date;
     private String hepatitis_result;
 
-    public RWAnalysis(String analysis_id, Date analysis_date, String rw_result, Date adis_date, String aids_result, Date syphilis_date, String syphilis_result, Date hepatitis_date, String hepatitis_result){
+    public RWAnalysis(String analysis_id, String analysis_date, String rw_result, String adis_date, String aids_result, String syphilis_date, String syphilis_result, String hepatitis_date, String hepatitis_result){
         super(analysis_id, analysis_date);
         this.rw_result = rw_result;
         this.adis_date = adis_date;
@@ -27,7 +25,7 @@ public class RWAnalysis extends Analysis{
         return rw_result;
     }
 
-    public Date getAdis_date() {
+    public String getAdis_date() {
         return adis_date;
     }
 
@@ -35,7 +33,7 @@ public class RWAnalysis extends Analysis{
         return aids_result;
     }
 
-    public Date getSyphilis_date() {
+    public String getSyphilis_date() {
         return syphilis_date;
     }
 
@@ -43,7 +41,7 @@ public class RWAnalysis extends Analysis{
         return syphilis_result;
     }
 
-    public Date getHepatitis_date() {
+    public String getHepatitis_date() {
         return hepatitis_date;
     }
 
