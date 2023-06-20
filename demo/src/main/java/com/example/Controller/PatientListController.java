@@ -164,7 +164,7 @@ public class PatientListController {
             }
         });
         patientShowListData();
-        searchField();
+        searchFilter();
     }
 
     private Admin admin;
@@ -222,7 +222,7 @@ public class PatientListController {
 
     }
 
-    private void searchField(){
+    private void searchFilter(){
         FilteredList<Patient> filteredData = new FilteredList<>(listData, e -> true);
         searchField.setOnKeyReleased(e->{
         
