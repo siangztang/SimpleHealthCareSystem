@@ -12,7 +12,6 @@ public class Procedure{
 
 
     public Procedure(String procedure_id, String type, Date procedure_date, Date procedure_time, String treatment_course_id) {
-        
         this.procedure_id = procedure_id;
         this.type = type;
         this.procedure_date = procedure_date;
