@@ -155,12 +155,12 @@ public class TreatmentCourseController {
 
     }
     
-    private Admin admin;
-    private Patient patient_info;
+    // private Admin admin;
+    // private Patient patient_info;
 
     public void initData(Admin admin, Patient patient_info, String history_id){
-        this.admin = admin;
-        this.patient_info = patient_info;
+        // this.admin = admin;
+        // this.patient_info = patient_info;
         patInfoID.setText(patient_info.getPatient_id());
         patInfoName.setText(patient_info.getName());
         patInfoAge.setText(String.valueOf(patient_info.getAge()));
