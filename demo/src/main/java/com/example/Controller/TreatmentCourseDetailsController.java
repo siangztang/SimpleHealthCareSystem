@@ -1,5 +1,7 @@
 package com.example.Controller;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +20,10 @@ import com.example.UrineAnalysis;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -29,6 +35,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class TreatmentCourseDetailsController {
 
@@ -533,6 +540,8 @@ public class TreatmentCourseDetailsController {
             bloodAnalysisResetBtnAction();
         });
 
+        unFocusAll();
+
         treatCourseDetDiagnosisTable.getColumns().forEach(e -> e.setReorderable(false));
 
         treatCourseDetDiagnosisTable.setOnMouseClicked(event -> {
@@ -567,6 +576,25 @@ public class TreatmentCourseDetailsController {
                     String[] medicineList = selectedProcedure.getMedicine_list();
                     String medicineListText = String.join(", ", medicineList);
                     treatCourseDetProcedureMedicineList.setText(medicineListText);
+                }
+            } else if (event.getClickCount() == 2){
+                try {
+                    System.out.println("Selected procedure ID: " + selectedProcedure.getProcedure_id());
+                    FXMLLoader loader = new FXMLLoader();
+                    Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ProcedureDetails.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.show();
+                    ProcedureDetailsController controller = loader.getController();
+                    String[] medicineList = selectedProcedure.getMedicine_list();
+                    controller.initData(admin, patient_info, history_id, treatment_course_id, selectedProcedure.getProcedure_id(), medicineList);
+                    Node node = (Node) event.getSource();
+                    Stage currentStage = (Stage) node.getScene().getWindow();
+                    currentStage.close();
+                    
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -651,6 +679,7 @@ public class TreatmentCourseDetailsController {
                     LocalDate blood_analysis_date = LocalDate.parse(selectedBloodAnalysis.getAnalysis_date(), formatter);
 
                     treatCourseDetBloodAnalysisDateDateField.setValue(blood_analysis_date);
+                    
                 }
             }
         });
@@ -659,7 +688,19 @@ public class TreatmentCourseDetailsController {
 
     }
 
+    private void typeof(String[] medicine_list) {
+    }
+
+    private Admin admin;
+    private Patient patient_info;
+    private String history_id;
+    private String treatment_course_id;
+
     public void initData(Admin admin, Patient patient_info, String history_id, String treatment_course_id){
+        this.admin = admin;
+        this.patient_info = patient_info;
+        this.history_id = history_id;
+        this.treatment_course_id = treatment_course_id;
         patInfoID.setText(patient_info.getPatient_id());
         patInfoName.setText(patient_info.getName());
         patInfoAge.setText(String.valueOf(patient_info.getAge()));
@@ -692,6 +733,10 @@ public class TreatmentCourseDetailsController {
     }
 
     public void bloodAnalysisResetBtnAction(){
+
+    }
+
+    public void unFocusAll(){
 
     }
 
