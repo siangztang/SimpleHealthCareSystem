@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.example.Admin;
+import com.example.Patient;
 import com.example.SwitchPage;
 import com.example.TreatmentCourse;
 
@@ -155,12 +156,17 @@ public class TreatmentCourseController {
     }
     
     private Admin admin;
-    private String pat_id;
+    private Patient patient_info;
 
-    public void initData(Admin admin, String pat_id, String history_id){
+    public void initData(Admin admin, Patient patient_info, String history_id){
         this.admin = admin;
-        this.pat_id = pat_id;
-        patInfoID.setText(pat_id);
+        this.patient_info = patient_info;
+        patInfoID.setText(patient_info.getPatient_id());
+        patInfoName.setText(patient_info.getName());
+        patInfoAge.setText(String.valueOf(patient_info.getAge()));
+        patInfoGender.setText(Character.toString(patient_info.getGender()));
+        patInfoDepartment.setText(patient_info.getDepartment());
+        patInfoContactInfo.setText(Long.toString(patient_info.getContact_info()));
         patInfoHisID.setText(history_id);
         unameLabel.setText(admin.getUname());
     }

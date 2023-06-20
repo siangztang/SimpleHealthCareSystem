@@ -150,7 +150,7 @@ public class PatientListController {
                         stage.setScene(scene);
                         stage.show();
                         PatientHistoryController controller = loader.getController();
-                        controller.initData(admin, selectedPatient.getPatient_id());
+                        controller.initData(admin, selectedPatient);
                         Node node = (Node) event.getSource();
                         Stage currentStage = (Stage) node.getScene().getWindow();
                         currentStage.close();

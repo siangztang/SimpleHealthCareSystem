@@ -65,9 +65,7 @@ public class LoginController {
         String uname = UsernameField.getText().trim();
         String password = PasswordField.getText().trim();
         
-        if (admin == null){
-            admin = new Admin(uname, password);
-        }
+        admin = new Admin(uname, password);
         
 
         switch (admin.isValidLogin()) {

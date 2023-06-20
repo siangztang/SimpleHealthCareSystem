@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.example.Admin;
+import com.example.Patient;
 import com.example.PatientHistory;
 import com.example.SwitchPage;
 
@@ -159,7 +160,7 @@ public class PatientHistoryController {
                         stage.setScene(scene);
                         stage.show();
                         TreatmentCourseController controller = loader.getController();
-                        controller.initData(admin, selectedPatientHistory.getPat_id(), selectedPatientHistory.getHistory_id());
+                        controller.initData(admin, patient_info, selectedPatientHistory.getHistory_id());
                         Node node = (Node) event.getSource();
                         Stage currentStage = (Stage) node.getScene().getWindow();
                         currentStage.close();
@@ -174,10 +175,17 @@ public class PatientHistoryController {
     }
 
     private Admin admin;
+    private Patient patient_info;
 
-    public void initData(Admin admin, String pat_id){
+    public void initData(Admin admin, Patient patient_info){
         this.admin = admin;
-        patInfoID.setText(pat_id);
+        this.patient_info = patient_info;
+        patInfoID.setText(patient_info.getPatient_id());
+        patInfoName.setText(patient_info.getName());
+        patInfoAge.setText(String.valueOf(patient_info.getAge()));
+        patInfoGender.setText(Character.toString(patient_info.getGender()));
+        patInfoDep.setText(patient_info.getDepartment());
+        patInfoContactInfo.setText(Long.toString(patient_info.getContact_info()));
         unameLabel.setText(admin.getUname());
     }
 
