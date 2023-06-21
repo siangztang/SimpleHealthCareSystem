@@ -875,8 +875,8 @@ public class TreatmentCourseDetailsController {
     public void DiagnosisShowListData(){
         ObservableList<Diagnosis> diagnosisListData = FXCollections.observableArrayList();
 
-        diagnosisListData.add(new Diagnosis("1", "2", "20/7/2023", "4", "5", "6"));
-        diagnosisListData.add(new Diagnosis("1", "2", "20/7/2023", "4", "5", "6"));
+        diagnosisListData.add(new Diagnosis("D0001", "2", "20/7/2023", "4", "5", "6"));
+        diagnosisListData.add(new Diagnosis("D0002", "2", "20/7/2023", "4", "5", "6"));
 
         treatCourseDetDiagnosisNameCol.setCellValueFactory(new PropertyValueFactory<>("diagnosis_id"));
         treatCourseDetDiagnosisDiagDateCol.setCellValueFactory(new PropertyValueFactory<>("diagnosis_date"));
@@ -890,8 +890,8 @@ public class TreatmentCourseDetailsController {
     public void ProcedureShowListData(){
         ObservableList<Procedure> procedureListData = FXCollections.observableArrayList();
 
-        procedureListData.add(new Procedure("1", "Surgery", "20/7/2023", "11:25", "1", new String[]{"Aspirin", "Ibuprofen"}));
-        procedureListData.add(new Procedure("2", "Radiology", "20/7/2023", "11:25", "2", new String[]{"X-ray", "CT scan"}));
+        procedureListData.add(new Procedure("P0001", "Surgery", "20/7/2023", "11:25", "1", new String[]{"Aspirin", "Ibuprofen"}));
+        procedureListData.add(new Procedure("P0002", "Radiology", "20/7/2023", "11:25", "2", new String[]{"X-ray", "CT scan"}));
 
         treatCourseDetProcedureDateCol.setCellValueFactory(new PropertyValueFactory<>("procedure_date"));
         treatCourseDetProcedureTimeCol.setCellValueFactory(new PropertyValueFactory<>("procedure_time"));
@@ -904,8 +904,8 @@ public class TreatmentCourseDetailsController {
     public void UrineAnalysisShowListData(){
         ObservableList<UrineAnalysis> urineAnalysisListData = FXCollections.observableArrayList();
 
-        urineAnalysisListData.add(new UrineAnalysis("1", "20/7/2023", "Clear", "Good", "1.025", 1.23, "Negative", "Negative", "Negative", "Negative", "Negative"));
-        urineAnalysisListData.add(new UrineAnalysis("2", "20/7/2023", "Clear", "Good", "1.025", 1.23, "Negative", "Negative", "Negative", "Negative", "Negative"));
+        urineAnalysisListData.add(new UrineAnalysis("UA0001", "20/7/2023", "Clear", "Good", "1.025", 1.23));
+        urineAnalysisListData.add(new UrineAnalysis("UA0002", "20/7/2023", "Clear", "Good", "1.025", 1.23));
 
         treatCourseDetUrineAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetUrineAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
@@ -913,11 +913,6 @@ public class TreatmentCourseDetailsController {
         treatCourseDetUrineAnalysisReactionCol.setCellValueFactory(new PropertyValueFactory<>("reaction"));
         treatCourseDetUrineAnalysisTransparencyCol.setCellValueFactory(new PropertyValueFactory<>("transparency"));
         treatCourseDetUrineAnalysisDensityCol.setCellValueFactory(new PropertyValueFactory<>("density"));
-        treatCourseDetUrineAnalysisProteinCol.setCellValueFactory(new PropertyValueFactory<>("protein"));
-        treatCourseDetUrineAnalysisGlucoseCol.setCellValueFactory(new PropertyValueFactory<>("glucose"));
-        treatCourseDetUrineAnalysisKetonesCol.setCellValueFactory(new PropertyValueFactory<>("ketones"));
-        treatCourseDetUrineAnalysisNitritesCol.setCellValueFactory(new PropertyValueFactory<>("nitrites"));
-        treatCourseDetUrineAnalysisLeukocytesCol.setCellValueFactory(new PropertyValueFactory<>("leukocytes"));
 
         treatCourseDetUrineAnalysisTable.setItems(urineAnalysisListData);
 
@@ -926,18 +921,14 @@ public class TreatmentCourseDetailsController {
     public void RWAnalysisShowListData(){
         ObservableList<RWAnalysis> RWAnalysisListData = FXCollections.observableArrayList();
 
-        RWAnalysisListData.add(new RWAnalysis("1", "20/7/2023", "Positive", "20/7/2023", "Positive", "20/7/2023", "Positive", "20/7/2023", "Positive"));
-        RWAnalysisListData.add(new RWAnalysis("2", "20/7/2023", "Positive", "20/7/2023", "Positive", "20/7/2023", "Positive", "20/7/2023", "Positive"));
+        RWAnalysisListData.add(new RWAnalysis("RW0001", "20/7/2023", "Positive", "20/7/2023", "Positive"));
+        RWAnalysisListData.add(new RWAnalysis("RW0002", "20/7/2023", "Positive", "20/7/2023", "Positive"));
 
         treatCourseDetRWAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetRWAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
         treatCourseDetRWAnalysisRWResultCol.setCellValueFactory(new PropertyValueFactory<>("rw_result"));
         treatCourseDetRWAnalysisAidsDateCol.setCellValueFactory(new PropertyValueFactory<>("adis_date"));
         treatCourseDetRWAnalysisAidsResultCol.setCellValueFactory(new PropertyValueFactory<>("aids_result"));
-        treatCourseDetRWAnalysisSyphilisDateCol.setCellValueFactory(new PropertyValueFactory<>("syphilis_date"));
-        treatCourseDetRWAnalysisSyphilisResultCol.setCellValueFactory(new PropertyValueFactory<>("syphilis_result"));
-        treatCourseDetRWAnalysisHepatitisDateCol.setCellValueFactory(new PropertyValueFactory<>("hepatitis_date"));
-        treatCourseDetRWAnalysisHepatitisResultCol.setCellValueFactory(new PropertyValueFactory<>("hepatitis_result"));
 
         treatCourseDetRWAnalysisTable.setItems(RWAnalysisListData);
         
@@ -946,8 +937,8 @@ public class TreatmentCourseDetailsController {
     public void BioBloodAnalysisShowListData(){
         ObservableList<BioBloodAnalysis> bioBloodAnalysisListData = FXCollections.observableArrayList();
 
-        bioBloodAnalysisListData.add(new BioBloodAnalysis("1", "20/7/2023", 1.123, 1.512, 1.321, 2.21, 2.32, 1.56, 1.11, 1.22, 3.12, 11.2, 13.23, 12.22));
-        bioBloodAnalysisListData.add(new BioBloodAnalysis("2", "20/7/2023", 1.123, 1.512, 1.321, 2.21, 2.32, 1.56, 1.11, 1.22, 3.12, 11.2, 13.23, 12.22));
+        bioBloodAnalysisListData.add(new BioBloodAnalysis("BB0001", "20/7/2023", 1.123, 1.512, 1.321, 2.21, 2.32, 1.56, 1.11));
+        bioBloodAnalysisListData.add(new BioBloodAnalysis("BB0002", "20/7/2023", 1.123, 1.512, 1.321, 2.21, 2.32, 1.56, 1.11));
 
         treatCourseDetBioBloodAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetBioBloodAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
@@ -958,11 +949,6 @@ public class TreatmentCourseDetailsController {
         treatCourseDetBioBloodAnalysisDirectBiluribinCol.setCellValueFactory(new PropertyValueFactory<>("direct_biluribin"));
         treatCourseDetBioBloodAnalysisASTCol.setCellValueFactory(new PropertyValueFactory<>("AST"));
         treatCourseDetBioBloodAnalysisALTCol.setCellValueFactory(new PropertyValueFactory<>("ALT"));
-        treatCourseDetBioBloodAnalysisCholesterolCol.setCellValueFactory(new PropertyValueFactory<>("cholesterol"));
-        treatCourseDetBioBloodAnalysisTriglyceridesCol.setCellValueFactory(new PropertyValueFactory<>("triglycerides"));
-        treatCourseDetBioBloodAnalysisHDLCol.setCellValueFactory(new PropertyValueFactory<>("HDL"));
-        treatCourseDetBioBloodAnalysisLDLCol.setCellValueFactory(new PropertyValueFactory<>("LDL"));
-        treatCourseDetBioBloodAnalysisAkalinePhospataseCol.setCellValueFactory(new PropertyValueFactory<>("alkaline_phosphatase"));
 
         treatCourseDetBioBloodAnalysisTable.setItems(bioBloodAnalysisListData);
 
@@ -971,8 +957,8 @@ public class TreatmentCourseDetailsController {
     public void BloodAnalysisShowListData(){
         ObservableList<BloodAnalysis> bloodAnalysisListData = FXCollections.observableArrayList();
 
-        bloodAnalysisListData.add(new BloodAnalysis("1", "20/7/2023", 1, 1.512, "Red", true, 2, 1, 1, 1, 3, 11.2, 13.23, 12.22));
-        bloodAnalysisListData.add(new BloodAnalysis("2", "20/7/2023", 1, 1.512, "Red", true, 2, 1, 1, 1, 3, 11.2, 13.23, 12.22));
+        bloodAnalysisListData.add(new BloodAnalysis("BA0001", "20/7/2023", 1, 1.512, "Red", true, 2, 1, 1, 1));
+        bloodAnalysisListData.add(new BloodAnalysis("BA0002", "20/7/2023", 1, 1.512, "Red", true, 2, 1, 1, 1));
 
         treatCourseDetBloodAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetBloodAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
@@ -983,10 +969,13 @@ public class TreatmentCourseDetailsController {
         treatCourseDetBloodAnalysisWhiteCellsCol.setCellValueFactory(new PropertyValueFactory<>("white_cells"));
         treatCourseDetBloodAnalysisLymphocytesCol.setCellValueFactory(new PropertyValueFactory<>("lymphocytes"));
         treatCourseDetBloodAnalysisESRCol.setCellValueFactory(new PropertyValueFactory<>("ESR"));
+<<<<<<< Updated upstream
         treatCourseDetBloodAnalysisPlateletsCol.setCellValueFactory(new PropertyValueFactory<>("platelets"));
         treatCourseDetBloodAnalysisMeanCorpuscularVolumeCol.setCellValueFactory(new PropertyValueFactory<>("mean_corpuscular_volume"));
         treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinCol.setCellValueFactory(new PropertyValueFactory<>("mean_corpuscular_haemoglobin"));
         treatCourseDetBloodAnalysisHaematocritCol.setCellValueFactory(new PropertyValueFactory<>("hematocrit"));
+=======
+>>>>>>> Stashed changes
 
         treatCourseDetBloodAnalysisTable.setItems(bloodAnalysisListData);
 
