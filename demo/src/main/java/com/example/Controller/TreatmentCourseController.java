@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.example.Admin;
+import com.example.AlertMessage;
 import com.example.Patient;
 import com.example.SwitchPage;
 import com.example.TreatmentCourse;
@@ -110,6 +111,10 @@ public class TreatmentCourseController {
             resetBtnAction();
         });
 
+        addBtn.setOnAction(event -> {
+            addBtnAction();
+        });
+
         unFocusAll();
 
         treatmentCourseTable.getColumns().forEach(e -> e.setReorderable(false));
@@ -201,6 +206,33 @@ public class TreatmentCourseController {
         treatmentCourseEndDateCol.setCellValueFactory(new PropertyValueFactory<>("end_date"));
 
         treatmentCourseTable.setItems(listData);
+
+    }
+
+    private AlertMessage alert = new AlertMessage();
+    private TreatmentCourse checkInput = new TreatmentCourse();
+    
+    private void addBtnAction(){
+        if (treatmentCourseStartDateField.getValue() == null || treatmentCourseEndDateField.getValue() == null) {
+            // show error message
+            alert.errorMessage("Please fill in all fields");
+        } else {
+            String startDate = treatmentCourseStartDateField.getValue().format(DateTimeFormatter.ofPattern("d/M/yyyy"));
+            String endDate = treatmentCourseEndDateField.getValue().format(DateTimeFormatter.ofPattern("d/M/yyyy"));
+
+            if (checkInput.validateTreatmentCourse(startDate, endDate) == 1) {
+
+                // show success message
+                alert.successMessage("Treatment course added successfully");
+
+            } else {
+
+                // show error message
+                alert.errorMessage("Please input valid date");
+            }
+        }
+        
+
 
     }
 
