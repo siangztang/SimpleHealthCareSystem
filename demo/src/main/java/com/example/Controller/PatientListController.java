@@ -272,6 +272,7 @@ public class PatientListController {
 
     
     private AlertMessage alert = new AlertMessage();
+    private Patient checkInput = new Patient();
 
     public void addBtnAction(){
 
@@ -285,7 +286,7 @@ public class PatientListController {
             String patDepartment = patDepartmentField.getValue();
             String patGender = patGenderBox.getValue();
 
-            if (Patient.validationPatient(patName, patIC, patGender, patCot, patDepartment) == 1) {
+            if (checkInput.validationPatient(patName, patIC, patGender, patCot, patDepartment) == 1) {
                 // add patient to database
                 // Patient.new(patName, patIC, patCot, patDepartment, patGender);
 

@@ -7,8 +7,8 @@ public class UrineAnalysis extends Analysis{
     private String transparency;
     private double density;
     
-    public UrineAnalysis(String analysis_id, String analysis_date, String color, double reaction, String transparency, double density){
-        super(analysis_id, analysis_date);
+    public UrineAnalysis(String analysis_id, String analysis_date, String treatment_course_id , String color, double reaction, String transparency, double density){
+        super(analysis_id, analysis_date, treatment_course_id);
         this.color = color;
         this.reaction = reaction;
         this.transparency = transparency;

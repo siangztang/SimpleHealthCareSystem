@@ -409,6 +409,7 @@ public class TreatmentCourseDetailsController {
         SwitchPage switchpage = new SwitchPage();
         treatCourseDetBloodAnalysisParasitesField.getItems().addAll("Positive", "Negative");
         treatCourseDetRWAnalysisAidsResultField.getItems().addAll("Positive", "False-Positive", "Negative");
+        treatCourseDetProcedureMedicineChoice.getItems().addAll("Medicine 1", "Medicine 2", "Medicine 3", "Medicine 4", "Medicine 5");
         managePatientBtn.setOnAction(event -> {
             switchpage.switchPage(event, managePatientBtn);
         });
@@ -624,7 +625,8 @@ public class TreatmentCourseDetailsController {
         treatCourseDetProcedureDateField.setValue(null);
         treatCourseDetProcedureTimeField.setText("");
         treatCourseDetProcedureTypeField.setText("");
-        //treatCourseDetProcedureMedicineList
+        treatCourseDetProcedureMedicineList.setText("");
+        treatCourseDetProcedureMedicineChoice.setValue(null);
         treatCourseDetProcedureTable.getSelectionModel().clearSelection(); 
 
     }
@@ -744,8 +746,8 @@ public class TreatmentCourseDetailsController {
     public void UrineAnalysisShowListData(){
         ObservableList<UrineAnalysis> urineAnalysisListData = FXCollections.observableArrayList();
 
-        urineAnalysisListData.add(new UrineAnalysis("UA0001", "20/7/2023", "Clear", 1.22, "1.025", 1.23));
-        urineAnalysisListData.add(new UrineAnalysis("UA0002", "20/7/2023", "Clear", 1.22, "1.025", 1.23));
+        urineAnalysisListData.add(new UrineAnalysis("UA0001", "20/7/2023", "TC001", "Clear", 1.22, "1.025", 1.23));
+        urineAnalysisListData.add(new UrineAnalysis("UA0002", "20/7/2023", "TC002", "Clear", 1.22, "1.025", 1.23));
 
         treatCourseDetUrineAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetUrineAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
@@ -761,8 +763,8 @@ public class TreatmentCourseDetailsController {
     public void RWAnalysisShowListData(){
         ObservableList<RWAnalysis> RWAnalysisListData = FXCollections.observableArrayList();
 
-        RWAnalysisListData.add(new RWAnalysis("RW0001", "20/7/2023", "Positive", "20/7/2023", "Positive"));
-        RWAnalysisListData.add(new RWAnalysis("RW0002", "20/7/2023", "Positive", "20/7/2023", "Positive"));
+        RWAnalysisListData.add(new RWAnalysis("RW0001", "20/7/2023", "TC001", "Positive", "20/7/2023", "Positive"));
+        RWAnalysisListData.add(new RWAnalysis("RW0002", "20/7/2023", "TC002", "Positive", "20/7/2023", "Positive"));
 
         treatCourseDetRWAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetRWAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
@@ -777,8 +779,8 @@ public class TreatmentCourseDetailsController {
     public void BioBloodAnalysisShowListData(){
         ObservableList<BioBloodAnalysis> bioBloodAnalysisListData = FXCollections.observableArrayList();
 
-        bioBloodAnalysisListData.add(new BioBloodAnalysis("BB0001", "20/7/2023", 1, 1.512, 1, 2.21, 2.32, 1, 1));
-        bioBloodAnalysisListData.add(new BioBloodAnalysis("BB0002", "20/7/2023", 2, 1.512, 1, 2.21, 2.32, 1, 1));
+        bioBloodAnalysisListData.add(new BioBloodAnalysis("BB0001", "TC001", "20/7/2023", 1, 1.512, 1, 2.21, 2.32, 1, 1));
+        bioBloodAnalysisListData.add(new BioBloodAnalysis("BB0002", "TC002", "20/7/2023", 2, 1.512, 1, 2.21, 2.32, 1, 1));
 
         treatCourseDetBioBloodAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetBioBloodAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
@@ -797,8 +799,8 @@ public class TreatmentCourseDetailsController {
     public void BloodAnalysisShowListData(){
         ObservableList<BloodAnalysis> bloodAnalysisListData = FXCollections.observableArrayList();
 
-        bloodAnalysisListData.add(new BloodAnalysis("BA0001", "20/7/2023", 1.22, 1.512, "Red", "true", 2, 1, 1, 1));
-        bloodAnalysisListData.add(new BloodAnalysis("BA0002", "20/7/2023", 1.23, 1.512, "Red", "true", 2, 1, 1, 1));
+        bloodAnalysisListData.add(new BloodAnalysis("BA0001", "20/7/2023", "TC001", 1.22, 1.512, "Red", "true", 2, 1, 1, 1));
+        bloodAnalysisListData.add(new BloodAnalysis("BA0002", "20/7/2023", "TC002", 1.23, 1.512, "Red", "true", 2, 1, 1, 1));
 
         treatCourseDetBloodAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetBloodAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
@@ -822,7 +824,7 @@ public class TreatmentCourseDetailsController {
             timePopup.setAutoHide(true);
 
             ListView<LocalTime> timeList = new ListView<>();
-            timeList.setPrefSize(100, 100);
+            timeList.setPrefSize(170, 100);
 
             List<LocalTime> times = new ArrayList<>();
             for (int hour = 0; hour < 24; hour++) {

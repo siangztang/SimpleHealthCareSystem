@@ -24,6 +24,9 @@ public class Patient {
         this.patient_id = patient_id;
     }
     
+    public Patient() {
+    }
+
     public String getPatient_id() {
         return patient_id;
     }
@@ -52,7 +55,7 @@ public class Patient {
         return department;
     }
 
-    public static int validationPatient(String name, String ic, String gender, String contact, String department) {
+    public int validationPatient(String name, String ic, String gender, String contact, String department) {
         // Validate name
         // if (name == null || name.isEmpty() || !name.matches("^[A-Z][a-zA-Z '.-]*[A-Za-z][^-]$")) {
         //     return 0;

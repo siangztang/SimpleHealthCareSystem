@@ -11,8 +11,8 @@ public class BloodAnalysis extends Analysis{
     private int lymphocytes;
     private int ESR;
 
-    public BloodAnalysis(String analysis_id, String analysis_date, double red_cells, double haemoglobin, String color, String parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR){
-        super(analysis_id, analysis_date);
+    public BloodAnalysis(String analysis_id, String analysis_date, String treatment_course_id, double red_cells, double haemoglobin, String color, String parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR){
+        super(analysis_id, analysis_date, treatment_course_id);
         this.red_cells = red_cells;
         this.haemoglobin = haemoglobin;
         this.color = color;

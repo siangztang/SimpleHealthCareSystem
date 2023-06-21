@@ -37,11 +37,6 @@ public class TreatmentCourse {
     }
 
     public int validateTreatmentCourse(String start_date, String end_date){
-        // if(start_date.equals("") || end_date.equals("")){
-        //     AlertMessage.showAlert(AlertMessage.ERROR, "Error", "Please fill in all the fields");
-        //     return 0;
-        // }
-
         LocalDate startDate = LocalDate.parse(start_date, DateTimeFormatter.ofPattern("d/M/yyyy"));
         LocalDate endDate = LocalDate.parse(end_date, DateTimeFormatter.ofPattern("d/M/yyyy"));
         LocalDate currentDate = LocalDate.now();

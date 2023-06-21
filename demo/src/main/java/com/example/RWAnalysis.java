@@ -6,8 +6,8 @@ public class RWAnalysis extends Analysis{
     private String adis_date;
     private String aids_result;
 
-    public RWAnalysis(String analysis_id, String analysis_date, String rw_result, String adis_date, String aids_result){
-        super(analysis_id, analysis_date);
+    public RWAnalysis(String analysis_id, String analysis_date, String treatment_course_id, String rw_result, String adis_date, String aids_result){
+        super(analysis_id, analysis_date, treatment_course_id);
         this.rw_result = rw_result;
         this.adis_date = adis_date;
         this.aids_result = aids_result;

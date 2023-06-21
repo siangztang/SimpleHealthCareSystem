@@ -9,9 +9,9 @@ public class BioBloodAnalysis extends Analysis{
     private double direct_biluribin;
     private int AST;
     private int ALT;
-
-    public BioBloodAnalysis(String analysis_id, String analysis_date, int urea, double createnine, int sugar, double biluribin, double direct_biluribin, int AST, int ALT){
-        super(analysis_id, analysis_date);
+    
+    public BioBloodAnalysis(String analysis_id, String analysis_date, String treatment_course_id ,int urea, double createnine, int sugar, double biluribin, double direct_biluribin, int AST, int ALT){
+        super(analysis_id, analysis_date, treatment_course_id);
         this.urea = urea;
         this.createnine = createnine;
         this.sugar = sugar;
@@ -22,6 +22,7 @@ public class BioBloodAnalysis extends Analysis{
     }
     
     // Normal range: Approximately 7-25 mg/dL
+
     public int getUrea(){
         return urea;
     }
