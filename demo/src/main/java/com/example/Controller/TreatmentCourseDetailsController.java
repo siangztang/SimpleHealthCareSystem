@@ -20,6 +20,7 @@ import com.example.UrineAnalysis;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -37,6 +38,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
@@ -262,7 +264,7 @@ public class TreatmentCourseDetailsController {
     private TableColumn<Diagnosis, String> treatCourseDetDiagnosisNameCol;
 
     @FXML
-    private TableColumn<Diagnosis, String> treatCourseDetDiagnosisNameCol1;
+    private TableColumn<Diagnosis, String> treatCourseDetDiagnosisIDCol;
 
     @FXML
     private TextField treatCourseDetDiagnosisNameField;
@@ -283,7 +285,7 @@ public class TreatmentCourseDetailsController {
     private TableColumn<Procedure, String> treatCourseDetProcedureDateCol;
 
     @FXML
-    private TableColumn<Procedure, String> treatCourseDetProcedureDateCol1;
+    private TableColumn<Procedure, String> treatCourseDetProcedureIDCol;
 
     @FXML
     private DatePicker treatCourseDetProcedureDateField;
@@ -489,6 +491,7 @@ public class TreatmentCourseDetailsController {
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
                     stage.setScene(scene);
+                    stage.setResizable(false);
                     stage.show();
                     ProcedureDetailsController controller = loader.getController();
                     String[] medicineList = selectedProcedure.getMedicine_list();
@@ -721,7 +724,7 @@ public class TreatmentCourseDetailsController {
         diagnosisListData.add(new Diagnosis("D0001", "2", "20/7/2023", "4", "5", "6"));
         diagnosisListData.add(new Diagnosis("D0002", "2", "20/7/2023", "4", "5", "6"));
 
-        treatCourseDetDiagnosisNameCol.setCellValueFactory(new PropertyValueFactory<>("diagnosis_id"));
+        treatCourseDetDiagnosisIDCol.setCellValueFactory(new PropertyValueFactory<>("diagnosis_id"));
         treatCourseDetDiagnosisDiagDateCol.setCellValueFactory(new PropertyValueFactory<>("diagnosis_date"));
         treatCourseDetDiagnosisDocNameCol.setCellValueFactory(new PropertyValueFactory<>("doctor_name"));
         treatCourseDetDiagnosisTreatPlanCol.setCellValueFactory(new PropertyValueFactory<>("treatment_plan"));
@@ -736,6 +739,7 @@ public class TreatmentCourseDetailsController {
         procedureListData.add(new Procedure("P0001", "Surgery", "20/7/2023", "11:25", "1", new String[]{"Aspirin", "Ibuprofen"}));
         procedureListData.add(new Procedure("P0002", "Radiology", "20/7/2023", "11:25", "2", new String[]{"X-ray", "CT scan"}));
 
+        treatCourseDetProcedureIDCol.setCellValueFactory(new PropertyValueFactory<>("procedure_id"));
         treatCourseDetProcedureDateCol.setCellValueFactory(new PropertyValueFactory<>("procedure_date"));
         treatCourseDetProcedureTimeCol.setCellValueFactory(new PropertyValueFactory<>("procedure_time"));
         treatCourseDetProcedureTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -828,52 +832,59 @@ public class TreatmentCourseDetailsController {
             timeList.setPrefSize(100, 100);
 
             List<LocalTime> times = new ArrayList<>();
-            times.add(LocalTime.of(0, 0));
-            times.add(LocalTime.of(1, 0));
-            times.add(LocalTime.of(2, 0));
-            times.add(LocalTime.of(3, 0));
-            times.add(LocalTime.of(4, 0));
-            times.add(LocalTime.of(5, 0));
-            times.add(LocalTime.of(6, 0));
-            times.add(LocalTime.of(7, 0));
-            times.add(LocalTime.of(8, 0));
-            times.add(LocalTime.of(9, 0));
-            times.add(LocalTime.of(10, 0));
-            times.add(LocalTime.of(11, 0));
-            times.add(LocalTime.of(12, 0));
-            times.add(LocalTime.of(13, 0));
-            times.add(LocalTime.of(14, 0));
-            times.add(LocalTime.of(15, 0));
-            times.add(LocalTime.of(16, 0));
-            times.add(LocalTime.of(17, 0));
-            times.add(LocalTime.of(18, 0));
-            times.add(LocalTime.of(19, 0));
-            times.add(LocalTime.of(20, 0));
-            times.add(LocalTime.of(21, 0));
-            times.add(LocalTime.of(22, 0));
-            times.add(LocalTime.of(23, 0));
+            for (int hour = 0; hour < 24; hour++) {
+                for (int minute = 0; minute < 60; minute++) {
+                    times.add(LocalTime.of(hour, minute));
+                }
+            }
+            ObservableList<LocalTime> observableTimes = FXCollections.observableList(times);
+            FilteredList<LocalTime> filteredTimes = new FilteredList<>(observableTimes);
 
-            timeList.getItems().addAll(times);
+            // Create the search field
+            TextField searchField = new TextField();
+            searchField.setPromptText("Search...");
+
+            // Bind the search field to the filtered list
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredTimes.setPredicate(time -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase().replace(":", "");
+                    return time.toString().toLowerCase().replace(":", "").contains(lowerCaseFilter);
+                });
+            });
+
+            // Set the items of the ListView to the filtered list
+            timeList.setItems(filteredTimes);
+
+            // Set the result converter for the dialog
             timeList.setOnMouseClicked(event -> {
                 LocalTime selectedTime = timeList.getSelectionModel().getSelectedItem();
-                setTime(selectedTime);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                String timeString = selectedTime.format(formatter);
+                treatCourseDetProcedureTimeField.setText(timeString);
                 timePopup.hide();
             });
 
-            timePopup.getContent().add(timeList);
+            // Create the layout for the dialog
+            VBox vbox = new VBox(searchField, timeList);
+            vbox.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1px;");
+
+            // Show the dialog
+            timePopup.getContent().add(vbox);
         }
 
         double x = treatCourseDetProcedureTimeField.localToScreen(treatCourseDetProcedureTimeField.getBoundsInLocal()).getMinX();
         double y = treatCourseDetProcedureTimeField.localToScreen(treatCourseDetProcedureTimeField.getBoundsInLocal()).getMaxY();
         timePopup.show(treatCourseDetProcedureTimeField.getScene().getWindow(), x, y);
-
     }
 
-    private void setTime(LocalTime time) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        String timeString = time.format(formatter);
-        treatCourseDetProcedureTimeField.setText(timeString);
-    }
+    // private void setTime(LocalTime time) {
+    //     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+    //     String timeString = time.format(formatter);
+    //     treatCourseDetProcedureTimeField.setText(timeString);
+    // }
 }
 
     

@@ -161,6 +161,7 @@ public class PatientHistoryController {
                         Scene scene = new Scene(root);
                         Stage stage = new Stage();
                         stage.setScene(scene);
+                        stage.setResizable(false);
                         stage.show();
                         TreatmentCourseController controller = loader.getController();
                         controller.initData(admin, patient_info, selectedPatientHistory.getHistory_id());

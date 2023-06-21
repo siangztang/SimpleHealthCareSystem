@@ -75,6 +75,7 @@ public class ProcedureDetailsController {
         managePatientBtn.setOnAction(event -> {
             SwitchPage.switchPage(event, managePatientBtn);
         });
+        unFocusAll();
     }
 
     private String[] medicine_list;
@@ -93,6 +94,11 @@ public class ProcedureDetailsController {
 
         ProcedureDetailsShowListData();
         
+    }
+
+    public void unFocusAll(){
+        managePatientBtn.setFocusTraversable(false);
+        prodDetTable.setFocusTraversable(false);
     }
 
     public void ProcedureDetailsShowListData(){

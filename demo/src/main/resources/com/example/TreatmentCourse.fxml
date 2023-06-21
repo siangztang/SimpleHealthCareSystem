@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseController">
    <children>
       <StackPane fx:id="treatment_course_page" prefHeight="150.0" prefWidth="200.0">
          <children>
@@ -82,9 +82,9 @@
                               </Label>
                               <TableView fx:id="treatmentCourseTable" layoutX="15.0" layoutY="43.0" prefHeight="381.0" prefWidth="1000.0">
                                 <columns>
-                                  <TableColumn fx:id="treatmentCourseIDCol" prefWidth="200.0" text="Treatment Course ID" />
-                                    <TableColumn fx:id="treatmentCourseStartDateCol" minWidth="0.0" prefWidth="400.0" text="Start Date" />
-                                    <TableColumn fx:id="treatmentCourseEndDateCol" minWidth="0.0" prefWidth="400.0" text="End Date" />
+                                  <TableColumn fx:id="treatmentCourseIDCol" prefWidth="200.0" resizable="false" text="Treatment Course ID" />
+                                    <TableColumn fx:id="treatmentCourseStartDateCol" minWidth="0.0" prefWidth="400.0" resizable="false" text="Start Date" />
+                                    <TableColumn fx:id="treatmentCourseEndDateCol" minWidth="0.0" prefWidth="400.0" resizable="false" text="End Date" />
                                 </columns>
                               </TableView>
                               <AnchorPane layoutX="15.0" layoutY="432.0" prefHeight="200.0" prefWidth="1000.0">

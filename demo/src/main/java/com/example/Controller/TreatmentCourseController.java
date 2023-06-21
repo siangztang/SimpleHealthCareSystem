@@ -136,6 +136,7 @@ public class TreatmentCourseController {
                         Scene scene = new Scene(root);
                         Stage stage = new Stage();
                         stage.setScene(scene);
+                        stage.setResizable(false);
                         stage.show();
                         TreatmentCourseDetailsController controller = loader.getController();
                         controller.initData(admin, patient_info, selectedTreatmentCourse.getHistory_id(), selectedTreatmentCourse.getTreatment_course_id());

@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.PatientHistoryController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.PatientHistoryController">
    <children>
       <StackPane fx:id="patient_history_page" prefHeight="150.0" prefWidth="200.0">
          <children>
@@ -75,13 +75,13 @@
                            <children>
                               <TableView fx:id="patHisTable" layoutX="15.0" layoutY="63.0" prefHeight="381.0" prefWidth="1000.0">
                                  <columns>
-                                    <TableColumn fx:id="patHisHIDCol" minWidth="0.0" prefWidth="82.0" text="History ID" />
-                                    <TableColumn fx:id="patHisWardCol" prefWidth="88.0" text="Ward No" />
-                                    <TableColumn fx:id="patHisMovementMeansCol" prefWidth="128.66668701171875" text="Movement Means" />
-                                    <TableColumn fx:id="patHisDirectedByCol" minWidth="4.666748046875" prefWidth="79.33349609375" text="Directed By" />
-                                    <TableColumn fx:id="patHisMajorComplicationsCol" prefWidth="136.666748046875" text="Major Complications" />
-                                    <TableColumn fx:id="patHisResultsCol" prefWidth="78.6666259765625" text="Results" />
-                                    <TableColumn fx:id="patHisSpecialCommentsCol" prefWidth="402.666748046875" text="Special Comments" />
+                                    <TableColumn fx:id="patHisHIDCol" minWidth="0.0" prefWidth="82.0" resizable="false" text="History ID" />
+                                    <TableColumn fx:id="patHisWardCol" prefWidth="88.0" resizable="false" text="Ward No" />
+                                    <TableColumn fx:id="patHisMovementMeansCol" prefWidth="128.66668701171875" resizable="false" text="Movement Means" />
+                                    <TableColumn fx:id="patHisDirectedByCol" minWidth="4.666748046875" prefWidth="79.33349609375" resizable="false" text="Directed By" />
+                                    <TableColumn fx:id="patHisMajorComplicationsCol" prefWidth="136.666748046875" resizable="false" text="Major Complications" />
+                                    <TableColumn fx:id="patHisResultsCol" prefWidth="78.6666259765625" resizable="false" text="Results" />
+                                    <TableColumn fx:id="patHisSpecialCommentsCol" prefWidth="402.666748046875" resizable="false" text="Special Comments" />
                                  </columns>
                               </TableView>
                               <Label layoutX="14.0" layoutY="4.0" text="Patient History">

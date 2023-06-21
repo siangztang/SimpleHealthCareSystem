@@ -33,6 +33,7 @@ public class SwitchPage {
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
+                stage.setResizable(false);
                 ManageDepartmentController controller = loader.getController();
                 controller.initData(admin);
                 stage.show();
@@ -51,6 +52,7 @@ public class SwitchPage {
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
+                stage.setResizable(false);
                 ManageDoctorController controller = loader.getController();
                 controller.initData(admin);
                 stage.show();
@@ -69,6 +71,7 @@ public class SwitchPage {
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
+                stage.setResizable(false);
                 ManageMedicineController controller = loader.getController();
                 controller.initData(admin);
                 stage.show();
@@ -88,6 +91,7 @@ public class SwitchPage {
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
+                stage.setResizable(false);
                 PatientListController controller = loader.getController();
                 controller.initData(admin);
                 stage.show();

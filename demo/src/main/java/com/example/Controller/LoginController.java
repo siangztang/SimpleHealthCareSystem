@@ -81,6 +81,7 @@ public class LoginController {
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
                     stage.setScene(scene);
+                    stage.setResizable(false);
                     PatientListController controller = loader.getController();
                     controller.initData(admin);
                     stage.show();

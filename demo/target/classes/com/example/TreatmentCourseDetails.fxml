@@ -89,7 +89,7 @@
                                              <children>
                                                 <TableView fx:id="treatCourseDetDiagnosisTable" layoutX="15.0" layoutY="14.0" prefHeight="381.0" prefWidth="1000.0">
                                                   <columns>
-                                                      <TableColumn fx:id="treatCourseDetDiagnosisNameCol1" prefWidth="100.0" resizable="false" text="Diagnosis ID" />
+                                                      <TableColumn fx:id="treatCourseDetDiagnosisIDCol" prefWidth="100.0" resizable="false" text="Diagnosis ID" />
                                                    <TableColumn fx:id="treatCourseDetDiagnosisNameCol" prefWidth="300.0" resizable="false" text="Diagnosis Name" />
                                                    <TableColumn fx:id="treatCourseDetDiagnosisDiagDateCol" minWidth="0.0" prefWidth="300.0" resizable="false" text="Diagnosed Date" />
                                                    <TableColumn fx:id="treatCourseDetDiagnosisDocNameCol" prefWidth="300.0" resizable="false" text="Doctor Name" />
@@ -138,7 +138,7 @@
                                              <children>
                                                 <TableView fx:id="treatCourseDetProcedureTable" layoutX="15.0" layoutY="14.0" prefHeight="381.0" prefWidth="1000.0">
                                                    <columns>
-                                                      <TableColumn fx:id="treatCourseDetProcedureDateCol1" minWidth="0.0" prefWidth="200.0" resizable="false" text="Procedure ID" />
+                                                      <TableColumn fx:id="treatCourseDetProcedureIDCol" minWidth="0.0" prefWidth="200.0" resizable="false" text="Procedure ID" />
                                                       <TableColumn fx:id="treatCourseDetProcedureDateCol" minWidth="0.0" prefWidth="400.0" resizable="false" text="Date" />
                                                       <TableColumn fx:id="treatCourseDetProcedureTimeCol" prefWidth="400.0" resizable="false" text="Time" />
                                                       <TableColumn fx:id="treatCourseDetProcedureTypeCol" prefWidth="343.2" text="Type" />
