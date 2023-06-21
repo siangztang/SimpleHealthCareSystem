@@ -4,7 +4,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.example.Admin;
@@ -28,6 +31,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -35,6 +39,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class TreatmentCourseDetailsController {
@@ -516,6 +521,10 @@ public class TreatmentCourseDetailsController {
             SwitchPage.switchPage(event, managePatientBtn);
         });
 
+        treatCourseDetProcedureTimeBtn.setOnAction(event -> {
+            showTimePopup();
+        });
+
         diagnosisResetBtn.setOnAction(event -> {
             diagnosisResetBtnAction();
         });
@@ -982,4 +991,64 @@ public class TreatmentCourseDetailsController {
         treatCourseDetBloodAnalysisTable.setItems(bloodAnalysisListData);
 
     }
+
+    private Popup timePopup;
+
+    private void showTimePopup() {
+        if (timePopup == null) {
+            timePopup = new Popup();
+            timePopup.setAutoHide(true);
+
+            ListView<LocalTime> timeList = new ListView<>();
+            timeList.setPrefSize(100, 100);
+
+            List<LocalTime> times = new ArrayList<>();
+            times.add(LocalTime.of(0, 0));
+            times.add(LocalTime.of(1, 0));
+            times.add(LocalTime.of(2, 0));
+            times.add(LocalTime.of(3, 0));
+            times.add(LocalTime.of(4, 0));
+            times.add(LocalTime.of(5, 0));
+            times.add(LocalTime.of(6, 0));
+            times.add(LocalTime.of(7, 0));
+            times.add(LocalTime.of(8, 0));
+            times.add(LocalTime.of(9, 0));
+            times.add(LocalTime.of(10, 0));
+            times.add(LocalTime.of(11, 0));
+            times.add(LocalTime.of(12, 0));
+            times.add(LocalTime.of(13, 0));
+            times.add(LocalTime.of(14, 0));
+            times.add(LocalTime.of(15, 0));
+            times.add(LocalTime.of(16, 0));
+            times.add(LocalTime.of(17, 0));
+            times.add(LocalTime.of(18, 0));
+            times.add(LocalTime.of(19, 0));
+            times.add(LocalTime.of(20, 0));
+            times.add(LocalTime.of(21, 0));
+            times.add(LocalTime.of(22, 0));
+            times.add(LocalTime.of(23, 0));
+
+            timeList.getItems().addAll(times);
+            timeList.setOnMouseClicked(event -> {
+                LocalTime selectedTime = timeList.getSelectionModel().getSelectedItem();
+                setTime(selectedTime);
+                timePopup.hide();
+            });
+
+            timePopup.getContent().add(timeList);
+        }
+
+        double x = treatCourseDetProcedureTimeField.localToScreen(treatCourseDetProcedureTimeField.getBoundsInLocal()).getMinX();
+        double y = treatCourseDetProcedureTimeField.localToScreen(treatCourseDetProcedureTimeField.getBoundsInLocal()).getMaxY();
+        timePopup.show(treatCourseDetProcedureTimeField.getScene().getWindow(), x, y);
+
+    }
+
+    private void setTime(LocalTime time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String timeString = time.format(formatter);
+        treatCourseDetProcedureTimeField.setText(timeString);
+    }
 }
+
+    
