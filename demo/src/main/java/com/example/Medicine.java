@@ -14,6 +14,10 @@ public class Medicine {
         this.medicine_amount = medicine_amount;
     }
 
+    public Medicine(String medicine_name){
+        this.medicine_name = medicine_name;
+    }
+
     public String getMedicine_id() {
         return medicine_id;
     }

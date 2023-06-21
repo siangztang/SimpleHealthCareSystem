@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseDetailsController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseDetailsController">
    <children>
       <StackPane fx:id="treatment_course_details_page" prefHeight="150.0" prefWidth="200.0">
          <children>
@@ -134,7 +135,7 @@
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <TableView layoutX="15.0" layoutY="14.0" prefHeight="381.0" prefWidth="1000.0">
+                                                <TableView fx:id="treatCourseDetProcedureTable" layoutX="15.0" layoutY="14.0" prefHeight="381.0" prefWidth="1000.0">
                                                    <columns>
                                                       <TableColumn fx:id="treatCourseDetProcedureDateCol" minWidth="0.0" prefWidth="343.2" text="Date" />
                                                       <TableColumn fx:id="treatCourseDetProcedureTimeCol" prefWidth="343.2" text="Time" />
@@ -166,6 +167,14 @@
                                                       <Button id="delBtn" fx:id="procedureDeleteBtn" layoutX="770.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                                       <Button id="resetBtn" fx:id="procedureResetBtn" layoutX="917.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />
                                                       <Button id="addBtn" fx:id="procedureAddBtn" layoutX="587.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Add" />
+                                                      <Label layoutX="14.0" layoutY="128.0" text="Medicine: ">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <ComboBox fx:id="treatCourseDetProcedureMedicineChoice" layoutX="87.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
+                                                      <Button fx:id="treatCourseDetProcedureMedicineAddBtn" layoutX="274.0" layoutY="128.0" mnemonicParsing="false" text="Add Medicine" />
+                                                      <TextArea fx:id="treatCourseDetProcedureMedicineList" editable="false" layoutX="376.0" layoutY="8.0" prefHeight="77.0" prefWidth="608.0" />
                                                    </children>
                                                 </AnchorPane>
                                              </children>
@@ -185,7 +194,7 @@
                                                                   <TableView fx:id="treatCourseDetBloodAnalysisTable" layoutX="15.0" layoutY="5.0" prefHeight="381.0" prefWidth="1000.0">
                                                                     <columns>
                                                                         <TableColumn fx:id="treatCourseDetBloodAnalysisIDCol" prefWidth="75.0" text="ID" />
-                                                                        <TableColumn prefWidth="100.0" text="Date" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisDateCol" prefWidth="100.0" text="Date" />
                                                                       <TableColumn fx:id="treatCourseDetBloodAnalysisRedCellsCol" prefWidth="82.66665649414062" text="Red Cells" />
                                                                       <TableColumn fx:id="treatCourseDetBloodAnalysisHaemoglobinCol" prefWidth="100.0" text="Haemoglobin" />
                                                                         <TableColumn fx:id="treatCourseDetBloodAnalysisColorCol" prefWidth="90.0" text="Color" />
@@ -252,14 +261,14 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <DatePicker layoutX="118.0" layoutY="8.0" />
-                                                                        <TextField layoutX="118.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="118.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="118.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="415.0" layoutY="8.0" />
-                                                                        <TextField layoutX="415.0" layoutY="48.0" />
-                                                                        <TextField layoutX="415.0" layoutY="88.0" />
-                                                                        <TextField layoutX="415.0" layoutY="128.0" />
+                                                                        <DatePicker fx:id="treatCourseDetBloodAnalysisDateDateField" layoutX="118.0" layoutY="8.0" />
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisRedCellsField" layoutX="118.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisHaemoglobinField" layoutX="118.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisColorField" layoutX="118.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisWhiteCellsField" layoutX="415.0" layoutY="8.0" />
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisLymphocytesField" layoutX="415.0" layoutY="48.0" />
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisESRField" layoutX="415.0" layoutY="88.0" />
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisPlateletsField" layoutX="415.0" layoutY="128.0" />
                                                                         <Label layoutX="572.0" layoutY="48.0" text="Mean Corpuscular Haemoglobin: ">
                                                                            <font>
                                                                               <Font size="16.0" />
@@ -270,10 +279,10 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <TextField layoutX="816.0" layoutY="48.0" />
-                                                                        <TextField layoutX="816.0" layoutY="8.0" />
-                                                                        <TextField layoutX="816.0" layoutY="88.0" />
-                                                                        <ComboBox layoutX="118.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinField" layoutX="816.0" layoutY="48.0" />
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisMeanCorpuscularVolumeField" layoutX="816.0" layoutY="8.0" />
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisHaematocritField" layoutX="816.0" layoutY="88.0" />
+                                                                        <ComboBox fx:id="treatCourseDetBloodAnalysisParasitesField" layoutX="118.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <Button id="updateBtn" fx:id="bloodAnalysisUpdateBtn" layoutX="670.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                                                         <Button id="delBtn" fx:id="bloodAnalysisDeleteBtn" layoutX="761.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                                                         <Button id="resetBtn" fx:id="bloodAnalysisResetBtn" layoutX="908.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />
@@ -291,7 +300,7 @@
                                                                   <TableView fx:id="treatCourseDetRWAnalysisTable" layoutX="15.0" layoutY="5.0" prefHeight="381.0" prefWidth="1000.0">
                                                                      <columns>
                                                                         <TableColumn fx:id="treatCourseDetRWAnalysisIDCol" prefWidth="125.0" text="ID" />
-                                                                        <TableColumn prefWidth="100.0" text="Date" />
+                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisDateCol" prefWidth="100.0" text="Date" />
                                                                         <TableColumn fx:id="treatCourseDetRWAnalysisRWResultCol" prefWidth="125.0" text="RW Result" />
                                                                         <TableColumn fx:id="treatCourseDetRWAnalysisAidsDateCol" prefWidth="125.0" text="Aids Date" />
                                                                         <TableColumn fx:id="treatCourseDetRWAnalysisAidsResultCol" prefWidth="125.0" text="Aids Result" />
@@ -308,7 +317,7 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <DatePicker layoutX="127.0" layoutY="8.0" />
+                                                                        <DatePicker fx:id="treatCourseDetRWAnalysisDateField" layoutX="127.0" layoutY="8.0" />
                                                                         <Label layoutX="14.0" layoutY="48.0" text="RW Result">
                                                                            <font>
                                                                               <Font size="16.0" />
@@ -324,10 +333,10 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <TextField layoutX="127.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="444.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="127.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <DatePicker layoutX="126.0" layoutY="88.0" />
+                                                                        <TextField fx:id="treatCourseDetRWAnalysisRWResultField" layoutX="127.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetRWAnalysisSyphilisResultField" layoutX="444.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetRWAnalysisAidsResultField" layoutX="127.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <DatePicker fx:id="treatCourseDetRWAnalysisAidsDateField" layoutX="126.0" layoutY="88.0" />
                                                                         <Label layoutX="323.0" layoutY="8.0" text="Syphilis Date: ">
                                                                            <font>
                                                                               <Font size="16.0" />
@@ -343,14 +352,14 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label layoutX="323.0" layoutY="128.0" text="Syphilis Result: ">
+                                                                        <Label layoutX="323.0" layoutY="128.0" text="Hepatitis Result: ">
                                                                            <font>
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <DatePicker layoutX="444.0" layoutY="8.0" />
-                                                                        <DatePicker layoutX="444.0" layoutY="88.0" />
-                                                                        <TextField layoutX="444.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <DatePicker fx:id="treatCourseDetRWAnalysisSyphilisDateField" layoutX="444.0" layoutY="8.0" />
+                                                                        <DatePicker fx:id="treatCourseDetRWAnalysisHepatitisDateField" layoutX="444.0" layoutY="88.0" />
+                                                                        <TextField fx:id="treatCourseDetRWAnalysisHepatitisResultField" layoutX="444.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <Button id="updateBtn" fx:id="RWAnalysisUpdateBtn" layoutX="743.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                                                         <Button id="delBtn" fx:id="RWAnalysisDeleteBtn" layoutX="834.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                                                         <Button id="resetBtn" fx:id="RWAnalysisResetBtn" layoutX="926.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />
@@ -368,7 +377,8 @@
                                                                   <TableView fx:id="treatCourseDetBioBloodAnalysisTable" layoutX="15.0" layoutY="5.0" prefHeight="381.0" prefWidth="1000.0">
                                                                      <columns>
                                                                         <TableColumn fx:id="treatCourseDetBioBloodAnalysisIDCol" prefWidth="75.0" text="ID" />
-                                                                        <TableColumn prefWidth="100.0" text="Date" />
+                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisDateCol" prefWidth="100.0" text="Date" />
+                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisUrearCol" prefWidth="75.0" text="Urea" />
                                                                         <TableColumn fx:id="treatCourseDetBioBloodAnalysisCreatenineCol" prefWidth="72.0" text="Createnine" />
                                                                         <TableColumn fx:id="treatCourseDetBioBloodAnalysisSugarCol" prefWidth="70.0" text="Sugar" />
                                                                         <TableColumn fx:id="treatCourseDetBioBloodAnalysisBiluribinCol" prefWidth="71.99996948242188" text="Biluribin" />
@@ -389,7 +399,7 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <DatePicker layoutX="126.0" layoutY="8.0" />
+                                                                        <DatePicker fx:id="treatCourseDetBioBloodAnalysisDateField" layoutX="126.0" layoutY="8.0" />
                                                                         <Label layoutX="14.0" layoutY="48.0" text="Createnine: ">
                                                                            <font>
                                                                               <Font size="16.0" />
@@ -425,10 +435,10 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <TextField layoutX="126.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="126.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="126.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="126.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisCreatenineField" layoutX="126.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisSugarField" layoutX="126.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisBiluribinField" layoutX="126.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisDirectBiluribinField" layoutX="126.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <Label layoutX="323.0" layoutY="128.0" text="Triglycerides: ">
                                                                            <font>
                                                                               <Font size="16.0" />
@@ -439,11 +449,11 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <TextField layoutX="420.0" layoutY="8.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="420.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="420.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="420.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="420.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisASTField" layoutX="420.0" layoutY="8.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisALTField" layoutX="420.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisCholesterolField" layoutX="420.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisTriglyceridesField" layoutX="420.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisHDLField" layoutX="420.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <Label layoutX="613.0" layoutY="8.0" text="LDL: ">
                                                                            <font>
                                                                               <Font size="16.0" />
@@ -454,8 +464,8 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <TextField layoutX="767.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="767.0" layoutY="8.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisAkalinePhospataseField" layoutX="767.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisLDLField" layoutX="767.0" layoutY="8.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <Button id="updateBtn" fx:id="bioBloodAnalysisUpdateBtn" layoutX="733.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                                                         <Button id="delBtn" fx:id="bioBloodAnalysisDeleteBtn" layoutX="824.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                                                         <Button id="resetBtn" fx:id="bioBloodAnalysisResetBtn" layoutX="916.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />
@@ -472,7 +482,7 @@
                                                                   <TableView fx:id="treatCourseDetUrineAnalysisTable" layoutX="15.0" layoutY="5.0" prefHeight="381.0" prefWidth="1000.0">
                                                                      <columns>
                                                                         <TableColumn fx:id="treatCourseDetUrineAnalysisIDCol" prefWidth="100.0" text="ID" />
-                                                                        <TableColumn prefWidth="100.0" text="Date" />
+                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisDateCol" prefWidth="100.0" text="Date" />
                                                                         <TableColumn fx:id="treatCourseDetUrineAnalysisColorCol" prefWidth="100.0" text="Color" />
                                                                         <TableColumn fx:id="treatCourseDetUrineAnalysisReactionCol" prefWidth="100.0" text="Reaction" />
                                                                         <TableColumn fx:id="treatCourseDetUrineAnalysisTransparencyCol" prefWidth="100.0" text="Transparency" />
@@ -521,31 +531,25 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label layoutX="327.0" layoutY="129.0" text="Ketones: ">
+                                                                        <Label layoutX="327.0" layoutY="88.0" text="Ketones: ">
                                                                            <font>
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label layoutX="327.0" layoutY="169.0" text="Nitrites: ">
+                                                                        <Label layoutX="327.0" layoutY="128.0" text="Nitrites: ">
                                                                            <font>
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label layoutX="327.0" layoutY="89.0" text="Reaction: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <DatePicker layoutX="141.0" layoutY="8.0" />
-                                                                        <TextField layoutX="141.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="141.0" layoutY="87.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="141.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="141.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="396.0" layoutY="8.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="396.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="396.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="396.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField layoutX="396.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <DatePicker fx:id="treatCourseDetUrineAnalysisDateField" layoutX="141.0" layoutY="8.0" />
+                                                                        <TextField fx:id="treatCourseDetUrineAnalysisColorField" layoutX="141.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetUrineAnalysisReactionField" layoutX="141.0" layoutY="87.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetUrineAnalysisTransparencyField" layoutX="141.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetUrineAnalysisDensityField" layoutX="141.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetUrineAnalysisProteinField" layoutX="396.0" layoutY="8.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetUrineAnalysisGlucoseField" layoutX="396.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetUrineAnalysisKetonesField" layoutX="396.0" layoutY="87.0" prefHeight="25.0" prefWidth="173.0" />
+                                                                        <TextField fx:id="treatCourseDetUrineAnalysisNitritesField" layoutX="396.0" layoutY="127.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <Button id="updateBtn" fx:id="urineAnalysisUpdateBtn" layoutX="673.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                                                         <Button id="delBtn" fx:id="urineAnalysisDeleteBtn" layoutX="764.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                                                         <Button id="resetBtn" fx:id="urineAnalysisResetBtn" layoutX="911.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />

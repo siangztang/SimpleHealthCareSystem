@@ -1,17 +1,15 @@
 package com.example;
 
-import java.util.Date;
-
 public class Diagnosis{
 
     private String diagnosis_id;
     private String diagnosis_name;
-    private Date diagnosis_date;
+    private String diagnosis_date;
     private String doctor_name;
     private String treatment_plan;
     private String treatment_course_id;
 
-    public Diagnosis(String diagnosis_id, String diagnosis_name, Date diagnosis_date, String doctor_name, String treatment_plan, String treatment_course_id) {
+    public Diagnosis(String diagnosis_id, String diagnosis_name, String diagnosis_date, String doctor_name, String treatment_plan, String treatment_course_id) {
         this.treatment_course_id = treatment_course_id;
         this.diagnosis_id = diagnosis_id;
         this.diagnosis_name = diagnosis_name;
@@ -28,7 +26,7 @@ public class Diagnosis{
         return diagnosis_name;
     }
 
-    public Date getDiagnosis_date() {
+    public String getDiagnosis_date() {
         return diagnosis_date;
     }
 

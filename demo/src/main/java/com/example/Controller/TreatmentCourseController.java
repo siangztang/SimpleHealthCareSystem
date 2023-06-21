@@ -110,7 +110,6 @@ public class TreatmentCourseController {
             resetBtnAction();
         });
 
-        treatmentCourseTable.getColumns().forEach(e -> e.setReorderable(false));
         unFocusAll();
 
         treatmentCourseTable.getColumns().forEach(e -> e.setReorderable(false));
@@ -138,8 +137,8 @@ public class TreatmentCourseController {
                         Stage stage = new Stage();
                         stage.setScene(scene);
                         stage.show();
-                        // TreatmentCourseDetailsController controller = loader.getController();
-                        // controller.initData(admin, pat_id, selectedTreatmentCourse.getHistory_id());
+                        TreatmentCourseDetailsController controller = loader.getController();
+                        controller.initData(admin, patient_info, selectedTreatmentCourse.getHistory_id(), selectedTreatmentCourse.getTreatment_course_id());
                         Node node = (Node) event.getSource();
                         Stage currentStage = (Stage) node.getScene().getWindow();
                         currentStage.close();
@@ -155,12 +154,12 @@ public class TreatmentCourseController {
 
     }
     
-    // private Admin admin;
-    // private Patient patient_info;
+    private Admin admin;
+    private Patient patient_info;
 
     public void initData(Admin admin, Patient patient_info, String history_id){
-        // this.admin = admin;
-        // this.patient_info = patient_info;
+        this.admin = admin;
+        this.patient_info = patient_info;
         patInfoID.setText(patient_info.getPatient_id());
         patInfoName.setText(patient_info.getName());
         patInfoAge.setText(String.valueOf(patient_info.getAge()));
@@ -203,5 +202,7 @@ public class TreatmentCourseController {
         treatmentCourseTable.setItems(listData);
 
     }
+
+    
 
 }
