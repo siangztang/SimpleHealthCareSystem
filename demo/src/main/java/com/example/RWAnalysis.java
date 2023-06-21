@@ -13,14 +13,17 @@ public class RWAnalysis extends Analysis{
         this.aids_result = aids_result;
     }
 
+    // positive or negative
     public String getRw_result() {
         return rw_result;
     }
 
+    // date
     public String getAdis_date() {
         return adis_date;
     }
 
+    // postive or false_positive or negative
     public String getAids_result() {
         return aids_result;
     }

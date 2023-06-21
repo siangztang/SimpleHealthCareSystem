@@ -2,37 +2,41 @@ package com.example;
 
 public class BioBloodAnalysis extends Analysis{
     
-    private double urea;
+    private int urea;
     private double createnine;
-    private double sigar;
+    private int sugar;
     private double biluribin;
     private double direct_biluribin;
-    private double AST;
-    private double ALT;
+    private int AST;
+    private int ALT;
 
-    public BioBloodAnalysis(String analysis_id, String analysis_date, double urea, double createnine, double sigar, double biluribin, double direct_biluribin, double AST, double ALT){
+    public BioBloodAnalysis(String analysis_id, String analysis_date, int urea, double createnine, int sugar, double biluribin, double direct_biluribin, int AST, int ALT){
         super(analysis_id, analysis_date);
         this.urea = urea;
         this.createnine = createnine;
-        this.sigar = sigar;
+        this.sugar = sugar;
         this.biluribin = biluribin;
         this.direct_biluribin = direct_biluribin;
         this.AST = AST;
         this.ALT = ALT;
     }
-
-    public double getUrea(){
+    
+    // Normal range: Approximately 7-25 mg/dL
+    public int getUrea(){
         return urea;
     }
 
+    // Normal range: Approximately 0.6-1.2 mg/dL for females and 0.7-1.3 mg/dL for males
     public double getCreatenine(){
         return createnine;
     }
 
-    public double getSigar(){
-        return sigar;
+    // 70 and 100 mg/dL
+    public int getSugar(){
+        return sugar;
     }
 
+    // Normal range: Total bilirubin: Approximately 0.1-1.2 mg/dL; Direct bilirubin: Approximately 0.1-0.3 mg/dL
     public double getBiluribin(){
         return biluribin;
     }
@@ -41,11 +45,13 @@ public class BioBloodAnalysis extends Analysis{
         return direct_biluribin;
     }
 
-    public double getAST(){
+    // Normal range: Typically below 40 IU/L
+    public int getAST(){
         return AST;
     }
 
-    public double getALT(){
+    // Normal range: Typically below 40 IU/L
+    public int getALT(){
         return ALT;
     }
 }

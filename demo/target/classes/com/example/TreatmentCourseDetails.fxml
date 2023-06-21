@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseDetailsController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseDetailsController">
    <children>
       <StackPane fx:id="treatment_course_details_page" prefHeight="150.0" prefWidth="200.0">
          <children>
@@ -89,10 +89,10 @@
                                              <children>
                                                 <TableView fx:id="treatCourseDetDiagnosisTable" layoutX="15.0" layoutY="14.0" prefHeight="381.0" prefWidth="1000.0">
                                                   <columns>
-                                                      <TableColumn fx:id="treatCourseDetDiagnosisNameCol1" prefWidth="75.0" text="Diagnosis ID" />
-                                                   <TableColumn fx:id="treatCourseDetDiagnosisNameCol" prefWidth="441.0" text="Diagnosis Name" />
-                                                   <TableColumn fx:id="treatCourseDetDiagnosisDiagDateCol" minWidth="0.0" prefWidth="128.0" text="Diagnosed Date" />
-                                                   <TableColumn fx:id="treatCourseDetDiagnosisDocNameCol" prefWidth="277.0" text="Doctor Name" />
+                                                      <TableColumn fx:id="treatCourseDetDiagnosisNameCol1" prefWidth="100.0" text="Diagnosis ID" />
+                                                   <TableColumn fx:id="treatCourseDetDiagnosisNameCol" prefWidth="300.0" text="Diagnosis Name" />
+                                                   <TableColumn fx:id="treatCourseDetDiagnosisDiagDateCol" minWidth="0.0" prefWidth="300.0" text="Diagnosed Date" />
+                                                   <TableColumn fx:id="treatCourseDetDiagnosisDocNameCol" prefWidth="300.0" text="Doctor Name" />
                                                    <TableColumn fx:id="treatCourseDetDiagnosisTreatPlanCol" prefWidth="364.66670735677076" text="Treatment Plan" />
                                                   </columns>
                                                 </TableView>
@@ -138,9 +138,9 @@
                                              <children>
                                                 <TableView fx:id="treatCourseDetProcedureTable" layoutX="15.0" layoutY="14.0" prefHeight="381.0" prefWidth="1000.0">
                                                    <columns>
-                                                      <TableColumn fx:id="treatCourseDetProcedureDateCol1" minWidth="0.0" prefWidth="78.0" text="Procedure ID" />
-                                                      <TableColumn fx:id="treatCourseDetProcedureDateCol" minWidth="0.0" prefWidth="610.0" text="Date" />
-                                                      <TableColumn fx:id="treatCourseDetProcedureTimeCol" prefWidth="343.2" text="Time" />
+                                                      <TableColumn fx:id="treatCourseDetProcedureDateCol1" minWidth="0.0" prefWidth="200.0" text="Procedure ID" />
+                                                      <TableColumn fx:id="treatCourseDetProcedureDateCol" minWidth="0.0" prefWidth="400.0" text="Date" />
+                                                      <TableColumn fx:id="treatCourseDetProcedureTimeCol" prefWidth="400.0" text="Time" />
                                                       <TableColumn fx:id="treatCourseDetProcedureTypeCol" prefWidth="343.2" text="Type" />
                                                    </columns>
                                                 </TableView>
@@ -195,20 +195,16 @@
                                                                <children>
                                                                   <TableView fx:id="treatCourseDetBloodAnalysisTable" layoutX="15.0" layoutY="5.0" prefHeight="381.0" prefWidth="1000.0">
                                                                     <columns>
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisIDCol" prefWidth="75.0" text="ID" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisDateCol" prefWidth="100.0" text="Date" />
-                                                                      <TableColumn fx:id="treatCourseDetBloodAnalysisRedCellsCol" prefWidth="82.66665649414062" text="Red Cells" />
-                                                                      <TableColumn fx:id="treatCourseDetBloodAnalysisHaemoglobinCol" prefWidth="100.0" text="Haemoglobin" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisColorCol" prefWidth="90.0" text="Color" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisParasitesCol" prefWidth="75.0" text="Parasites" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisWhiteCellsCol" text="White Cells" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisIDCol" prefWidth="111.0" text="ID" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisDateCol" prefWidth="111.0" text="Date" />
+                                                                      <TableColumn fx:id="treatCourseDetBloodAnalysisRedCellsCol" prefWidth="111.0" text="Red Cells" />
+                                                                      <TableColumn fx:id="treatCourseDetBloodAnalysisHaemoglobinCol" prefWidth="111.0" text="Haemoglobin" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisColorCol" prefWidth="111.0" text="Color" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisParasitesCol" prefWidth="111.0" text="Parasites" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisWhiteCellsCol" prefWidth="111.0" text="White Cells" />
                                                                         <TableColumn fx:id="treatCourseDetBloodAnalysisStabNeuthrophilCol" minWidth="0.66668701171875" prefWidth="0.66668701171875" text="Stab Neuthrophil" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisLymphocytesCol" text="Lymphocytes" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisESRCol" minWidth="0.0" prefWidth="41.33331298828125" text="ESR" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisPlateletsCol" minWidth="0.0" prefWidth="61.3333740234375" text="Platelets" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisMeanCorpuscularVolumeCol" minWidth="0.0" prefWidth="160.0" text="Mean Corpuscular Volume" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinCol" prefWidth="200.0" text="Mean Corpuscular Haemoglobin" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisHaematocritCol" prefWidth="75.0" text="Haematocrit" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisLymphocytesCol" prefWidth="111.0" text="Lymphocytes" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisESRCol" minWidth="0.0" prefWidth="111.0" text="ESR" />
                                                                     </columns>
                                                                   </TableView>
                                                                   <AnchorPane layoutX="15.0" layoutY="386.0" prefHeight="200.0" prefWidth="1000.0">
@@ -253,16 +249,6 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label layoutX="314.0" layoutY="128.0" text="Platelets: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label layoutX="572.0" layoutY="8.0" text="Mean Corpuscular Volume: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
                                                                         <DatePicker fx:id="treatCourseDetBloodAnalysisDateDateField" layoutX="118.0" layoutY="8.0" />
                                                                         <TextField fx:id="treatCourseDetBloodAnalysisRedCellsField" layoutX="118.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <TextField fx:id="treatCourseDetBloodAnalysisHaemoglobinField" layoutX="118.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
@@ -270,20 +256,6 @@
                                                                         <TextField fx:id="treatCourseDetBloodAnalysisWhiteCellsField" layoutX="415.0" layoutY="8.0" />
                                                                         <TextField fx:id="treatCourseDetBloodAnalysisLymphocytesField" layoutX="415.0" layoutY="48.0" />
                                                                         <TextField fx:id="treatCourseDetBloodAnalysisESRField" layoutX="415.0" layoutY="88.0" />
-                                                                        <TextField fx:id="treatCourseDetBloodAnalysisPlateletsField" layoutX="415.0" layoutY="128.0" />
-                                                                        <Label layoutX="572.0" layoutY="48.0" text="Mean Corpuscular Haemoglobin: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label layoutX="572.0" layoutY="88.0" text="Haematocrit: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <TextField fx:id="treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinField" layoutX="816.0" layoutY="48.0" />
-                                                                        <TextField fx:id="treatCourseDetBloodAnalysisMeanCorpuscularVolumeField" layoutX="816.0" layoutY="8.0" />
-                                                                        <TextField fx:id="treatCourseDetBloodAnalysisHaematocritField" layoutX="816.0" layoutY="88.0" />
                                                                         <ComboBox fx:id="treatCourseDetBloodAnalysisParasitesField" layoutX="118.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <Button id="updateBtn" fx:id="bloodAnalysisUpdateBtn" layoutX="670.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                                                         <Button id="delBtn" fx:id="bloodAnalysisDeleteBtn" layoutX="761.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
@@ -302,14 +274,10 @@
                                                                   <TableView fx:id="treatCourseDetRWAnalysisTable" layoutX="15.0" layoutY="5.0" prefHeight="381.0" prefWidth="1000.0">
                                                                      <columns>
                                                                         <TableColumn fx:id="treatCourseDetRWAnalysisIDCol" prefWidth="125.0" text="ID" />
-                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisDateCol" prefWidth="100.0" text="Date" />
-                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisRWResultCol" prefWidth="125.0" text="RW Result" />
-                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisAidsDateCol" prefWidth="125.0" text="Aids Date" />
-                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisAidsResultCol" prefWidth="125.0" text="Aids Result" />
-                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisSyphilisDateCol" prefWidth="125.0" text="Syphilis Date" />
-                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisSyphilisResultCol" prefWidth="125.0" text="Syphilis Result" />
-                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisHepatitisDateCol" prefWidth="125.0" text="Hepatitis Date" />
-                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisHepatitisResultCol" prefWidth="125.0" text="Hepatitis Result" />
+                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisDateCol" prefWidth="125.0" text="Date" />
+                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisRWResultCol" prefWidth="250.0" text="RW Result" />
+                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisAidsDateCol" prefWidth="250.0" text="Aids Date" />
+                                                                        <TableColumn fx:id="treatCourseDetRWAnalysisAidsResultCol" prefWidth="250.0" text="Aids Result" />
                                                                      </columns>
                                                                   </TableView>
                                                                   <AnchorPane layoutX="15.0" layoutY="391.0" prefHeight="200.0" prefWidth="1000.0">
@@ -336,32 +304,8 @@
                                                                            </font>
                                                                         </Label>
                                                                         <TextField fx:id="treatCourseDetRWAnalysisRWResultField" layoutX="127.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField fx:id="treatCourseDetRWAnalysisSyphilisResultField" layoutX="444.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <TextField fx:id="treatCourseDetRWAnalysisAidsResultField" layoutX="127.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <DatePicker fx:id="treatCourseDetRWAnalysisAidsDateField" layoutX="126.0" layoutY="88.0" />
-                                                                        <Label layoutX="323.0" layoutY="8.0" text="Syphilis Date: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label layoutX="323.0" layoutY="48.0" text="Syphilis Result: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label layoutX="323.0" layoutY="88.0" text="Hepatitis Date: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label layoutX="323.0" layoutY="128.0" text="Hepatitis Result: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <DatePicker fx:id="treatCourseDetRWAnalysisSyphilisDateField" layoutX="444.0" layoutY="8.0" />
-                                                                        <DatePicker fx:id="treatCourseDetRWAnalysisHepatitisDateField" layoutX="444.0" layoutY="88.0" />
-                                                                        <TextField fx:id="treatCourseDetRWAnalysisHepatitisResultField" layoutX="444.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <Button id="updateBtn" fx:id="RWAnalysisUpdateBtn" layoutX="743.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                                                         <Button id="delBtn" fx:id="RWAnalysisDeleteBtn" layoutX="834.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                                                         <Button id="resetBtn" fx:id="RWAnalysisResetBtn" layoutX="926.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />
@@ -378,20 +322,15 @@
                                                                <children>
                                                                   <TableView fx:id="treatCourseDetBioBloodAnalysisTable" layoutX="15.0" layoutY="5.0" prefHeight="381.0" prefWidth="1000.0">
                                                                      <columns>
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisIDCol" prefWidth="75.0" text="ID" />
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisDateCol" prefWidth="100.0" text="Date" />
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisUrearCol" prefWidth="75.0" text="Urea" />
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisCreatenineCol" prefWidth="72.0" text="Createnine" />
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisSugarCol" prefWidth="70.0" text="Sugar" />
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisBiluribinCol" prefWidth="71.99996948242188" text="Biluribin" />
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisDirectBiluribinCol" prefWidth="111.33331298828125" text="Direct Biluribin" />
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisASTCol" prefWidth="70.0" text="AST" />
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisALTCol" prefWidth="70.0" text="ALT" />
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisCholesterolCol" prefWidth="91.3333740234375" text="Cholesterol" />
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisTriglyceridesCol" prefWidth="107.99993896484375" text="Triglycerides" />
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisHDLCol" prefWidth="70.0" text="HDL" />
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisLDLCol" prefWidth="70.0" text="LDL" />
-                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisAkalinePhospataseCol" prefWidth="117.3333740234375" text="Akaline Phospatase" />
+                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisIDCol" prefWidth="111.0" text="ID" />
+                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisDateCol" prefWidth="111.0" text="Date" />
+                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisUrearCol" prefWidth="111.0" text="Urea" />
+                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisCreatenineCol" prefWidth="111.0" text="Createnine" />
+                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisSugarCol" prefWidth="111.0" text="Sugar" />
+                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisBiluribinCol" prefWidth="111.0" text="Biluribin" />
+                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisDirectBiluribinCol" prefWidth="111.0" text="Direct Biluribin" />
+                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisASTCol" prefWidth="111.0" text="AST" />
+                                                                        <TableColumn fx:id="treatCourseDetBioBloodAnalysisALTCol" prefWidth="111.0" text="ALT" />
                                                                      </columns>
                                                                   </TableView>
                                                                   <AnchorPane layoutX="15.0" layoutY="391.0" prefHeight="200.0" prefWidth="1000.0">
@@ -408,11 +347,6 @@
                                                                            </font>
                                                                         </Label>
                                                                         <Label layoutX="14.0" layoutY="128.0" text="Biluribin: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label layoutX="323.0" layoutY="88.0" text="Cholesterol: ">
                                                                            <font>
                                                                               <Font size="16.0" />
                                                                            </font>
@@ -441,33 +375,8 @@
                                                                         <TextField fx:id="treatCourseDetBioBloodAnalysisSugarField" layoutX="126.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <TextField fx:id="treatCourseDetBioBloodAnalysisBiluribinField" layoutX="126.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <TextField fx:id="treatCourseDetBioBloodAnalysisDirectBiluribinField" layoutX="126.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <Label layoutX="323.0" layoutY="128.0" text="Triglycerides: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label layoutX="323.0" layoutY="168.0" text="HDL: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
                                                                         <TextField fx:id="treatCourseDetBioBloodAnalysisASTField" layoutX="420.0" layoutY="8.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <TextField fx:id="treatCourseDetBioBloodAnalysisALTField" layoutX="420.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisCholesterolField" layoutX="420.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisTriglyceridesField" layoutX="420.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisHDLField" layoutX="420.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <Label layoutX="613.0" layoutY="8.0" text="LDL: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label layoutX="613.0" layoutY="48.0" text="Akaline Phospatase: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisAkalinePhospataseField" layoutX="767.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField fx:id="treatCourseDetBioBloodAnalysisLDLField" layoutX="767.0" layoutY="8.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <Button id="updateBtn" fx:id="bioBloodAnalysisUpdateBtn" layoutX="733.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                                                         <Button id="delBtn" fx:id="bioBloodAnalysisDeleteBtn" layoutX="824.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                                                         <Button id="resetBtn" fx:id="bioBloodAnalysisResetBtn" layoutX="916.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />
@@ -485,15 +394,10 @@
                                                                      <columns>
                                                                         <TableColumn fx:id="treatCourseDetUrineAnalysisIDCol" prefWidth="100.0" text="ID" />
                                                                         <TableColumn fx:id="treatCourseDetUrineAnalysisDateCol" prefWidth="100.0" text="Date" />
-                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisColorCol" prefWidth="100.0" text="Color" />
-                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisReactionCol" prefWidth="100.0" text="Reaction" />
-                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisTransparencyCol" prefWidth="100.0" text="Transparency" />
-                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisDensityCol" prefWidth="100.0" text="Density" />
-                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisProteinCol" prefWidth="100.0" text="Protein" />
-                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisGlucoseCol" prefWidth="100.0" text="Glucose" />
-                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisKetonesCol" prefWidth="100.0" text="Ketones" />
-                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisNitritesCol" prefWidth="100.0" text="Nitrites" />
-                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisLeukocytesCol" prefWidth="100.0" text="Leukocytes" />
+                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisColorCol" prefWidth="200.0" text="Color" />
+                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisReactionCol" prefWidth="200.0" text="Reaction" />
+                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisTransparencyCol" prefWidth="200.0" text="Transparency" />
+                                                                        <TableColumn fx:id="treatCourseDetUrineAnalysisDensityCol" prefWidth="200.0" text="Density" />
                                                                      </columns>
                                                                   </TableView>
                                                                   <AnchorPane layoutX="14.0" layoutY="391.0" prefHeight="200.0" prefWidth="1000.0">
@@ -523,35 +427,11 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label layoutX="327.0" layoutY="9.0" text="Protein: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label layoutX="327.0" layoutY="49.0" text="Glucose: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label layoutX="327.0" layoutY="88.0" text="Ketones: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label layoutX="327.0" layoutY="128.0" text="Nitrites: ">
-                                                                           <font>
-                                                                              <Font size="16.0" />
-                                                                           </font>
-                                                                        </Label>
                                                                         <DatePicker fx:id="treatCourseDetUrineAnalysisDateField" layoutX="141.0" layoutY="8.0" />
                                                                         <TextField fx:id="treatCourseDetUrineAnalysisColorField" layoutX="141.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <TextField fx:id="treatCourseDetUrineAnalysisReactionField" layoutX="141.0" layoutY="87.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <TextField fx:id="treatCourseDetUrineAnalysisTransparencyField" layoutX="141.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <TextField fx:id="treatCourseDetUrineAnalysisDensityField" layoutX="141.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField fx:id="treatCourseDetUrineAnalysisProteinField" layoutX="396.0" layoutY="8.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField fx:id="treatCourseDetUrineAnalysisGlucoseField" layoutX="396.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField fx:id="treatCourseDetUrineAnalysisKetonesField" layoutX="396.0" layoutY="87.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField fx:id="treatCourseDetUrineAnalysisNitritesField" layoutX="396.0" layoutY="127.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <Button id="updateBtn" fx:id="urineAnalysisUpdateBtn" layoutX="673.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                                                         <Button id="delBtn" fx:id="urineAnalysisDeleteBtn" layoutX="764.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                                                         <Button id="resetBtn" fx:id="urineAnalysisResetBtn" layoutX="911.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />

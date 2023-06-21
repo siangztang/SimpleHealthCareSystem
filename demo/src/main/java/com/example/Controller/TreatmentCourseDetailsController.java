@@ -2,13 +2,11 @@ package com.example.Controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import com.example.Admin;
 import com.example.BioBloodAnalysis;
@@ -43,12 +41,6 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class TreatmentCourseDetailsController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button RWAnalysisAddBtn;
@@ -141,22 +133,16 @@ public class TreatmentCourseDetailsController {
     private Tab treatCourseDetAnalysisTab;
 
     @FXML
-    private TableColumn<BioBloodAnalysis, Double> treatCourseDetBioBloodAnalysisALTCol;
+    private TableColumn<BioBloodAnalysis, Integer> treatCourseDetBioBloodAnalysisALTCol;
 
     @FXML
     private TextField treatCourseDetBioBloodAnalysisALTField;
 
     @FXML
-    private TableColumn<BioBloodAnalysis, Double> treatCourseDetBioBloodAnalysisASTCol;
+    private TableColumn<BioBloodAnalysis, Integer> treatCourseDetBioBloodAnalysisASTCol;
 
     @FXML
     private TextField treatCourseDetBioBloodAnalysisASTField;
-
-    @FXML
-    private TableColumn<BioBloodAnalysis, Double> treatCourseDetBioBloodAnalysisAkalinePhospataseCol;
-
-    @FXML
-    private TextField treatCourseDetBioBloodAnalysisAkalinePhospataseField;
 
     @FXML
     private TableColumn<BioBloodAnalysis, Double> treatCourseDetBioBloodAnalysisBiluribinCol;
@@ -165,19 +151,13 @@ public class TreatmentCourseDetailsController {
     private TextField treatCourseDetBioBloodAnalysisBiluribinField;
 
     @FXML
-    private TableColumn<BioBloodAnalysis, Double> treatCourseDetBioBloodAnalysisCholesterolCol;
-
-    @FXML
-    private TextField treatCourseDetBioBloodAnalysisCholesterolField;
-
-    @FXML
     private TableColumn<BioBloodAnalysis, Double> treatCourseDetBioBloodAnalysisCreatenineCol;
 
     @FXML
-    private TableColumn<BioBloodAnalysis, Double> treatCourseDetBioBloodAnalysisDateCol;
+    private TextField treatCourseDetBioBloodAnalysisCreatenineField;
 
     @FXML
-    private TextField treatCourseDetBioBloodAnalysisCreatenineField;
+    private TableColumn<BioBloodAnalysis, String> treatCourseDetBioBloodAnalysisDateCol;
 
     @FXML
     private DatePicker treatCourseDetBioBloodAnalysisDateField;
@@ -189,22 +169,10 @@ public class TreatmentCourseDetailsController {
     private TextField treatCourseDetBioBloodAnalysisDirectBiluribinField;
 
     @FXML
-    private TableColumn<BioBloodAnalysis, Double> treatCourseDetBioBloodAnalysisHDLCol;
+    private TableColumn<BioBloodAnalysis, String> treatCourseDetBioBloodAnalysisIDCol;
 
     @FXML
-    private TextField treatCourseDetBioBloodAnalysisHDLField;
-
-    @FXML
-    private TableColumn<BioBloodAnalysis, Double> treatCourseDetBioBloodAnalysisIDCol;
-
-    @FXML
-    private TableColumn<BioBloodAnalysis, Double> treatCourseDetBioBloodAnalysisLDLCol;
-
-    @FXML
-    private TextField treatCourseDetBioBloodAnalysisLDLField;
-
-    @FXML
-    private TableColumn<BioBloodAnalysis, Double> treatCourseDetBioBloodAnalysisSugarCol;
+    private TableColumn<BioBloodAnalysis, Integer> treatCourseDetBioBloodAnalysisSugarCol;
 
     @FXML
     private TextField treatCourseDetBioBloodAnalysisSugarField;
@@ -216,13 +184,7 @@ public class TreatmentCourseDetailsController {
     private TableView<BioBloodAnalysis> treatCourseDetBioBloodAnalysisTable;
 
     @FXML
-    private TableColumn<BioBloodAnalysis, Double> treatCourseDetBioBloodAnalysisTriglyceridesCol;
-
-    @FXML
-    private TextField treatCourseDetBioBloodAnalysisTriglyceridesField;
-
-    @FXML
-    private TableColumn<BioBloodAnalysis, Double> treatCourseDetBioBloodAnalysisUrearCol;
+    private TableColumn<BioBloodAnalysis, Integer> treatCourseDetBioBloodAnalysisUrearCol;
 
     @FXML
     private TableColumn<BloodAnalysis, String> treatCourseDetBloodAnalysisColorCol;
@@ -234,9 +196,6 @@ public class TreatmentCourseDetailsController {
     private TableColumn<BloodAnalysis, String> treatCourseDetBloodAnalysisDateCol;
 
     @FXML
-    private TableColumn<UrineAnalysis, String> treatCourseDetUrineAnalysisDateCol;
-
-    @FXML
     private DatePicker treatCourseDetBloodAnalysisDateDateField;
 
     @FXML
@@ -244,12 +203,6 @@ public class TreatmentCourseDetailsController {
 
     @FXML
     private TextField treatCourseDetBloodAnalysisESRField;
-
-    @FXML
-    private TableColumn<BloodAnalysis, Double> treatCourseDetBloodAnalysisHaematocritCol;
-
-    @FXML
-    private TextField treatCourseDetBloodAnalysisHaematocritField;
 
     @FXML
     private TableColumn<BloodAnalysis, Double> treatCourseDetBloodAnalysisHaemoglobinCol;
@@ -267,31 +220,13 @@ public class TreatmentCourseDetailsController {
     private TextField treatCourseDetBloodAnalysisLymphocytesField;
 
     @FXML
-    private TableColumn<BloodAnalysis, Double> treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinCol;
-
-    @FXML
-    private TextField treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinField;
-
-    @FXML
-    private TableColumn<BloodAnalysis, Double> treatCourseDetBloodAnalysisMeanCorpuscularVolumeCol;
-
-    @FXML
-    private TextField treatCourseDetBloodAnalysisMeanCorpuscularVolumeField;
-
-    @FXML
-    private TableColumn<BloodAnalysis, Boolean> treatCourseDetBloodAnalysisParasitesCol;
+    private TableColumn<BloodAnalysis, String> treatCourseDetBloodAnalysisParasitesCol;
 
     @FXML
     private ComboBox<String> treatCourseDetBloodAnalysisParasitesField;
 
     @FXML
-    private TableColumn<BloodAnalysis, Integer> treatCourseDetBloodAnalysisPlateletsCol;
-
-    @FXML
-    private TextField treatCourseDetBloodAnalysisPlateletsField;
-
-    @FXML
-    private TableColumn<BloodAnalysis, Integer> treatCourseDetBloodAnalysisRedCellsCol;
+    private TableColumn<BloodAnalysis, Double> treatCourseDetBloodAnalysisRedCellsCol;
 
     @FXML
     private TextField treatCourseDetBloodAnalysisRedCellsField;
@@ -327,6 +262,9 @@ public class TreatmentCourseDetailsController {
     private TableColumn<Diagnosis, String> treatCourseDetDiagnosisNameCol;
 
     @FXML
+    private TableColumn<Diagnosis, String> treatCourseDetDiagnosisNameCol1;
+
+    @FXML
     private TextField treatCourseDetDiagnosisNameField;
 
     @FXML
@@ -345,13 +283,16 @@ public class TreatmentCourseDetailsController {
     private TableColumn<Procedure, String> treatCourseDetProcedureDateCol;
 
     @FXML
+    private TableColumn<Procedure, String> treatCourseDetProcedureDateCol1;
+
+    @FXML
     private DatePicker treatCourseDetProcedureDateField;
 
     @FXML
     private Button treatCourseDetProcedureMedicineAddBtn;
 
     @FXML
-    private ComboBox<?> treatCourseDetProcedureMedicineChoice;
+    private ComboBox<String> treatCourseDetProcedureMedicineChoice;
 
     @FXML
     private TextArea treatCourseDetProcedureMedicineList;
@@ -387,25 +328,13 @@ public class TreatmentCourseDetailsController {
     private TableColumn<RWAnalysis, String> treatCourseDetRWAnalysisAidsResultCol;
 
     @FXML
-    private TableColumn<RWAnalysis, String> treatCourseDetRWAnalysisDateCol;
-
-    @FXML
     private TextField treatCourseDetRWAnalysisAidsResultField;
 
     @FXML
+    private TableColumn<RWAnalysis, String> treatCourseDetRWAnalysisDateCol;
+
+    @FXML
     private DatePicker treatCourseDetRWAnalysisDateField;
-
-    @FXML
-    private TableColumn<RWAnalysis, String> treatCourseDetRWAnalysisHepatitisDateCol;
-
-    @FXML
-    private DatePicker treatCourseDetRWAnalysisHepatitisDateField;
-
-    @FXML
-    private TableColumn<RWAnalysis, String> treatCourseDetRWAnalysisHepatitisResultCol;
-
-    @FXML
-    private TextField treatCourseDetRWAnalysisHepatitisResultField;
 
     @FXML
     private TableColumn<RWAnalysis, String> treatCourseDetRWAnalysisIDCol;
@@ -415,18 +344,6 @@ public class TreatmentCourseDetailsController {
 
     @FXML
     private TextField treatCourseDetRWAnalysisRWResultField;
-
-    @FXML
-    private TableColumn<RWAnalysis, String> treatCourseDetRWAnalysisSyphilisDateCol;
-
-    @FXML
-    private DatePicker treatCourseDetRWAnalysisSyphilisDateField;
-
-    @FXML
-    private TableColumn<RWAnalysis, String> treatCourseDetRWAnalysisSyphilisResultCol;
-
-    @FXML
-    private TextField treatCourseDetRWAnalysisSyphilisResultField;
 
     @FXML
     private Tab treatCourseDetRWAnalysisTab;
@@ -441,6 +358,9 @@ public class TreatmentCourseDetailsController {
     private TextField treatCourseDetUrineAnalysisColorField;
 
     @FXML
+    private TableColumn<UrineAnalysis, String> treatCourseDetUrineAnalysisDateCol;
+
+    @FXML
     private DatePicker treatCourseDetUrineAnalysisDateField;
 
     @FXML
@@ -450,37 +370,10 @@ public class TreatmentCourseDetailsController {
     private TextField treatCourseDetUrineAnalysisDensityField;
 
     @FXML
-    private TableColumn<UrineAnalysis, String> treatCourseDetUrineAnalysisGlucoseCol;
-
-    @FXML
-    private TextField treatCourseDetUrineAnalysisGlucoseField;
-
-    @FXML
     private TableColumn<UrineAnalysis, String> treatCourseDetUrineAnalysisIDCol;
 
     @FXML
-    private TableColumn<UrineAnalysis, String> treatCourseDetUrineAnalysisKetonesCol;
-
-    @FXML
-    private TextField treatCourseDetUrineAnalysisKetonesField;
-
-    @FXML
-    private TableColumn<UrineAnalysis, String> treatCourseDetUrineAnalysisLeukocytesCol;
-
-    @FXML
-    private TableColumn<UrineAnalysis, String> treatCourseDetUrineAnalysisNitritesCol;
-
-    @FXML
-    private TextField treatCourseDetUrineAnalysisNitritesField;
-
-    @FXML
-    private TableColumn<UrineAnalysis, String> treatCourseDetUrineAnalysisProteinCol;
-
-    @FXML
-    private TextField treatCourseDetUrineAnalysisProteinField;
-
-    @FXML
-    private TableColumn<UrineAnalysis, String> treatCourseDetUrineAnalysisReactionCol;
+    private TableColumn<UrineAnalysis, Double> treatCourseDetUrineAnalysisReactionCol;
 
     @FXML
     private TextField treatCourseDetUrineAnalysisReactionField;
@@ -619,13 +512,9 @@ public class TreatmentCourseDetailsController {
                     LocalDate urine_analysis_date = LocalDate.parse(selectedUrineAnalysis.getAnalysis_date(), formatter);
                     treatCourseDetUrineAnalysisDateField.setValue(urine_analysis_date);
                     treatCourseDetUrineAnalysisColorField.setText(selectedUrineAnalysis.getColor());
-                    treatCourseDetUrineAnalysisReactionField.setText(selectedUrineAnalysis.getReaction());
+                    treatCourseDetUrineAnalysisReactionField.setText(String.valueOf(selectedUrineAnalysis.getReaction()));
                     treatCourseDetUrineAnalysisTransparencyField.setText(selectedUrineAnalysis.getTransparency());
                     treatCourseDetUrineAnalysisDensityField.setText(String.valueOf(selectedUrineAnalysis.getDensity()));
-                    treatCourseDetUrineAnalysisProteinField.setText(selectedUrineAnalysis.getProtein());
-                    treatCourseDetUrineAnalysisGlucoseField.setText(selectedUrineAnalysis.getGlucose());
-                    treatCourseDetUrineAnalysisKetonesField.setText(selectedUrineAnalysis.getKetones());
-                    treatCourseDetUrineAnalysisNitritesField.setText(selectedUrineAnalysis.getNitrites());
                 }
             }
         });
@@ -641,17 +530,11 @@ public class TreatmentCourseDetailsController {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
                     LocalDate rw_analysis_date = LocalDate.parse(selectedRWAnalysis.getAnalysis_date(), formatter);
                     LocalDate aids_date = LocalDate.parse(selectedRWAnalysis.getAnalysis_date(), formatter);
-                    LocalDate syphilis_date = LocalDate.parse(selectedRWAnalysis.getAdis_date(), formatter);
-                    LocalDate hepatitis_date = LocalDate.parse(selectedRWAnalysis.getHepatitis_date(), formatter);
 
                     treatCourseDetRWAnalysisDateField.setValue(rw_analysis_date);
                     treatCourseDetRWAnalysisRWResultField.setText(selectedRWAnalysis.getRw_result());
                     treatCourseDetRWAnalysisAidsDateField.setValue(aids_date);
                     treatCourseDetRWAnalysisAidsResultField.setText(selectedRWAnalysis.getAids_result());
-                    treatCourseDetRWAnalysisSyphilisDateField.setValue(syphilis_date);
-                    treatCourseDetRWAnalysisSyphilisResultField.setText(selectedRWAnalysis.getSyphilis_result());
-                    treatCourseDetRWAnalysisHepatitisDateField.setValue(hepatitis_date);
-                    treatCourseDetRWAnalysisHepatitisResultField.setText(selectedRWAnalysis.getHepatitis_result());
                 }
             }
         });
@@ -674,11 +557,6 @@ public class TreatmentCourseDetailsController {
                     treatCourseDetBioBloodAnalysisDirectBiluribinField.setText(String.valueOf(selectedBioBloodAnalysis.getDirect_biluribin()));
                     treatCourseDetBioBloodAnalysisASTField.setText(String.valueOf(selectedBioBloodAnalysis.getAST()));
                     treatCourseDetBioBloodAnalysisALTField.setText(String.valueOf(selectedBioBloodAnalysis.getALT()));
-                    treatCourseDetBioBloodAnalysisCholesterolField.setText(String.valueOf(selectedBioBloodAnalysis.getCholesterol()));
-                    treatCourseDetBioBloodAnalysisTriglyceridesField.setText(String.valueOf(selectedBioBloodAnalysis.getTriglycerides()));
-                    treatCourseDetBioBloodAnalysisHDLField.setText(String.valueOf(selectedBioBloodAnalysis.getHDL()));
-                    treatCourseDetBioBloodAnalysisLDLField.setText(String.valueOf(selectedBioBloodAnalysis.getLDL()));
-                    treatCourseDetBioBloodAnalysisAkalinePhospataseField.setText(String.valueOf(selectedBioBloodAnalysis.getAlkaline_phosphatase()));
 
                 }
             }
@@ -699,14 +577,10 @@ public class TreatmentCourseDetailsController {
                     treatCourseDetBloodAnalysisRedCellsField.setText(String.valueOf(selectedBloodAnalysis.getRed_cells()));
                     treatCourseDetBloodAnalysisHaemoglobinField.setText(String.valueOf(selectedBloodAnalysis.getHaemoglobin()));
                     treatCourseDetBloodAnalysisColorField.setText(String.valueOf(selectedBloodAnalysis.getColor()));
-                    treatCourseDetBloodAnalysisParasitesField.setValue(String.valueOf(selectedBloodAnalysis.isParasites()));
+                    treatCourseDetBloodAnalysisParasitesField.setValue(String.valueOf(selectedBloodAnalysis.getParasites()));
                     treatCourseDetBloodAnalysisWhiteCellsField.setText(String.valueOf(selectedBloodAnalysis.getWhite_cells()));
                     treatCourseDetBloodAnalysisLymphocytesField.setText(String.valueOf(selectedBloodAnalysis.getLymphocytes()));
                     treatCourseDetBloodAnalysisESRField.setText(String.valueOf(selectedBloodAnalysis.getESR()));
-                    treatCourseDetBloodAnalysisPlateletsField.setText(String.valueOf(selectedBloodAnalysis.getPlatelets()));
-                    treatCourseDetBloodAnalysisMeanCorpuscularVolumeField.setText(String.valueOf(selectedBloodAnalysis.getMean_corpuscular_volume()));
-                    treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinField.setText(String.valueOf(selectedBloodAnalysis.getMean_corpuscular_haemoglobin()));
-                    treatCourseDetBloodAnalysisHaematocritField.setText(String.valueOf(selectedBloodAnalysis.getHematocrit()));
                     
                     
                 }
@@ -765,10 +639,6 @@ public class TreatmentCourseDetailsController {
         treatCourseDetBloodAnalysisWhiteCellsField.setText(String.valueOf(""));
         treatCourseDetBloodAnalysisLymphocytesField.setText(String.valueOf(""));
         treatCourseDetBloodAnalysisESRField.setText(String.valueOf(""));
-        treatCourseDetBloodAnalysisPlateletsField.setText(String.valueOf(""));
-        treatCourseDetBloodAnalysisMeanCorpuscularVolumeField.setText(String.valueOf(""));
-        treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinField.setText(String.valueOf(""));
-        treatCourseDetBloodAnalysisHaematocritField.setText(String.valueOf(""));
         treatCourseDetBloodAnalysisTable.getSelectionModel().clearSelection(); 
 
     }
@@ -778,10 +648,6 @@ public class TreatmentCourseDetailsController {
         treatCourseDetRWAnalysisRWResultField.setText("");
         treatCourseDetRWAnalysisAidsDateField.setValue(null);
         treatCourseDetRWAnalysisAidsResultField.setText("");
-        treatCourseDetRWAnalysisSyphilisDateField.setValue(null);
-        treatCourseDetRWAnalysisSyphilisResultField.setText("");
-        treatCourseDetRWAnalysisHepatitisDateField.setValue(null);
-        treatCourseDetRWAnalysisHepatitisResultField.setText("");
         treatCourseDetRWAnalysisTable.getSelectionModel().clearSelection(); 
 
     }
@@ -794,11 +660,6 @@ public class TreatmentCourseDetailsController {
         treatCourseDetBioBloodAnalysisDirectBiluribinField.setText(String.valueOf(""));
         treatCourseDetBioBloodAnalysisASTField.setText(String.valueOf(""));
         treatCourseDetBioBloodAnalysisALTField.setText(String.valueOf(""));
-        treatCourseDetBioBloodAnalysisCholesterolField.setText(String.valueOf(""));
-        treatCourseDetBioBloodAnalysisTriglyceridesField.setText(String.valueOf(""));
-        treatCourseDetBioBloodAnalysisHDLField.setText(String.valueOf(""));
-        treatCourseDetBioBloodAnalysisLDLField.setText(String.valueOf(""));
-        treatCourseDetBioBloodAnalysisAkalinePhospataseField.setText(String.valueOf(""));
         treatCourseDetBioBloodAnalysisTable.getSelectionModel().clearSelection(); 
     }
 
@@ -808,10 +669,6 @@ public class TreatmentCourseDetailsController {
         treatCourseDetUrineAnalysisReactionField.setText("");
         treatCourseDetUrineAnalysisTransparencyField.setText("");
         treatCourseDetUrineAnalysisDensityField.setText("");
-        treatCourseDetUrineAnalysisProteinField.setText("");
-        treatCourseDetUrineAnalysisGlucoseField.setText("");
-        treatCourseDetUrineAnalysisKetonesField.setText("");
-        treatCourseDetUrineAnalysisNitritesField.setText("");
         treatCourseDetUrineAnalysisTable.getSelectionModel().clearSelection(); 
         
     }
@@ -830,20 +687,12 @@ public class TreatmentCourseDetailsController {
         treatCourseDetBloodAnalysisWhiteCellsField.setFocusTraversable(false);
         treatCourseDetBloodAnalysisLymphocytesField.setFocusTraversable(false);
         treatCourseDetBloodAnalysisESRField.setFocusTraversable(false);
-        treatCourseDetBloodAnalysisPlateletsField.setFocusTraversable(false);
-        treatCourseDetBloodAnalysisMeanCorpuscularVolumeField.setFocusTraversable(false);
-        treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinField.setFocusTraversable(false);
-        treatCourseDetBloodAnalysisHaematocritField.setFocusTraversable(false);
 
         treatCourseDetRWAnalysisTable.setFocusTraversable(false);
         treatCourseDetRWAnalysisDateField.setFocusTraversable(false);
         treatCourseDetRWAnalysisRWResultField.setFocusTraversable(false);
         treatCourseDetRWAnalysisAidsDateField.setFocusTraversable(false);
         treatCourseDetRWAnalysisAidsResultField.setFocusTraversable(false);
-        treatCourseDetRWAnalysisSyphilisDateField.setFocusTraversable(false);
-        treatCourseDetRWAnalysisSyphilisResultField.setFocusTraversable(false);
-        treatCourseDetRWAnalysisHepatitisDateField.setFocusTraversable(false);
-        treatCourseDetRWAnalysisHepatitisResultField.setFocusTraversable(false);
 
         treatCourseDetBioBloodAnalysisTable.setFocusTraversable(false);
         treatCourseDetBioBloodAnalysisDateField.setFocusTraversable(false);
@@ -853,22 +702,13 @@ public class TreatmentCourseDetailsController {
         treatCourseDetBioBloodAnalysisDirectBiluribinField.setFocusTraversable(false);
         treatCourseDetBioBloodAnalysisASTField.setFocusTraversable(false);
         treatCourseDetBioBloodAnalysisALTField.setFocusTraversable(false);
-        treatCourseDetBioBloodAnalysisCholesterolField.setFocusTraversable(false);
-        treatCourseDetBioBloodAnalysisTriglyceridesField.setFocusTraversable(false);
-        treatCourseDetBioBloodAnalysisHDLField.setFocusTraversable(false);
-        treatCourseDetBioBloodAnalysisLDLField.setFocusTraversable(false);
-        treatCourseDetBioBloodAnalysisAkalinePhospataseField.setFocusTraversable(false);
 
         treatCourseDetUrineAnalysisTable.setFocusTraversable(false);
         treatCourseDetUrineAnalysisDateField.setFocusTraversable(false);
         treatCourseDetUrineAnalysisColorField.setFocusTraversable(false);
         treatCourseDetUrineAnalysisReactionField.setFocusTraversable(false);
         treatCourseDetUrineAnalysisTransparencyField.setFocusTraversable(false);
-        treatCourseDetUrineAnalysisDensityField.setFocusTraversable(false);
-        treatCourseDetUrineAnalysisProteinField.setFocusTraversable(false);
-        treatCourseDetUrineAnalysisGlucoseField.setFocusTraversable(false);
-        treatCourseDetUrineAnalysisKetonesField.setFocusTraversable(false);
-        treatCourseDetUrineAnalysisNitritesField.setFocusTraversable(false);      
+        treatCourseDetUrineAnalysisDensityField.setFocusTraversable(false); 
 
     }
 
@@ -904,8 +744,8 @@ public class TreatmentCourseDetailsController {
     public void UrineAnalysisShowListData(){
         ObservableList<UrineAnalysis> urineAnalysisListData = FXCollections.observableArrayList();
 
-        urineAnalysisListData.add(new UrineAnalysis("UA0001", "20/7/2023", "Clear", "Good", "1.025", 1.23));
-        urineAnalysisListData.add(new UrineAnalysis("UA0002", "20/7/2023", "Clear", "Good", "1.025", 1.23));
+        urineAnalysisListData.add(new UrineAnalysis("UA0001", "20/7/2023", "Clear", 1.22, "1.025", 1.23));
+        urineAnalysisListData.add(new UrineAnalysis("UA0002", "20/7/2023", "Clear", 1.22, "1.025", 1.23));
 
         treatCourseDetUrineAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetUrineAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
@@ -937,8 +777,8 @@ public class TreatmentCourseDetailsController {
     public void BioBloodAnalysisShowListData(){
         ObservableList<BioBloodAnalysis> bioBloodAnalysisListData = FXCollections.observableArrayList();
 
-        bioBloodAnalysisListData.add(new BioBloodAnalysis("BB0001", "20/7/2023", 1.123, 1.512, 1.321, 2.21, 2.32, 1.56, 1.11));
-        bioBloodAnalysisListData.add(new BioBloodAnalysis("BB0002", "20/7/2023", 1.123, 1.512, 1.321, 2.21, 2.32, 1.56, 1.11));
+        bioBloodAnalysisListData.add(new BioBloodAnalysis("BB0001", "20/7/2023", 1, 1.512, 1, 2.21, 2.32, 1, 1));
+        bioBloodAnalysisListData.add(new BioBloodAnalysis("BB0002", "20/7/2023", 2, 1.512, 1, 2.21, 2.32, 1, 1));
 
         treatCourseDetBioBloodAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetBioBloodAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
@@ -957,8 +797,8 @@ public class TreatmentCourseDetailsController {
     public void BloodAnalysisShowListData(){
         ObservableList<BloodAnalysis> bloodAnalysisListData = FXCollections.observableArrayList();
 
-        bloodAnalysisListData.add(new BloodAnalysis("BA0001", "20/7/2023", 1, 1.512, "Red", true, 2, 1, 1, 1));
-        bloodAnalysisListData.add(new BloodAnalysis("BA0002", "20/7/2023", 1, 1.512, "Red", true, 2, 1, 1, 1));
+        bloodAnalysisListData.add(new BloodAnalysis("BA0001", "20/7/2023", 1.22, 1.512, "Red", "true", 2, 1, 1, 1));
+        bloodAnalysisListData.add(new BloodAnalysis("BA0002", "20/7/2023", 1.23, 1.512, "Red", "true", 2, 1, 1, 1));
 
         treatCourseDetBloodAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetBloodAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
@@ -969,13 +809,6 @@ public class TreatmentCourseDetailsController {
         treatCourseDetBloodAnalysisWhiteCellsCol.setCellValueFactory(new PropertyValueFactory<>("white_cells"));
         treatCourseDetBloodAnalysisLymphocytesCol.setCellValueFactory(new PropertyValueFactory<>("lymphocytes"));
         treatCourseDetBloodAnalysisESRCol.setCellValueFactory(new PropertyValueFactory<>("ESR"));
-<<<<<<< Updated upstream
-        treatCourseDetBloodAnalysisPlateletsCol.setCellValueFactory(new PropertyValueFactory<>("platelets"));
-        treatCourseDetBloodAnalysisMeanCorpuscularVolumeCol.setCellValueFactory(new PropertyValueFactory<>("mean_corpuscular_volume"));
-        treatCourseDetBloodAnalysisMeanCorpuscularHaemoglobinCol.setCellValueFactory(new PropertyValueFactory<>("mean_corpuscular_haemoglobin"));
-        treatCourseDetBloodAnalysisHaematocritCol.setCellValueFactory(new PropertyValueFactory<>("hematocrit"));
-=======
->>>>>>> Stashed changes
 
         treatCourseDetBloodAnalysisTable.setItems(bloodAnalysisListData);
 
