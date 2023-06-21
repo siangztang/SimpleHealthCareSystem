@@ -93,17 +93,11 @@
                                                    <TableColumn fx:id="treatCourseDetDiagnosisNameCol" prefWidth="300.0" resizable="false" text="Diagnosis Name" />
                                                    <TableColumn fx:id="treatCourseDetDiagnosisDiagDateCol" minWidth="0.0" prefWidth="300.0" resizable="false" text="Diagnosed Date" />
                                                    <TableColumn fx:id="treatCourseDetDiagnosisDocNameCol" prefWidth="300.0" resizable="false" text="Doctor Name" />
-                                                   <TableColumn fx:id="treatCourseDetDiagnosisTreatPlanCol" prefWidth="364.66670735677076" text="Treatment Plan" />
                                                   </columns>
                                                 </TableView>
                                                 <AnchorPane layoutX="15.0" layoutY="405.0" prefHeight="200.0" prefWidth="1000.0">
                                                    <children>
                                                       <Label layoutX="14.0" layoutY="14.0" text="Diagnosis Name: ">
-                                                         <font>
-                                                            <Font size="16.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <Label layoutX="14.0" layoutY="127.0" text="Treatment Plan: ">
                                                          <font>
                                                             <Font size="16.0" />
                                                          </font>
@@ -121,7 +115,6 @@
                                                       <TextField fx:id="treatCourseDetDiagnosisNameField" layoutX="148.0" layoutY="14.0" prefHeight="25.0" prefWidth="173.0" />
                                                       <DatePicker fx:id="treatCourseDetDiagnosisDiagDateField" layoutX="148.0" layoutY="50.0" />
                                                       <ComboBox fx:id="treatCourseDetDiagnosisDocNameField" layoutX="148.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
-                                                      <TextField fx:id="treatCourseDetDiagnosisTreatPlanField" layoutX="148.0" layoutY="127.0" prefHeight="25.0" prefWidth="173.0" />
                                                       <Button id="updateBtn" fx:id="diagnosisUpdateBtn" layoutX="679.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                                       <Button id="delBtn" fx:id="diagnosisDeleteBtn" layoutX="770.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                                       <Button id="resetBtn" fx:id="diagnosisResetBtn" layoutX="917.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />

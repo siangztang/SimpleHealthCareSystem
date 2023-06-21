@@ -276,12 +276,6 @@ public class TreatmentCourseDetailsController {
     private TableView<Diagnosis> treatCourseDetDiagnosisTable;
 
     @FXML
-    private TableColumn<Diagnosis, String> treatCourseDetDiagnosisTreatPlanCol;
-
-    @FXML
-    private TextField treatCourseDetDiagnosisTreatPlanField;
-
-    @FXML
     private TableColumn<Procedure, String> treatCourseDetProcedureDateCol;
 
     @FXML
@@ -461,7 +455,6 @@ public class TreatmentCourseDetailsController {
                     LocalDate diagnosis_date = LocalDate.parse(selectedDiagnosis.getDiagnosis_date(), formatter);
                     treatCourseDetDiagnosisDiagDateField.setValue(diagnosis_date);
                     treatCourseDetDiagnosisDocNameField.setValue(selectedDiagnosis.getDoctor_name());
-                    treatCourseDetDiagnosisTreatPlanField.setText(selectedDiagnosis.getTreatment_plan());                    
                 }
             }
             
@@ -623,7 +616,6 @@ public class TreatmentCourseDetailsController {
         treatCourseDetDiagnosisNameField.setText("");
         treatCourseDetDiagnosisDiagDateField.setValue(null);
         treatCourseDetDiagnosisDocNameField.setValue(""); //unsure if correct
-        treatCourseDetDiagnosisTreatPlanField.setText("");
         treatCourseDetDiagnosisTable.getSelectionModel().clearSelection(); 
 
     }
@@ -722,13 +714,13 @@ public class TreatmentCourseDetailsController {
     public void DiagnosisShowListData(){
         ObservableList<Diagnosis> diagnosisListData = FXCollections.observableArrayList();
 
-        diagnosisListData.add(new Diagnosis("D0001", "2", "20/7/2023", "4", "5", "6"));
-        diagnosisListData.add(new Diagnosis("D0002", "2", "20/7/2023", "4", "5", "6"));
+        diagnosisListData.add(new Diagnosis("D0001", "Test 1", "20/7/2023", "4", "6"));
+        diagnosisListData.add(new Diagnosis("D0002", "Test 2", "20/7/2023", "4", "6"));
 
         treatCourseDetDiagnosisIDCol.setCellValueFactory(new PropertyValueFactory<>("diagnosis_id"));
+        treatCourseDetDiagnosisNameCol.setCellValueFactory(new PropertyValueFactory<>("diagnosis_name"));
         treatCourseDetDiagnosisDiagDateCol.setCellValueFactory(new PropertyValueFactory<>("diagnosis_date"));
         treatCourseDetDiagnosisDocNameCol.setCellValueFactory(new PropertyValueFactory<>("doctor_name"));
-        treatCourseDetDiagnosisTreatPlanCol.setCellValueFactory(new PropertyValueFactory<>("treatment_plan"));
 
         treatCourseDetDiagnosisTable.setItems(diagnosisListData);
 
@@ -880,12 +872,6 @@ public class TreatmentCourseDetailsController {
         double y = treatCourseDetProcedureTimeField.localToScreen(treatCourseDetProcedureTimeField.getBoundsInLocal()).getMaxY();
         timePopup.show(treatCourseDetProcedureTimeField.getScene().getWindow(), x, y);
     }
-
-    // private void setTime(LocalTime time) {
-    //     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-    //     String timeString = time.format(formatter);
-    //     treatCourseDetProcedureTimeField.setText(timeString);
-    // }
 }
 
     
