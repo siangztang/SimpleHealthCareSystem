@@ -41,5 +41,9 @@ public class Diagnosis{
     public String getTreatment_course_id() {
         return treatment_course_id;
     }
+
+    public int validationDiagnosis(){
+        return 0;
+    }
     
 }
