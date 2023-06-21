@@ -10,12 +10,8 @@ public class BloodAnalysis extends Analysis{
     private int stab_neuthrophil;
     private int lymphocytes;
     private int ESR;
-    private int platelets;
-    private double mean_corpuscular_volumn;
-    private double mean_corpuscular_haemoglobin;
-    private double hematocrit;
 
-    public BloodAnalysis(String analysis_id, String analysis_date, int red_cells, double haemoglobin, String color, boolean parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR, int platelets, double mean_corpuscular_volumn, double mean_corpuscular_haemoglobin, double hematocrit){
+    public BloodAnalysis(String analysis_id, String analysis_date, int red_cells, double haemoglobin, String color, boolean parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR){
         super(analysis_id, analysis_date);
         this.red_cells = red_cells;
         this.haemoglobin = haemoglobin;
@@ -25,10 +21,6 @@ public class BloodAnalysis extends Analysis{
         this.stab_neuthrophil = stab_neuthrophil;
         this.lymphocytes = lymphocytes;
         this.ESR = ESR;
-        this.platelets = platelets;
-        this.mean_corpuscular_volumn = mean_corpuscular_volumn;
-        this.mean_corpuscular_haemoglobin = mean_corpuscular_haemoglobin;
-        this.hematocrit = hematocrit;
     }
 
     public int getRed_cells() {
@@ -61,22 +53,6 @@ public class BloodAnalysis extends Analysis{
 
     public int getESR() {
         return ESR;
-    }
-
-    public int getPlatelets() {
-        return platelets;
-    }
-
-    public double getMean_corpuscular_volumn() {
-        return mean_corpuscular_volumn;
-    }
-
-    public double getMean_corpuscular_haemoglobin() {
-        return mean_corpuscular_haemoglobin;
-    }
-
-    public double getHematocrit() {
-        return hematocrit;
     }
     
 }
