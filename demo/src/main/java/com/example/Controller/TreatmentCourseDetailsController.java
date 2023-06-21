@@ -328,7 +328,7 @@ public class TreatmentCourseDetailsController {
     private TableColumn<RWAnalysis, String> treatCourseDetRWAnalysisAidsResultCol;
 
     @FXML
-    private TextField treatCourseDetRWAnalysisAidsResultField;
+    private ComboBox<String> treatCourseDetRWAnalysisAidsResultField;
 
     @FXML
     private TableColumn<RWAnalysis, String> treatCourseDetRWAnalysisDateCol;
@@ -410,6 +410,8 @@ public class TreatmentCourseDetailsController {
 
     @FXML
     void initialize() {
+        treatCourseDetBloodAnalysisParasitesField.getItems().addAll("Positive", "Negative");
+        treatCourseDetRWAnalysisAidsResultField.getItems().addAll("Positive", "False-Positive", "Negative");
         managePatientBtn.setOnAction(event -> {
             SwitchPage.switchPage(event, managePatientBtn);
         });
@@ -534,7 +536,8 @@ public class TreatmentCourseDetailsController {
                     treatCourseDetRWAnalysisDateField.setValue(rw_analysis_date);
                     treatCourseDetRWAnalysisRWResultField.setText(selectedRWAnalysis.getRw_result());
                     treatCourseDetRWAnalysisAidsDateField.setValue(aids_date);
-                    treatCourseDetRWAnalysisAidsResultField.setText(selectedRWAnalysis.getAids_result());
+                    // treatCourseDetRWAnalysisAidsResultField.setValue(String.valueOf(selectedRWAnalysis.getAids_result()));
+                    treatCourseDetRWAnalysisAidsResultField.setValue(String.valueOf(selectedRWAnalysis.getAids_result()));
                 }
             }
         });
@@ -647,7 +650,7 @@ public class TreatmentCourseDetailsController {
         treatCourseDetRWAnalysisDateField.setValue(null);
         treatCourseDetRWAnalysisRWResultField.setText("");
         treatCourseDetRWAnalysisAidsDateField.setValue(null);
-        treatCourseDetRWAnalysisAidsResultField.setText("");
+        treatCourseDetRWAnalysisAidsResultField.setValue(null);
         treatCourseDetRWAnalysisTable.getSelectionModel().clearSelection(); 
 
     }
