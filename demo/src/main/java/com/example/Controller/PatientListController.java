@@ -215,8 +215,8 @@ public class PatientListController {
     public void patientShowListData(){
 
         
-        listData.add(new Patient("P0001", "John", 12345612234L, 20, 'M', 12345L, "Emergency"));
-        listData.add(new Patient("P0002", "Mary", 12345612234L, 20, 'F', 12345L, "Emergency"));
+        listData.add(new Patient("P0001", "John", 12345612234L, 20, 'M', "0167863524", "Emergency"));
+        listData.add(new Patient("P0002", "Mary", 12345612234L, 20, 'F', "0167863524", "Emergency"));
 
         patIDCol.setCellValueFactory(new PropertyValueFactory<>("patient_id"));
         patNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));

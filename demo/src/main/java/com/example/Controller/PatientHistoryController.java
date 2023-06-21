@@ -195,7 +195,7 @@ public class PatientHistoryController {
         patInfoAge.setText(String.valueOf(patient_info.getAge()));
         patInfoGender.setText(Character.toString(patient_info.getGender()));
         patInfoDep.setText(patient_info.getDepartment());
-        patInfoContactInfo.setText(Long.toString(patient_info.getContact_info()));
+        patInfoContactInfo.setText(patient_info.getContact_info());
         unameLabel.setText(admin.getUname());
     }
 
@@ -306,8 +306,13 @@ public class PatientHistoryController {
 
             if (checkInput.validationPatientHistory(patient_id, ward_no, directed_by, major_complications, movement_means, results, special_comments) == 1) {
                 
+                // reset all input field
+                resetBtnAction();
+
+                // show success message
                 alert.successMessage("Patient History Added Successfully");
             } else {
+                // show error message
                 alert.errorMessage("Please enter valid input");
             }
         }

@@ -14,6 +14,10 @@ public class Medicine {
         this.medicine_amount = medicine_amount;
     }
 
+    public Medicine(){
+
+    }
+
     public Medicine(String medicine_name){
         this.medicine_name = medicine_name;
     }
@@ -33,4 +37,22 @@ public class Medicine {
     public int getMedicine_amount() {
         return medicine_amount;
     }
+
+    public int validationMedicine(String medicine_name, String medicine_description, int medicine_amount){
+
+        if (!medicine_name.matches("^[a-zA-z]+([\\s][a-zA-Z]+)*$") && !(medicine_name.length() > 5)) {
+            return 0;
+        }
+
+        if (!(medicine_description.length() > 5)) {
+            return 0;
+        }
+
+        if (medicine_amount <= -1) {
+            return 0;
+        }
+
+        return 1;
+    }
+
 }

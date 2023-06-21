@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.example.Admin;
+import com.example.AlertMessage;
 import com.example.Doctor;
 import com.example.SwitchPage;
 
@@ -34,7 +35,7 @@ public class ManageDoctorController {
     private Button deleteBtn;
 
     @FXML
-    private TableColumn<Doctor, Long> docContactCol;
+    private TableColumn<Doctor, String> docContactCol;
 
     @FXML
     private TextField docContactField;
@@ -106,6 +107,10 @@ public class ManageDoctorController {
             resetBtnAction();
         });
 
+        addBtn.setOnAction(event -> {
+            addBtnAction();
+        });
+
         unFocusAll();
 
         docTable.getColumns().forEach(e -> e.setReorderable(false));
@@ -156,8 +161,8 @@ public class ManageDoctorController {
 
     public void doctorShowListData(){
 
-        listData.add(new Doctor("D001", "Dr. A", "Cardiologist", "MBBS", 1234567890));
-        listData.add(new Doctor("D002", "Dr. B", "Dermatologist", "MBBS", 1234567890));
+        listData.add(new Doctor("D001", "Dr. A", "Cardiologist", "MBBS", "1234567890"));
+        listData.add(new Doctor("D002", "Dr. B", "Dermatologist", "MBBS", "1234567890"));
 
         docIDCol.setCellValueFactory(new PropertyValueFactory<>("doctor_id"));
         docNameCol.setCellValueFactory(new PropertyValueFactory<>("doctor_name"));
@@ -199,6 +204,36 @@ public class ManageDoctorController {
             docTable.setItems(doctor_list);
         });
 
+    }
+
+    private AlertMessage alert = new AlertMessage();
+    private Doctor checkInput = new Doctor();
+    
+    private void addBtnAction(){
+
+        if (docNameField.getText().isEmpty() || docContactField.getText().isEmpty() || docQualificationField.getText().isEmpty() || docSpecializationField.getText().isEmpty()) {
+
+            alert.errorMessage("Please fill all the fields");
+
+        } else {
+            String doc_name = docNameField.getText();
+            String doc_specialization = docSpecializationField.getText();
+            String qualification = docQualificationField.getText();
+            String contact_info = docContactField.getText();
+
+            if (checkInput.validationDoctor(doc_name, doc_specialization, qualification, contact_info) == 1) {
+
+
+                // reset all fields
+                resetBtnAction();
+                // show success message
+                alert.successMessage("Doctor added successfully");
+
+            } else {
+                System.out.println(contact_info);
+                alert.errorMessage("Please enter valid input");
+            }
+        }
     }
 
 }

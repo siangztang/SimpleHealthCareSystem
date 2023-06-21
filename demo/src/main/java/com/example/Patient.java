@@ -7,12 +7,10 @@ public class Patient {
     private long ic;
     private int age;
     private char gender;
-    private long contact_info;
+    private String contact_info;
     private String department;
 
-
-
-    public Patient(String patient_id, String name, long ic, int age, char gender, long contact_info, String department) {
+    public Patient(String patient_id, String name, long ic, int age, char gender, String contact_info, String department) {
         this.patient_id = patient_id;
         this.name = name;
         this.ic = ic;
@@ -46,7 +44,7 @@ public class Patient {
         return gender;
     }
 
-    public long getContact_info() {
+    public String getContact_info() {
         return contact_info;
     }
 
@@ -74,9 +72,9 @@ public class Patient {
         // }
 
         // Validate Malaysia contact
-        // if (contact == null || !contact.matches("^(\\+?6?01)[02-46-9]-*[0-9]{7}$|^(\\+?6?01)[1]-*[0-9]{8}$")) {
-        //     return 0;
-        // }
+        if (contact == null || !contact.matches("^(\\+?6?01)[02-46-9]-*[0-9]{7}$|^(\\+?6?01)[1]-*[0-9]{8}$")){
+            return 0;
+        }
 
         // Validate department
         // if (department == null || department.isEmpty()) {

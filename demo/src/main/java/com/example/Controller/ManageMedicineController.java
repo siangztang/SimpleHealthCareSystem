@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 import com.example.Admin;
+import com.example.AlertMessage;
 import com.example.Medicine;
 import com.example.SwitchPage;
 
@@ -101,6 +102,10 @@ public class ManageMedicineController {
             resetBtnAction();
         });
 
+        addBtn.setOnAction(event -> {
+            addBtnAction();
+        });
+
         unFocusAll();
         medicineTable.getColumns().forEach(e -> e.setReorderable(false));
         medicineTable.setOnMouseClicked(event -> {
@@ -187,6 +192,39 @@ public class ManageMedicineController {
             medicineTable.setItems(medicine_list);  
 
         });
+    }
+
+    private AlertMessage alert = new AlertMessage();
+    private Medicine checkInput = new Medicine();
+    private void addBtnAction(){
+
+        if (medicineNameField.getText().isEmpty() || medicineAmountField.getText().isEmpty() || medicineDescriptionField.getText().isEmpty()) {
+            alert.errorMessage("Please fill in all the fields");
+        } else {
+            String medicine_name = medicineNameField.getText();
+            int medicine_amount = -1;
+            try {
+                medicine_amount = Integer.parseInt(medicineAmountField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid integer for medicine amount");
+                return;
+            }
+            String medicine_description = medicineDescriptionField.getText();
+
+            if (checkInput.validationMedicine(medicine_name,medicine_description, medicine_amount) == 1){
+                
+                // reset input field
+                resetBtnAction();
+
+                // show success message
+                alert.successMessage("Medicine added successfully!");
+
+            } else {
+                // show error message
+                alert.errorMessage("Please enter a valid input!");
+            }
+            
+        }
     }
 
 }

@@ -613,7 +613,7 @@ public class TreatmentCourseDetailsController {
         patInfoAge.setText(String.valueOf(patient_info.getAge()));
         patInfoGender.setText(Character.toString(patient_info.getGender()));
         patInfoDepartment.setText(patient_info.getDepartment());
-        patInfoContact.setText(Long.toString(patient_info.getContact_info()));
+        patInfoContact.setText(patient_info.getContact_info());
         patInfoHisID.setText(history_id);
         patInfoCourseID.setText(treatment_course_id);
         unamelabel.setText(admin.getUname());

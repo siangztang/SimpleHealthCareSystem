@@ -169,7 +169,7 @@ public class ManageDepartmentController {
 
     private AlertMessage alert = new AlertMessage();
 
-    public void addBtnAction(){
+    private void addBtnAction(){
 
         if (dptNameField.getText().isEmpty()) {
             // show error message
@@ -180,7 +180,7 @@ public class ManageDepartmentController {
 
             if (dptName.matches("^[a-zA-z]+([\\s][a-zA-Z]+)*$") && dptName.length() > 5) {
 
-
+                
                 // show success message
                 alert.successMessage("Department added successfully");
                 
