@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -126,6 +127,11 @@ public class PatientListController {
         resetBtn.setOnAction(event -> {
             resetBtnAction();
         });
+
+        addBtn.setOnAction(event -> {
+            addBtnAction();
+        });
+
         unFocusAll();
         patListTable.getColumns().forEach(e -> e.setReorderable(false));
         patListTable.setOnMouseClicked(event -> {
@@ -260,6 +266,44 @@ public class PatientListController {
         });
 
         
+    }
+
+    
+
+    public void addBtnAction(){
+
+        String patName = patNameField.getText();
+        String patIC = patICField.getText();
+        String patCot = patCotField.getText();
+        String patDepartment = patDepartmentField.getValue();
+        String patGender = patGenderBox.getValue();
+
+        if (Patient.validationPatient(patName, patIC, patGender, patCot, patDepartment) == 1) {
+            // add patient to database
+            // Patient.new(patName, patIC, patCot, patDepartment, patGender);
+
+            // refresh table
+            listData.clear();
+            patientShowListData();
+
+            // reset all input field
+            resetBtnAction();
+
+            // show success message
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Patient Added");
+            alert.setContentText("Patient has been added successfully");
+            alert.showAndWait();
+
+        } else {
+            // show error message
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Input");
+            alert.setContentText("Please fill in all the fields");
+            alert.showAndWait();
+        }
     }
 
      
