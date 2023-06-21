@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.example.Admin;
+import com.example.AlertMessage;
 import com.example.Department;
 import com.example.SwitchPage;
 
@@ -68,21 +69,25 @@ public class ManageDepartmentController {
 
     @FXML
     void initialize() {
-
+        SwitchPage switchpage = new SwitchPage();
         manageDocBtn.setOnAction(event -> {
-            SwitchPage.switchPage(event, manageDocBtn);
+            switchpage.switchPage(event, manageDocBtn);
         });
 
         manageMedicineBtn.setOnAction(event -> {
-            SwitchPage.switchPage(event, manageMedicineBtn);
+            switchpage.switchPage(event, manageMedicineBtn);
         });
 
         managePatientBtn.setOnAction(event -> {
-            SwitchPage.switchPage(event, managePatientBtn);
+            switchpage.switchPage(event, managePatientBtn);
         });
 
         resetBtn.setOnAction(event -> {
             resetBtnAction();
+        });
+
+        addBtn.setOnAction(event -> {
+            addBtnAction();
         });
 
         unFocusAll();
@@ -160,5 +165,30 @@ public class ManageDepartmentController {
             departmentTable.setItems(department_list);
         });
 
+    }
+
+    private AlertMessage alert = new AlertMessage();
+
+    public void addBtnAction(){
+
+        if (dptNameField.getText().isEmpty()) {
+            // show error message
+            alert.errorMessage("Please fill in all the fields");
+        } else {
+            String dptName = dptNameField.getText();
+            
+
+            if (dptName.matches("^[a-zA-z]+([\\s][a-zA-Z]+)*$") && dptName.length() > 5) {
+
+
+                // show success message
+                alert.successMessage("Department added successfully");
+                
+
+            } else {
+                // show error message
+                alert.errorMessage("Please enter valid input");
+            }
+        }
     }
 }

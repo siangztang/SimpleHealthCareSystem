@@ -19,9 +19,10 @@ import javafx.stage.Stage;
 
 public class SwitchPage {
 
-    private static Admin admin = LoginController.getAdmin();
+    private static LoginController loginController = new LoginController();
+    private static Admin admin = loginController.getAdmin();
     
-    public static void switchPage(ActionEvent event, Button btnId) {
+    public void switchPage(ActionEvent event, Button btnId) {
         
         Button clickedButton = (Button) event.getSource();
         String buttonId = clickedButton.getId();

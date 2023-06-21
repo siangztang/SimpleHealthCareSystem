@@ -84,17 +84,17 @@ public class ManageMedicineController {
     private Button updateBtn;
     @FXML
     void initialize() {
-
+        SwitchPage switchpage = new SwitchPage();
         manageDptBtn.setOnAction(event -> {
-            SwitchPage.switchPage(event, manageDptBtn);
+            switchpage.switchPage(event, manageDptBtn);
         });
 
         manageDocBtn.setOnAction(event -> {
-            SwitchPage.switchPage(event, manageDocBtn);
+            switchpage.switchPage(event, manageDocBtn);
         });
 
         managePatientBtn.setOnAction(event -> {
-            SwitchPage.switchPage(event, managePatientBtn);
+            switchpage.switchPage(event, managePatientBtn);
         });
 
         resetBtn.setOnAction(event -> {

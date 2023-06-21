@@ -412,10 +412,11 @@ public class TreatmentCourseDetailsController {
 
     @FXML
     void initialize() {
+        SwitchPage switchpage = new SwitchPage();
         treatCourseDetBloodAnalysisParasitesField.getItems().addAll("Positive", "Negative");
         treatCourseDetRWAnalysisAidsResultField.getItems().addAll("Positive", "False-Positive", "Negative");
         managePatientBtn.setOnAction(event -> {
-            SwitchPage.switchPage(event, managePatientBtn);
+            switchpage.switchPage(event, managePatientBtn);
         });
 
         treatCourseDetProcedureTimeBtn.setOnAction(event -> {

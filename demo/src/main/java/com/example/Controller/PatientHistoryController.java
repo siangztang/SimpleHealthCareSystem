@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 import com.example.Admin;
+import com.example.AlertMessage;
 import com.example.Patient;
 import com.example.PatientHistory;
 import com.example.SwitchPage;
@@ -124,13 +125,17 @@ public class PatientHistoryController {
 
     @FXML
     void initialize() {
-
+        SwitchPage switchpage = new SwitchPage();
         managePatientBtn.setOnAction(event -> {
-            SwitchPage.switchPage(event, managePatientBtn);
+            switchpage.switchPage(event, managePatientBtn);
         });
 
         resetBtn.setOnAction(event -> {
             resetBtnAction();
+        });
+
+        addBtn.setOnAction(event -> {
+            addBtnAction();
         });
         
         unFocusAll();
@@ -273,6 +278,40 @@ public class PatientHistoryController {
             patient_history_list.comparatorProperty().bind(patHisTable.comparatorProperty());
             patHisTable.setItems(patient_history_list);
         });
+    }
+
+    private AlertMessage alert = new AlertMessage();
+    private PatientHistory checkInput = new PatientHistory();
+
+    private void addBtnAction() {
+        // get all user input
+
+        if (patHisWardField.getText().isEmpty() || patHisDirectedByField.getText().isEmpty() || patHisMajorComplicationsField.getText().isEmpty() || patHisMovementMeansField.getText().isEmpty() || patHisResultsField.getText().isEmpty() || patHisSpecialCommentsField.getText().isEmpty()) {
+            alert.errorMessage("Please fill all the fields");
+        } else {
+            String patient_id = patient_info.getPatient_id();
+            int ward_no = -1;
+            try {
+                ward_no = Integer.parseInt(patHisWardField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid integer for ward number");
+                return;
+            }
+
+            String directed_by = patHisDirectedByField.getText();
+            String major_complications = patHisMajorComplicationsField.getText();
+            String movement_means = patHisMovementMeansField.getText();
+            String results = patHisResultsField.getText();
+            String special_comments = patHisSpecialCommentsField.getText();
+
+            if (checkInput.validationPatientHistory(patient_id, ward_no, directed_by, major_complications, movement_means, results, special_comments) == 1) {
+                
+                alert.successMessage("Patient History Added Successfully");
+            } else {
+                alert.errorMessage("Please enter valid input");
+            }
+        }
+
     }
 
 }

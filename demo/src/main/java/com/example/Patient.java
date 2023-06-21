@@ -69,7 +69,7 @@ public class Patient {
         // }
 
         // Validate gender
-        // if (gender == null || (!gender.equalsIgnoreCase("m") && !gender.equalsIgnoreCase("f"))) {
+        // if (gender == null || (!gender.equals("M") && !gender.equals("F"))) {
         //     return 0;
         // }
 

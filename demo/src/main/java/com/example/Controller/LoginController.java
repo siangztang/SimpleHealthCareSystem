@@ -97,7 +97,7 @@ public class LoginController {
         }
     }
 
-    public static Admin getAdmin() {
+    public Admin getAdmin() {
         return admin;
     }
 }

@@ -101,9 +101,9 @@ public class TreatmentCourseController {
 
     @FXML
     void initialize() {
-
+        SwitchPage switchpage = new SwitchPage();
         managePatientBtn.setOnAction(event -> {
-            SwitchPage.switchPage(event, managePatientBtn);
+            switchpage.switchPage(event, managePatientBtn);
         });
 
         resetBtn.setOnAction(event -> {

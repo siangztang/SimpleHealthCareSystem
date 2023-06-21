@@ -22,6 +22,10 @@ public class PatientHistory{
         this.history_id = history_id;
     }
 
+    public PatientHistory(){
+
+    }
+
     public String getPat_id() {
         return pat_id;
     }
@@ -52,6 +56,39 @@ public class PatientHistory{
 
     public String getHistory_id() {
         return history_id;
+    }
+
+    public int validationPatientHistory(String pat_id, int ward_no, String movement_means, String directed_by, String major_complications, String results, String special_comments){
+
+        if (pat_id == null || pat_id.isEmpty()) {
+            return 0;
+        }
+
+        if (ward_no <= 0) {
+            return 0;
+        }
+
+        if (movement_means == null || movement_means.isEmpty()) {
+            return 0;
+        }
+
+        if (directed_by == null || directed_by.isEmpty()) {
+            return 0;
+        }
+
+        if (major_complications == null || major_complications.isEmpty()) {
+            return 0;
+        }
+
+        if (results == null || results.isEmpty()) {
+            return 0;
+        }
+
+        if (special_comments == null || special_comments.isEmpty()) {
+            return 0;
+        }
+
+        return 1;
     }
     
 }
