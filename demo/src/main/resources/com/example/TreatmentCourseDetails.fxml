@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseDetailsController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseDetailsController">
    <children>
       <StackPane fx:id="treatment_course_details_page" prefHeight="150.0" prefWidth="200.0">
          <children>
@@ -89,7 +89,8 @@
                                              <children>
                                                 <TableView fx:id="treatCourseDetDiagnosisTable" layoutX="15.0" layoutY="14.0" prefHeight="381.0" prefWidth="1000.0">
                                                   <columns>
-                                                   <TableColumn fx:id="treatCourseDetDiagnosisNameCol" prefWidth="258.0" text="Diagnosis Name" />
+                                                      <TableColumn fx:id="treatCourseDetDiagnosisNameCol1" prefWidth="75.0" text="Diagnosis ID" />
+                                                   <TableColumn fx:id="treatCourseDetDiagnosisNameCol" prefWidth="441.0" text="Diagnosis Name" />
                                                    <TableColumn fx:id="treatCourseDetDiagnosisDiagDateCol" minWidth="0.0" prefWidth="128.0" text="Diagnosed Date" />
                                                    <TableColumn fx:id="treatCourseDetDiagnosisDocNameCol" prefWidth="277.0" text="Doctor Name" />
                                                    <TableColumn fx:id="treatCourseDetDiagnosisTreatPlanCol" prefWidth="364.66670735677076" text="Treatment Plan" />
@@ -137,7 +138,8 @@
                                              <children>
                                                 <TableView fx:id="treatCourseDetProcedureTable" layoutX="15.0" layoutY="14.0" prefHeight="381.0" prefWidth="1000.0">
                                                    <columns>
-                                                      <TableColumn fx:id="treatCourseDetProcedureDateCol" minWidth="0.0" prefWidth="343.2" text="Date" />
+                                                      <TableColumn fx:id="treatCourseDetProcedureDateCol1" minWidth="0.0" prefWidth="78.0" text="Procedure ID" />
+                                                      <TableColumn fx:id="treatCourseDetProcedureDateCol" minWidth="0.0" prefWidth="610.0" text="Date" />
                                                       <TableColumn fx:id="treatCourseDetProcedureTimeCol" prefWidth="343.2" text="Time" />
                                                       <TableColumn fx:id="treatCourseDetProcedureTypeCol" prefWidth="343.2" text="Type" />
                                                    </columns>
