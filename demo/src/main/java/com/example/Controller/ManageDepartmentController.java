@@ -1,14 +1,17 @@
 package com.example.Controller;
 
 import java.net.URL;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 import com.example.Admin;
 import com.example.AlertMessage;
 import com.example.Department;
 import com.example.SwitchPage;
+import com.example.CSVRelatedClass.CSVHandler;
+import com.example.CSVRelatedClass.CSVPath;
+import com.example.CSVRelatedClass.ParameterTypes;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -125,18 +128,19 @@ public class ManageDepartmentController {
         resetBtn.setFocusTraversable(false);
     }
 
-    ObservableList<Department> listData = FXCollections.observableArrayList();
+    CSVHandler csvhandler = new CSVHandler();
+    String filePath = CSVPath.DEPARTMENT_PATH;
+    Class<?>[] parameterTypes = ParameterTypes.DEPARTMENT_PARAMETER_TYPES;
+    Comparator<Department> comparator = Comparator.comparing(Department::getId);
+
+    ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
 
     public void departmentShowListData(){
-
-        listData.add(new Department("D001", "Cardiology"));
-        listData.add(new Department("D002", "Dermatology"));
 
         dptIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         dptNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         departmentTable.setItems(listData);
-    
 
     }
 
