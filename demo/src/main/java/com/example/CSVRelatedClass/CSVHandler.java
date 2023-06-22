@@ -1,7 +1,9 @@
 package com.example.CSVRelatedClass;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -9,6 +11,8 @@ import java.util.Comparator;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import java.lang.reflect.Field;
+
 
 public class CSVHandler {
     public <T> ObservableList<T> readCSV(String filePath, Class<T> clazz, Class<?>... parameterTypes) {
@@ -124,5 +128,37 @@ public class CSVHandler {
             return str;
         }
         return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+    }
+
+    public <T> void writeCSV(String filePath, T object) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(getCSVLine(object));
+            writer.newLine();
+            System.out.println("Data appended to CSV file successfully!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String getCSVLine(Object object) {
+        StringBuilder line = new StringBuilder();
+        Field[] fields = object.getClass().getDeclaredFields();
+
+        for (Field field : fields) {
+            field.setAccessible(true);
+            try {
+                Object value = field.get(object);
+                line.append(value).append(",");
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Remove the trailing comma
+        if (line.length() > 0) {
+            line.setLength(line.length() - 1);
+        }
+
+        return line.toString();
     }
 }

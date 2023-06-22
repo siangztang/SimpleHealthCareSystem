@@ -132,11 +132,11 @@ public class ManageDepartmentController {
     String filePath = CSVPath.DEPARTMENT_PATH;
     Class<?>[] parameterTypes = ParameterTypes.DEPARTMENT_PARAMETER_TYPES;
     Comparator<Department> comparator = Comparator.comparing(Department::getId);
-
     ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
+    
 
     public void departmentShowListData(){
-
+        // ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
         dptIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         dptNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
@@ -145,6 +145,7 @@ public class ManageDepartmentController {
     }
 
     private void searchFilter(){
+        // ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
         FilteredList<Department> filteredData = new FilteredList<>(listData, e -> true);
         searchField.setOnKeyReleased(e->{
         
@@ -183,11 +184,23 @@ public class ManageDepartmentController {
             
 
             if (dptName.matches("^[a-zA-z]+([\\s][a-zA-Z]+)*$") && dptName.length() > 5) {
-
                 
-                // show success message
+                for (Department deparment : listData){
+                    if (deparment.getName().equals(dptName)){
+                        alert.errorMessage("Department already exists");
+                        return;
+                    }
+                }
+                Department newDepartment = new Department("D002", dptName);
+                csvhandler.writeCSV(filePath, newDepartment);
                 alert.successMessage("Department added successfully");
-                
+                ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
+                this.listData = listData;
+                // reset all fields
+                resetBtnAction();
+
+                // refresh table
+                departmentShowListData();
 
             } else {
                 // show error message
