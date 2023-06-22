@@ -55,4 +55,33 @@ public class BioBloodAnalysis extends Analysis{
     public int getALT(){
         return ALT;
     }
+
+    //create if statement for validation
+        public int validationBioBloodAnalysis(int urea, double createnine, int sugar, double biluribin, double direct_biluribin, int AST, int ALT) {
+        if(urea >= 7 || urea <= 25){
+            return 0;
+        }
+        if(createnine >= 0.6 || createnine <= 1.2){
+            return 0;
+        }
+        if(sugar >= 70 || sugar <= 100){
+            return 0;
+        }
+        if(biluribin >= 0.1 || biluribin <= 1.2){
+            return 0;
+        }
+        if(direct_biluribin >= 0.1 || direct_biluribin <= 0.3){
+            return 0;
+        }
+        if(AST <= 40){
+            return 0;
+        }
+        if(ALT <= 40){
+            return 0;
+        }
+            return 1;
+        }
+
+        }
+
 }

@@ -3,13 +3,13 @@ package com.example;
 public class RWAnalysis extends Analysis{
     
     private String rw_result;
-    private String adis_date;
+    private String aids_date;
     private String aids_result;
 
     public RWAnalysis(String analysis_id, String analysis_date, String treatment_course_id, String rw_result, String adis_date, String aids_result){
         super(analysis_id, analysis_date, treatment_course_id);
         this.rw_result = rw_result;
-        this.adis_date = adis_date;
+        this.aids_date = aids_date;
         this.aids_result = aids_result;
     }
 
@@ -19,12 +19,22 @@ public class RWAnalysis extends Analysis{
     }
 
     // date
-    public String getAdis_date() {
-        return adis_date;
+    public String getAids_date() {
+        return aids_date;
     }
 
     // postive or false_positive or negative
     public String getAids_result() {
         return aids_result;
+    }
+
+    public int validationRWAnalysis(String rw_result, String adis_date, String aids_result){
+        if (rw_result == "positive" || rw_result == "negative"){
+            return 0;
+        }
+        if (aids_result == "positive" || aids_result == "false_positive" || aids_result == "negative"){
+            return 0;
+        }
+        
     }
 }
