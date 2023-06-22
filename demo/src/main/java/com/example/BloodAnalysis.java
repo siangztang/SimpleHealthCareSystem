@@ -72,8 +72,8 @@ public class BloodAnalysis extends Analysis{
     if(haemoglobin >= 13.5 || haemoglobin <=17.5){
         return 0;
     }
-    //piss color
-    if(color !="" | color.matches("\b(clear|pale|darkyellow|orange|darkorange|brown|pink|red|blue|green|cloudy|white)\b")){
+    //piss color  
+    if(color !="" | color.matches("\b(red|bright red|purple)\b")){
         return 0;
     }
     //parasites

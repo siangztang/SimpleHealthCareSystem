@@ -82,6 +82,4 @@ public class BioBloodAnalysis extends Analysis{
             return 1;
         }
 
-        }
-
 }
