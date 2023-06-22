@@ -529,12 +529,11 @@ public class TreatmentCourseDetailsController {
 
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
                     LocalDate rw_analysis_date = LocalDate.parse(selectedRWAnalysis.getAnalysis_date(), formatter);
-                    LocalDate aids_date = LocalDate.parse(selectedRWAnalysis.getAnalysis_date(), formatter);
+                    LocalDate aids_date = LocalDate.parse(selectedRWAnalysis.getAids_date(), formatter);
 
                     treatCourseDetRWAnalysisDateField.setValue(rw_analysis_date);
                     treatCourseDetRWAnalysisRWResultField.setText(selectedRWAnalysis.getRw_result());
                     treatCourseDetRWAnalysisAidsDateField.setValue(aids_date);
-                    // treatCourseDetRWAnalysisAidsResultField.setValue(String.valueOf(selectedRWAnalysis.getAids_result()));
                     treatCourseDetRWAnalysisAidsResultField.setValue(String.valueOf(selectedRWAnalysis.getAids_result()));
                 }
             }
@@ -769,7 +768,7 @@ public class TreatmentCourseDetailsController {
         treatCourseDetRWAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetRWAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
         treatCourseDetRWAnalysisRWResultCol.setCellValueFactory(new PropertyValueFactory<>("rw_result"));
-        treatCourseDetRWAnalysisAidsDateCol.setCellValueFactory(new PropertyValueFactory<>("adis_date"));
+        treatCourseDetRWAnalysisAidsDateCol.setCellValueFactory(new PropertyValueFactory<>("aids_date"));
         treatCourseDetRWAnalysisAidsResultCol.setCellValueFactory(new PropertyValueFactory<>("aids_result"));
 
         treatCourseDetRWAnalysisTable.setItems(RWAnalysisListData);

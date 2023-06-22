@@ -57,22 +57,19 @@ public class Patient {
 
     public int validationPatient(String name, String ic, String gender, String contact, String department) {
         // Validate name
-        // if (name == null || name.isEmpty() || !name.matches("^[A-Z][a-zA-Z '.-]*[A-Za-z][^-]$")) {
-        //     return 0;
-        // }
+        if (name == null || name.isEmpty() || !name.matches("^[A-Z][a-zA-Z '.-]*[A-Za-z][^-]$")) {
+            return 0;
+        }
 
         // Validate Malaysia IC
-        // if (ic == null || !ic.matches("^\\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])\\d{6}$")) {
-        //     System.out.println("icfailed");
-        //     return 0;
-        // } else {
-        //     System.out.println("icpass");
-        // }
+        if (ic == null || !ic.matches("^\\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])\\d{6}$")) {
+            return 0;
+        }
 
         // Validate gender
-        // if (gender == null || (!gender.equals("M") && !gender.equals("F"))) {
-        //     return 0;
-        // }
+        if (gender == null || (!gender.equals("M") && !gender.equals("F"))) {
+            return 0;
+        }
 
         // Validate Malaysia contact
         if (contact == null || !contact.matches("^(\\+?6?01)[02-46-9]-*[0-9]{7}$|^(\\+?6?01)[1]-*[0-9]{8}$")){
@@ -80,9 +77,9 @@ public class Patient {
         }
 
         // Validate department
-        // if (department == null || department.isEmpty()) {
-        //     return 0;
-        // }
+        if (department == null || department.isEmpty()) {
+            return 0;
+        }
 
         return 1;
     }
