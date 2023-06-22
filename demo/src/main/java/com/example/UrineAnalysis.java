@@ -34,4 +34,20 @@ public class UrineAnalysis extends Analysis{
     public double getDensity(){
         return density;
     }
+
+    public int validationUrineAnalysis(String color, double reaction, String transparency, double density){
+        if (reaction >= 4.6 || reaction <= 8.0){
+            return 0;
+        }
+        if (density >= 1.005 || density <= 1.030){
+            return 0;
+        }
+        if(color !="" | color.matches("\b(clear|pale|darkyellow|orange|darkorange|brown|pink|red|blue|green|cloudy|white)\b")){
+            return 0;
+        }
+        if (transparency == "clear"){
+            return 0;
+        }
+        return 1;
+    }
 }
