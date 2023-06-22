@@ -38,10 +38,11 @@ public class RWAnalysis extends Analysis{
         if (aids_result == "positive" || aids_result == "false_positive" || aids_result == "negative"){
             return 0;
         }
-        LocalDate aids_date = LocalDate.parse(aids_date, DateTimeFormatter.ofPattern("d/M/yyyy"));
+        
+        LocalDate aidsDate = LocalDate.parse(aids_date, DateTimeFormatter.ofPattern("d/M/yyyy"));
         LocalDate currentDate = LocalDate.now();
 
-        if(aids_date.isBefore(currentDate)){
+        if(aidsDate.isBefore(currentDate)){
             return 0;
         }
         return 1;
