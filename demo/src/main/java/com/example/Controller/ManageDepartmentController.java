@@ -191,7 +191,8 @@ public class ManageDepartmentController {
                         return;
                     }
                 }
-                Department newDepartment = new Department("D002", dptName);
+                String dpt_id = "D" + String.format("%03d", getMaxId(listData) + 1);
+                Department newDepartment = new Department(dpt_id, dptName);
                 csvhandler.writeCSV(filePath, newDepartment);
                 alert.successMessage("Department added successfully");
                 ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
@@ -208,4 +209,24 @@ public class ManageDepartmentController {
             }
         }
     }
+
+    private static int getMaxId(ObservableList<Department> departmentList) {
+    int maxId = 0;
+    for (Department department : departmentList) {
+        String id = department.getId();
+        if (id.startsWith("D")) {
+            String numberPart = id.substring(1); // Remove the prefix "D"
+            try {
+                int currentNumber = Integer.parseInt(numberPart);
+                if (currentNumber > maxId) {
+                    maxId = currentNumber;
+                }
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    return maxId;
+}
+
 }
