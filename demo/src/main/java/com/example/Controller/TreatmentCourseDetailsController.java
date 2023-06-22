@@ -6,9 +6,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.example.Admin;
+import com.example.AlertMessage;
 import com.example.BioBloodAnalysis;
 import com.example.BloodAnalysis;
 import com.example.Diagnosis;
@@ -404,6 +406,8 @@ public class TreatmentCourseDetailsController {
     @FXML
     private Button urineAnalysisUpdateBtn;
 
+    private String[] medicineList;
+
     @FXML
     void initialize() {
         SwitchPage switchpage = new SwitchPage();
@@ -442,6 +446,14 @@ public class TreatmentCourseDetailsController {
             bloodAnalysisResetBtnAction();
         });
 
+        treatCourseDetProcedureMedicineAddBtn.setOnAction(event -> {
+            addMedicine();
+        });
+
+        procedureAddBtn.setOnAction(event -> {
+            addProcedureBtnAction();
+        });
+
         unFocusAll();
 
         treatCourseDetDiagnosisTable.getColumns().forEach(e -> e.setReorderable(false));
@@ -475,6 +487,7 @@ public class TreatmentCourseDetailsController {
                     treatCourseDetProcedureTimeField.setText(selectedProcedure.getProcedure_time());
                     treatCourseDetProcedureTypeField.setText(selectedProcedure.getType());
                     String[] medicineList = selectedProcedure.getMedicine_list();
+                    this.medicineList = medicineList;
                     String medicineListText = String.join(", ", medicineList);
                     treatCourseDetProcedureMedicineList.setText(medicineListText);
                 }
@@ -490,6 +503,7 @@ public class TreatmentCourseDetailsController {
                     stage.show();
                     ProcedureDetailsController controller = loader.getController();
                     String[] medicineList = selectedProcedure.getMedicine_list();
+                    this.medicineList = medicineList;
                     controller.initData(admin, patient_info, history_id, treatment_course_id, selectedProcedure.getProcedure_id(), medicineList);
                     Node node = (Node) event.getSource();
                     Stage currentStage = (Stage) node.getScene().getWindow();
@@ -813,6 +827,68 @@ public class TreatmentCourseDetailsController {
 
         treatCourseDetBloodAnalysisTable.setItems(bloodAnalysisListData);
 
+    }
+
+    private AlertMessage alert = new AlertMessage();
+
+    private void addMedicine(){
+        if (treatCourseDetProcedureMedicineChoice.getValue() == null) {
+            alert.errorMessage("No medicine selected");
+            return;
+        } else if (treatCourseDetProcedureMedicineList.getText().equals("")) {
+            medicineList = new String[]{treatCourseDetProcedureMedicineChoice.getValue()};
+        } else {
+            String medicineName = treatCourseDetProcedureMedicineChoice.getValue();
+            
+            boolean isDuplicate = false;
+            for(String medical : medicineList){
+                if(medical.equals(medicineName)){
+                    // show error
+                    alert.errorMessage("Medicine already added");
+                    isDuplicate = true;
+                    break;
+                }
+            }
+            if(!isDuplicate){
+                medicineList = Arrays.copyOf(medicineList, medicineList.length + 1);
+                medicineList[medicineList.length - 1] = medicineName;
+                alert.successMessage("Medicine added");
+            }
+        }
+
+        String medicineListText = String.join(", ", medicineList);
+        treatCourseDetProcedureMedicineList.setText(medicineListText);
+    }
+
+    private Procedure checkInput = new Procedure();
+
+    private void addProcedureBtnAction(){
+        if (treatCourseDetProcedureTypeField.getText().isEmpty() || treatCourseDetProcedureDateField == null || treatCourseDetProcedureTimeField.getText().isEmpty() || treatCourseDetProcedureMedicineList.getText().equals("")){
+            // show error message
+            alert.errorMessage("Please fill in all the fields");
+        } else {
+            String procedureType = treatCourseDetProcedureTypeField.getText();
+            String procedureDate = treatCourseDetProcedureDateField.getValue().toString();
+            String procedureTime = treatCourseDetProcedureTimeField.getText();
+            String procedureMedicine = treatCourseDetProcedureMedicineList.getText();
+            String[] procedureMedicineList = procedureMedicine.split(",");
+
+            if (checkInput.validationProcedure(procedureType, procedureDate, procedureTime, procedureMedicineList) == 1) {
+                // add patient to database
+                // Patient.new(patName, patIC, patCot, patDepartment, patGender);
+
+
+                // reset all input field
+                procedureResetBtnAction();
+
+                // show success message
+                alert.successMessage("Procedure has been added successfully");
+
+            } else {
+                // show error message
+                alert.errorMessage("Please enter valid input");
+            }
+        }
     }
 
     private Popup timePopup;

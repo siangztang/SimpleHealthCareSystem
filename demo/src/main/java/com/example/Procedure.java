@@ -19,6 +19,9 @@ public class Procedure{
         this.medicine_list = medicine_list;
     }
 
+    public Procedure() {
+    }
+
     public String getProcedure_id() {
         return procedure_id;
     }
@@ -41,5 +44,27 @@ public class Procedure{
 
     public String[] getMedicine_list() {
         return medicine_list;
+    }
+
+        public int validationProcedure(String type, String procedure_date, String procedure_time, String[] medicine_list){
+        // check if type is in the future
+        if (type == null || type.isEmpty() || type.length() < 5) {
+            return 0;
+        }
+        // check if procedure_date is in the future
+        if (procedure_date == null || procedure_date.isEmpty()) {
+            return 0;
+        }
+        // check if procedure_time is in the future
+        if (procedure_time == null || procedure_time.isEmpty()) {
+            return 0;
+        }
+        // check if medicine_list is valid
+        if (medicine_list == null || medicine_list.length == 0) {
+            return 0;
+        }
+        return 1;
+    
+
     }
 }
