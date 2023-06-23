@@ -239,6 +239,9 @@ public class TreatmentCourseDetailsController {
     private TableColumn<BloodAnalysis, Integer> treatCourseDetBloodAnalysisStabNeuthrophilCol;
 
     @FXML
+    private TextField treatCourseDetBloodAnalysisStabNeuthrophilField;
+
+    @FXML
     private Tab treatCourseDetBloodAnalysisTab;
 
     @FXML
@@ -951,29 +954,31 @@ public class TreatmentCourseDetailsController {
         timePopup.show(treatCourseDetProcedureTimeField.getScene().getWindow(), x, y);
         
     }
+
     private void addBloodAnalysisBtnAction(){
-            if (analysis_date.getText().isEmpty() ||red_cells.getText().isEmpty() || haemoglobin.getText().isEmpty() || color.getText().isEmpty()|| parasites.getText().isEmpty() || white_cells.getText().isEmpty() || lymphocytes.getText().isEmpty() || ESR.getText().isEmpty()){
+            if (treatCourseDetBloodAnalysisDateDateField == null || treatCourseDetBloodAnalysisRedCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisHaemoglobinField.getText().isEmpty() || treatCourseDetBloodAnalysisColorField.getText().isEmpty() || treatCourseDetBloodAnalysisParasitesField == null || treatCourseDetBloodAnalysisWhiteCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisLymphocytesField.getText().isEmpty() || treatCourseDetBloodAnalysisESRField.getText().isEmpty()){
             alert.errorMessage("Please fill all the fields");
 
         } else {
-            String analysis_date = analysis_date.getText();
-            String red_cells = red_cells.getText();
-            String haemoglobin = haemoglobin.getText();
-            String color = color.getText();
-            String parasites = parasites.getText();
-            String white_cells = white_cells.getText();
-            String lymphocytes = lymphocytes.getText();
-            String ESR = ESR.getText();
+            String analysis_date = treatCourseDetBloodAnalysisDateDateField.getValue().toString();
+            Double red_cells = Double.parseDouble(treatCourseDetBloodAnalysisRedCellsField.getText());
+            Double haemoglobin = Double.parseDouble(treatCourseDetBloodAnalysisHaemoglobinField.getText());
+            String color = treatCourseDetBloodAnalysisColorField.getText();
+            String parasites = treatCourseDetBloodAnalysisParasitesField.getValue().toString();
+            int white_cells = Integer.parseInt(treatCourseDetBloodAnalysisWhiteCellsField.getText());
+            int stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
+            int lymphocytes = Integer.parseInt(treatCourseDetBloodAnalysisLymphocytesField.getText());
+            int ESR = Integer.parseInt(treatCourseDetBloodAnalysisESRField.getText());
             
-
-            if (checkInput.validationBloodAnalysis(analysis_date, red_cells, haemoglobin, color, parasites, white_cells, lymphocytes, ESR) == 1) {
+            if (checkInput.validationBlood(red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR) == 1) {
                 // reset all fields
                 resetBtnAction();
                 // show success message
                 alert.successMessage("Blood Analysis added successfully");
+                println("success section");
 
             } else {
-return 1;
+            "return error message");
             }
         }
     }

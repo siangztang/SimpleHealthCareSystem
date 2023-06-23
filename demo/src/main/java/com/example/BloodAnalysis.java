@@ -72,7 +72,7 @@ public class BloodAnalysis extends Analysis{
         if(haemoglobin >= 13.5 || haemoglobin <=17.5){
             return 0;
         }
-        //piss color  
+        //blood color  
         if(color !="" | color.matches("\b(red|bright red|purple)\b")){
             return 0;
         }
