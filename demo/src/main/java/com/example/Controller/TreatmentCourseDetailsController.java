@@ -601,6 +601,7 @@ public class TreatmentCourseDetailsController {
             }
         });
         BloodAnalysisShowListData();
+    
 
 
     }
@@ -948,6 +949,33 @@ public class TreatmentCourseDetailsController {
         double x = treatCourseDetProcedureTimeField.localToScreen(treatCourseDetProcedureTimeField.getBoundsInLocal()).getMinX();
         double y = treatCourseDetProcedureTimeField.localToScreen(treatCourseDetProcedureTimeField.getBoundsInLocal()).getMaxY();
         timePopup.show(treatCourseDetProcedureTimeField.getScene().getWindow(), x, y);
+        
+    }
+    private void addBloodAnalysisBtnAction(){
+            if (analysis_date.getText().isEmpty() ||red_cells.getText().isEmpty() || haemoglobin.getText().isEmpty() || color.getText().isEmpty()|| parasites.getText().isEmpty() || white_cells.getText().isEmpty() || lymphocytes.getText().isEmpty() || ESR.getText().isEmpty()){
+            alert.errorMessage("Please fill all the fields");
+
+        } else {
+            String analysis_date = analysis_date.getText();
+            String red_cells = red_cells.getText();
+            String haemoglobin = haemoglobin.getText();
+            String color = color.getText();
+            String parasites = parasites.getText();
+            String white_cells = white_cells.getText();
+            String lymphocytes = lymphocytes.getText();
+            String ESR = ESR.getText();
+            
+
+            if (checkInput.validationBloodAnalysis(analysis_date, red_cells, haemoglobin, color, parasites, white_cells, lymphocytes, ESR) == 1) {
+                // reset all fields
+                resetBtnAction();
+                // show success message
+                alert.successMessage("Blood Analysis added successfully");
+
+            } else {
+return 1;
+            }
+        }
     }
 }
 
