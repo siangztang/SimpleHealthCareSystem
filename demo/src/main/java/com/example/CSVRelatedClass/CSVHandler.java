@@ -9,6 +9,8 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.lang.reflect.Field;
@@ -129,6 +131,26 @@ public class CSVHandler {
         }
         return Character.toUpperCase(str.charAt(0)) + str.substring(1);
     }
+
+    public <T> int getMaxId(ObservableList<T> list, Function<T, String> getIdFunction, String prefix) {
+        int maxId = 0;
+        for (T item : list) {
+            String id = getIdFunction.apply(item);
+            if (id.startsWith(prefix)) {
+                String numberPart = id.substring(1); // Remove the prefix "D"
+                try {
+                    int currentNumber = Integer.parseInt(numberPart);
+                    if (currentNumber > maxId) {
+                        maxId = currentNumber;
+                    }
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return maxId;
+    }
+
 
     public <T> void writeCSV(String filePath, T object) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
