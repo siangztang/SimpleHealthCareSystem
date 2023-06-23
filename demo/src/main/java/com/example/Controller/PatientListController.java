@@ -3,13 +3,19 @@ package com.example.Controller;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 import com.example.Admin;
 import com.example.AlertMessage;
+import com.example.Department;
 import com.example.Patient;
 import com.example.SwitchPage;
+import com.example.CSVRelatedClass.CSVHandler;
+import com.example.CSVRelatedClass.CSVPath;
+import com.example.CSVRelatedClass.CustomComparator;
+import com.example.CSVRelatedClass.ParameterTypes;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -125,6 +131,17 @@ public class PatientListController {
             switchpage.switchPage(event, manageMedicineBtn);
         });
         patGenderBox.getItems().addAll("M", "F");
+        
+        CSVHandler csvhandler = new CSVHandler();
+        String filePath = CSVPath.DEPARTMENT_PATH;
+        Class<?>[] parameterTypes = ParameterTypes.DEPARTMENT_PARAMETER_TYPES;
+        Comparator<Department> comparator = CustomComparator.createComparator(Department::getId);
+        ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
+
+        for (Department department : listData) {
+            patDepartmentField.getItems().add(department.getName());
+        }
+
         resetBtn.setOnAction(event -> {
             resetBtnAction();
         });

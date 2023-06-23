@@ -98,6 +98,10 @@ public class ManageDepartmentController {
             updateBtnAction();
         });
 
+        deleteBtn.setOnAction(event -> {
+            deleteBtnAction();
+        });
+
         unFocusAll();
         departmentTable.getColumns().forEach(e -> e.setReorderable(false));
         departmentTable.setOnMouseClicked(event -> {
@@ -248,6 +252,26 @@ public class ManageDepartmentController {
                 // show error message
                 alert.errorMessage("Please enter valid input");
             }
+        }
+    }
+
+    private void deleteBtnAction(){
+        Department selectedDepartment = departmentTable.getSelectionModel().getSelectedItem();
+
+        if (selectedDepartment == null){
+            alert.errorMessage("Please select a department");
+        } else {
+            String dptId = selectedDepartment.getId();
+            csvhandler.deleteCSV(filePath, "id", dptId);
+            alert.successMessage("Department deleted successfully");
+            ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
+            this.listData = listData;
+
+            // reset all fields
+            resetBtnAction();
+
+            // refresh table
+            departmentShowListData();
         }
     }
 

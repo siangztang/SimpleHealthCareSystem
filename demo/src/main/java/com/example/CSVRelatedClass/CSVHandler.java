@@ -167,6 +167,7 @@ public class CSVHandler {
     }
     // end of write to csv
 
+    // start update csv
     public <T> void updateCSV(String filePath, String checkField, String checkValue, T updatedObject) {
         List<String> lines = new ArrayList<>();
 
@@ -199,7 +200,9 @@ public class CSVHandler {
             e.printStackTrace();
         }
     }
+    // end of update csv
 
+    // for write and update csv
     private static String getCSVLine(Object object) {
         StringBuilder line = new StringBuilder();
         Field[] fields = object.getClass().getDeclaredFields();
@@ -220,5 +223,40 @@ public class CSVHandler {
         }
 
         return line.toString();
+    }
+    // end of this method for write and update csv
+
+    public void deleteCSV(String filePath, String checkField, String checkValue) {
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+
+                if (data.length > 1 && data[0].equals(checkValue)) {
+                    // Skip the line to be deleted
+                    continue;
+                }
+
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+
+            System.out.println("The line has been delete successfully!");
+            System.out.println("CSV file updated successfully!");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
