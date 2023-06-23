@@ -457,6 +457,10 @@ public class TreatmentCourseDetailsController {
             addProcedureBtnAction();
         });
 
+        bloodAnalysisAddBtn.setOnAction(event -> {
+            addBloodAnalysisBtnAction();
+        });
+
         unFocusAll();
 
         treatCourseDetDiagnosisTable.getColumns().forEach(e -> e.setReorderable(false));
@@ -596,6 +600,7 @@ public class TreatmentCourseDetailsController {
                     treatCourseDetBloodAnalysisColorField.setText(String.valueOf(selectedBloodAnalysis.getColor()));
                     treatCourseDetBloodAnalysisParasitesField.setValue(String.valueOf(selectedBloodAnalysis.getParasites()));
                     treatCourseDetBloodAnalysisWhiteCellsField.setText(String.valueOf(selectedBloodAnalysis.getWhite_cells()));
+                    treatCourseDetBloodAnalysisStabNeuthrophilField.setText(String.valueOf(selectedBloodAnalysis.getStab_neuthrophil()));
                     treatCourseDetBloodAnalysisLymphocytesField.setText(String.valueOf(selectedBloodAnalysis.getLymphocytes()));
                     treatCourseDetBloodAnalysisESRField.setText(String.valueOf(selectedBloodAnalysis.getESR()));
                     
@@ -816,7 +821,7 @@ public class TreatmentCourseDetailsController {
     public void BloodAnalysisShowListData(){
         ObservableList<BloodAnalysis> bloodAnalysisListData = FXCollections.observableArrayList();
 
-        bloodAnalysisListData.add(new BloodAnalysis("BA0001", "20/7/2023", "TC001", 1.22, 1.512, "Red", "true", 2, 1, 1, 1));
+        bloodAnalysisListData.add(new BloodAnalysis("BA0001", "20/7/2023", "TC001", 4.5, 13.5, "Red", "Positive", 5000, 0, 20, 20));
         bloodAnalysisListData.add(new BloodAnalysis("BA0002", "20/7/2023", "TC002", 1.23, 1.512, "Red", "true", 2, 1, 1, 1));
 
         treatCourseDetBloodAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
@@ -826,6 +831,7 @@ public class TreatmentCourseDetailsController {
         treatCourseDetBloodAnalysisColorCol.setCellValueFactory(new PropertyValueFactory<>("color"));
         treatCourseDetBloodAnalysisParasitesCol.setCellValueFactory(new PropertyValueFactory<>("parasites"));
         treatCourseDetBloodAnalysisWhiteCellsCol.setCellValueFactory(new PropertyValueFactory<>("white_cells"));
+        treatCourseDetBloodAnalysisStabNeuthrophilCol.setCellValueFactory(new PropertyValueFactory<>("stab_neuthrophil"));
         treatCourseDetBloodAnalysisLymphocytesCol.setCellValueFactory(new PropertyValueFactory<>("lymphocytes"));
         treatCourseDetBloodAnalysisESRCol.setCellValueFactory(new PropertyValueFactory<>("ESR"));
 
@@ -864,7 +870,7 @@ public class TreatmentCourseDetailsController {
         treatCourseDetProcedureMedicineList.setText(medicineListText);
     }
 
-    private Procedure checkInput = new Procedure();
+    private Procedure procedureCheckInput = new Procedure();
 
     private void addProcedureBtnAction(){
         if (treatCourseDetProcedureTypeField.getText().isEmpty() || treatCourseDetProcedureDateField == null || treatCourseDetProcedureTimeField.getText().isEmpty() || treatCourseDetProcedureMedicineList.getText().equals("")){
@@ -877,7 +883,7 @@ public class TreatmentCourseDetailsController {
             String procedureMedicine = treatCourseDetProcedureMedicineList.getText();
             String[] procedureMedicineList = procedureMedicine.split(",");
 
-            if (checkInput.validationProcedure(procedureType, procedureDate, procedureTime, procedureMedicineList) == 1) {
+            if (procedureCheckInput.validationProcedure(procedureType, procedureDate, procedureTime, procedureMedicineList) == 1) {
                 // add patient to database
                 // Patient.new(patName, patIC, patCot, patDepartment, patGender);
 
@@ -956,13 +962,13 @@ public class TreatmentCourseDetailsController {
     }
 
     private void addBloodAnalysisBtnAction(){
-            if (treatCourseDetBloodAnalysisDateDateField == null || treatCourseDetBloodAnalysisRedCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisHaemoglobinField.getText().isEmpty() || treatCourseDetBloodAnalysisColorField.getText().isEmpty() || treatCourseDetBloodAnalysisParasitesField == null || treatCourseDetBloodAnalysisWhiteCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisLymphocytesField.getText().isEmpty() || treatCourseDetBloodAnalysisESRField.getText().isEmpty()){
-            alert.errorMessage("Please fill all the fields");
+        if (treatCourseDetBloodAnalysisDateDateField == null || treatCourseDetBloodAnalysisRedCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisHaemoglobinField.getText().isEmpty() || treatCourseDetBloodAnalysisColorField.getText().isEmpty() || treatCourseDetBloodAnalysisParasitesField == null || treatCourseDetBloodAnalysisWhiteCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisLymphocytesField.getText().isEmpty() || treatCourseDetBloodAnalysisESRField.getText().isEmpty()){
+        alert.errorMessage("Please fill all the fields");
 
         } else {
             String analysis_date = treatCourseDetBloodAnalysisDateDateField.getValue().toString();
-            Double red_cells = Double.parseDouble(treatCourseDetBloodAnalysisRedCellsField.getText());
-            Double haemoglobin = Double.parseDouble(treatCourseDetBloodAnalysisHaemoglobinField.getText());
+            double red_cells = Double.parseDouble(treatCourseDetBloodAnalysisRedCellsField.getText());
+            double haemoglobin = Double.parseDouble(treatCourseDetBloodAnalysisHaemoglobinField.getText());
             String color = treatCourseDetBloodAnalysisColorField.getText();
             String parasites = treatCourseDetBloodAnalysisParasitesField.getValue().toString();
             int white_cells = Integer.parseInt(treatCourseDetBloodAnalysisWhiteCellsField.getText());
@@ -970,15 +976,15 @@ public class TreatmentCourseDetailsController {
             int lymphocytes = Integer.parseInt(treatCourseDetBloodAnalysisLymphocytesField.getText());
             int ESR = Integer.parseInt(treatCourseDetBloodAnalysisESRField.getText());
             
-            if (checkInput.validationBlood(red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR) == 1) {
+            if (BloodAnalysis.validationBlood(analysis_date, red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR) == 1) {
                 // reset all fields
-                resetBtnAction();
+                bloodAnalysisResetBtnAction();
                 // show success message
                 alert.successMessage("Blood Analysis added successfully");
-                println("success section");
 
             } else {
-            "return error message");
+                // show error message
+                alert.errorMessage("Please enter valid input");
             }
         }
     }

@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseDetailsController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseDetailsController">
    <children>
       <StackPane fx:id="treatment_course_details_page" prefHeight="150.0" prefWidth="200.0">
          <children>
@@ -188,16 +188,16 @@
                                                                <children>
                                                                   <TableView fx:id="treatCourseDetBloodAnalysisTable" layoutX="15.0" layoutY="5.0" prefHeight="381.0" prefWidth="1000.0">
                                                                     <columns>
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisIDCol" prefWidth="111.0" resizable="false" text="ID" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisDateCol" prefWidth="111.0" resizable="false" text="Date" />
-                                                                      <TableColumn fx:id="treatCourseDetBloodAnalysisRedCellsCol" prefWidth="111.0" resizable="false" text="Red Cells" />
-                                                                      <TableColumn fx:id="treatCourseDetBloodAnalysisHaemoglobinCol" prefWidth="111.0" resizable="false" text="Haemoglobin" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisColorCol" prefWidth="111.0" resizable="false" text="Color" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisParasitesCol" prefWidth="111.0" resizable="false" text="Parasites" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisIDCol" prefWidth="100.0" resizable="false" text="ID" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisDateCol" prefWidth="100.0" resizable="false" text="Date" />
+                                                                      <TableColumn fx:id="treatCourseDetBloodAnalysisRedCellsCol" prefWidth="100.0" resizable="false" text="Red Cells" />
+                                                                      <TableColumn fx:id="treatCourseDetBloodAnalysisHaemoglobinCol" prefWidth="100.0" resizable="false" text="Haemoglobin" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisColorCol" prefWidth="100.0" resizable="false" text="Color" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisParasitesCol" prefWidth="100.0" resizable="false" text="Parasites" />
                                                                         <TableColumn fx:id="treatCourseDetBloodAnalysisWhiteCellsCol" prefWidth="111.0" resizable="false" text="White Cells" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisStabNeuthrophilCol" minWidth="0.66668701171875" prefWidth="0.66668701171875" text="Stab Neuthrophil" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisLymphocytesCol" prefWidth="111.0" resizable="false" text="Lymphocytes" />
-                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisESRCol" minWidth="0.0" prefWidth="111.0" resizable="false" text="ESR" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisStabNeuthrophilCol" minWidth="0.66668701171875" prefWidth="111.0" text="Stab Neuthrophil" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisLymphocytesCol" prefWidth="106.6666259765625" resizable="false" text="Lymphocytes" />
+                                                                        <TableColumn fx:id="treatCourseDetBloodAnalysisESRCol" minWidth="0.0" prefWidth="70.0" resizable="false" text="ESR" />
                                                                     </columns>
                                                                   </TableView>
                                                                   <AnchorPane layoutX="15.0" layoutY="386.0" prefHeight="200.0" prefWidth="1000.0">
@@ -232,12 +232,12 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label layoutX="314.0" layoutY="48.0" text="Lymphocytes: ">
+                                                                        <Label layoutX="314.0" layoutY="88.0" text="Lymphocytes: ">
                                                                            <font>
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label layoutX="314.0" layoutY="88.0" text="ESR: ">
+                                                                        <Label layoutX="630.0" layoutY="8.0" text="ESR: ">
                                                                            <font>
                                                                               <Font size="16.0" />
                                                                            </font>
@@ -246,14 +246,20 @@
                                                                         <TextField fx:id="treatCourseDetBloodAnalysisRedCellsField" layoutX="118.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <TextField fx:id="treatCourseDetBloodAnalysisHaemoglobinField" layoutX="118.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <TextField fx:id="treatCourseDetBloodAnalysisColorField" layoutX="118.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <TextField fx:id="treatCourseDetBloodAnalysisWhiteCellsField" layoutX="415.0" layoutY="8.0" />
-                                                                        <TextField fx:id="treatCourseDetBloodAnalysisLymphocytesField" layoutX="415.0" layoutY="48.0" />
-                                                                        <TextField fx:id="treatCourseDetBloodAnalysisESRField" layoutX="415.0" layoutY="88.0" />
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisWhiteCellsField" layoutX="443.0" layoutY="8.0" />
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisLymphocytesField" layoutX="443.0" layoutY="88.0" />
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisESRField" layoutX="670.0" layoutY="8.0" />
                                                                         <ComboBox fx:id="treatCourseDetBloodAnalysisParasitesField" layoutX="118.0" layoutY="168.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <Button id="updateBtn" fx:id="bloodAnalysisUpdateBtn" layoutX="670.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                                                         <Button id="delBtn" fx:id="bloodAnalysisDeleteBtn" layoutX="761.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                                                         <Button id="resetBtn" fx:id="bloodAnalysisResetBtn" layoutX="908.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />
                                                                         <Button id="addBtn" fx:id="bloodAnalysisAddBtn" layoutX="578.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Add" />
+                                                                        <Label layoutX="314.0" layoutY="48.0" text="Stab Nuethrophil: ">
+                                                                           <font>
+                                                                              <Font size="16.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <TextField fx:id="treatCourseDetBloodAnalysisStabNeuthrophilField" layoutX="443.0" layoutY="48.0" />
                                                                      </children>
                                                                   </AnchorPane>
                                                                </children>

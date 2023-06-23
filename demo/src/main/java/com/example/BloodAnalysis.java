@@ -63,39 +63,57 @@ public class BloodAnalysis extends Analysis{
             return ESR;
         }
         //Validation for Blood Analysis Form
-        public int validationBlood(double red_cells, double haemoglobin, String color, String parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR) {
-        //Validate Red Cells
-        if (red_cells >=4.5 || red_cells >=5.5) {
-            return 0;
-        }
-        //Haemoglobin
-        if(haemoglobin >= 13.5 || haemoglobin <=17.5){
-            return 0;
-        }
-        //blood color  
-        if(color !="" | color.matches("\b(red|bright red|purple)\b")){
-            return 0;
-        }
-        //parasites
-        if(parasites !="" | parasites.matches("\b(positive|negative)\b")){
-            return 0;
-        }
-        //white cells
-        if(white_cells >= 5000 || white_cells <= 11000){
-            return 0;
-        }
-        //stab neuthrophil
-        if(stab_neuthrophil >= 0 || stab_neuthrophil <= 3){
-            return 0;
-        }
-        //lymphocytes
-        if(lymphocytes >= 20 || lymphocytes <= 40){
-            return 0;
-        }
-        //ESR
-        if(ESR >= 20 || ESR <= 40){
-            return 0;
-        }
+        public static int validationBlood(String analysis_date, double red_cells, double haemoglobin, String color, String parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR) {
+            
+            //Validate Analysis Date
+            if (analysis_date == "" || analysis_date == null) {
+                System.out.println("Analysis Date is empty");
+                return 0;
+            }
+
+            //Validate Red Cells
+            if (red_cells <4.5 || red_cells >5.5) {
+                System.out.println(red_cells);
+                System.out.println("Red Cells is not in range");
+                return 0;
+            }
+            //Haemoglobin
+            if(haemoglobin < 13.5 || haemoglobin >17.5){
+                System.out.println("Haemoglobin is not in range");
+                return 0;
+            }
+            //blood color  
+            if(color =="" || color == null){
+                System.out.println(color);
+                System.out.println( "Blood color is empty");
+                return 0;
+            }
+            //parasites
+            if(parasites == "" || (!parasites.equals("Positive") && !parasites.equals("Negative"))){
+                System.out.println(parasites);
+                System.out.println("Parasites is empty");
+                return 0;
+            }
+            //white cells
+            if(white_cells < 5000 || white_cells > 11000){
+                System.out.println("White cells is not in range");
+                return 0;
+            }
+            //stab neuthrophil
+            if(stab_neuthrophil < 0 || stab_neuthrophil > 3){
+                System.out.println("Stab neuthrophil is not in range");
+                return 0;
+            }
+            //lymphocytes
+            if(lymphocytes < 20 || lymphocytes > 40){
+                System.out.println("Lymphocytes is not in range");
+                return 0;
+            }
+            //ESR
+            if(ESR < 20 || ESR > 40){
+                System.out.println("ESR is not in range");
+                return 0;
+            }
         return 1;
     }
 }
