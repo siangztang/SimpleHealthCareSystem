@@ -10,6 +10,7 @@ import com.example.Department;
 import com.example.SwitchPage;
 import com.example.CSVRelatedClass.CSVHandler;
 import com.example.CSVRelatedClass.CSVPath;
+import com.example.CSVRelatedClass.CustomComparator;
 import com.example.CSVRelatedClass.ParameterTypes;
 
 import javafx.collections.ObservableList;
@@ -93,6 +94,10 @@ public class ManageDepartmentController {
             addBtnAction();
         });
 
+        updateBtn.setOnAction(event -> {
+            updateBtnAction();
+        });
+
         unFocusAll();
         departmentTable.getColumns().forEach(e -> e.setReorderable(false));
         departmentTable.setOnMouseClicked(event -> {
@@ -131,12 +136,10 @@ public class ManageDepartmentController {
     CSVHandler csvhandler = new CSVHandler();
     String filePath = CSVPath.DEPARTMENT_PATH;
     Class<?>[] parameterTypes = ParameterTypes.DEPARTMENT_PARAMETER_TYPES;
-    Comparator<Department> comparator = Comparator.comparing(Department::getId);
+    Comparator<Department> comparator = CustomComparator.createComparator(Department::getId);
     ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
     
-
     public void departmentShowListData(){
-        // ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
         dptIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         dptNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
@@ -145,7 +148,6 @@ public class ManageDepartmentController {
     }
 
     private void searchFilter(){
-        // ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
         FilteredList<Department> filteredData = new FilteredList<>(listData, e -> true);
         searchField.setOnKeyReleased(e->{
         
@@ -197,6 +199,45 @@ public class ManageDepartmentController {
                 alert.successMessage("Department added successfully");
                 ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
                 this.listData = listData;
+
+                // reset all fields
+                resetBtnAction();
+
+                // refresh table
+                departmentShowListData();
+
+            } else {
+                // show error message
+                alert.errorMessage("Please enter valid input");
+            }
+        }
+    }
+
+    private void updateBtnAction(){
+        if (dptNameField.getText().isEmpty()) {
+            // show error message
+            alert.errorMessage("Please fill in all the fields");
+        } else {
+            String dptId = departmentTable.getSelectionModel().getSelectedItem().getId();
+            String dptName = dptNameField.getText();
+            
+
+            if (dptName.matches("^[a-zA-z]+([\\s][a-zA-Z]+)*$") && dptName.length() > 5) {
+                
+                for (Department deparment : listData){
+                    if (deparment.getName().equals(dptName)){
+                        alert.errorMessage("Department already exists");
+                        return;
+                    }
+                }
+
+                Department updatedDepartment = new Department(dptId, dptName);
+                csvhandler.updateCSV(filePath, "id", dptId, updatedDepartment);
+
+                alert.successMessage("Department updated successfully");
+                ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
+                this.listData = listData;
+
                 // reset all fields
                 resetBtnAction();
 

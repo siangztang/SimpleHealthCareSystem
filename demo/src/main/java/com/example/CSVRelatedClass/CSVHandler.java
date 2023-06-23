@@ -17,6 +17,8 @@ import java.lang.reflect.Field;
 
 
 public class CSVHandler {
+
+    // start of readCSV
     public <T> ObservableList<T> readCSV(String filePath, Class<T> clazz, Class<?>... parameterTypes) {
         return readCSV(filePath, clazz, null, parameterTypes);
     }
@@ -53,6 +55,7 @@ public class CSVHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
 
         if (comparator != null) {
             objects.sort(comparator);
@@ -150,13 +153,48 @@ public class CSVHandler {
         }
         return maxId;
     }
+    // end read csv
 
-
+    // start write to csv
     public <T> void writeCSV(String filePath, T object) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(getCSVLine(object));
             writer.newLine();
             System.out.println("Data appended to CSV file successfully!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // end of write to csv
+
+    public <T> void updateCSV(String filePath, String checkField, String checkValue, T updatedObject) {
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+
+                if (data.length > 1 && data[0].equals(checkValue)) {
+                    // Replace the entire line with the updated object's values
+                    String updatedLine = getCSVLine(updatedObject);
+                    lines.add(updatedLine);
+                } else {
+                    // Keep the original line
+                    lines.add(line);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+            System.out.println("CSV file updated successfully!");
         } catch (IOException e) {
             e.printStackTrace();
         }
