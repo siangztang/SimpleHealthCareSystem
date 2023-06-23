@@ -63,7 +63,7 @@ public class BloodAnalysis extends Analysis{
             return ESR;
         }
         //Validation for Blood Analysis Form
-        public static int validationBlood(String analysis_date, double red_cells, double haemoglobin, String color, String parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR) {
+        public static int validationBloodAnalysis(String analysis_date, double red_cells, double haemoglobin, String color, String parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR) {
             
             //Validate Analysis Date
             if (analysis_date == "" || analysis_date == null) {

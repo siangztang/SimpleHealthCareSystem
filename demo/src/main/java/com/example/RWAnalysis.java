@@ -17,7 +17,7 @@ public class RWAnalysis extends Analysis{
     }
 
     // positive or negative
-    public String getRw_result() {
+    public String getRw_result(){
         return rw_result;
     }
 
@@ -31,20 +31,26 @@ public class RWAnalysis extends Analysis{
         return aids_result;
     }
 
-    public int validationRWAnalysis(String rw_result, String aids_date, String aids_result){
-        if (rw_result == "positive" || rw_result == "negative"){
+    public static int validationRWAnalysis(String analysis_date, String rw_result, String aids_date, String aids_result){
+        if(analysis_date == null || analysis_date.isEmpty()){
+            System.out.println("Analysis date is empty");
             return 0;
         }
-        if (aids_result == "positive" || aids_result == "false_positive" || aids_result == "negative"){
+        if (rw_result ==null){
+            System.out.println("RW result is empty");
+            return 0;
+        }
+        if (aids_result == "null"){
+            System.out.println("AIDS result is empty");
             return 0;
         }
         
-        LocalDate aidsDate = LocalDate.parse(aids_date, DateTimeFormatter.ofPattern("d/M/yyyy"));
-        LocalDate currentDate = LocalDate.now();
-
-        if(aidsDate.isBefore(currentDate)){
+        // check if aids date is in the future
+        if (aids_date == null || aids_date.isEmpty()) {
+            System.out.println("AIDS date is empty");
             return 0;
         }
+
         return 1;
     }
 }

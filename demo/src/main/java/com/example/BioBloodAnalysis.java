@@ -2,7 +2,6 @@ package com.example;
 
 public class BioBloodAnalysis extends Analysis{
     
-    private int urea;
     private double createnine;
     private int sugar;
     private double biluribin;
@@ -10,9 +9,8 @@ public class BioBloodAnalysis extends Analysis{
     private int AST;
     private int ALT;
     
-    public BioBloodAnalysis(String analysis_id, String analysis_date, String treatment_course_id ,int urea, double createnine, int sugar, double biluribin, double direct_biluribin, int AST, int ALT){
+    public BioBloodAnalysis(String analysis_id, String analysis_date, String treatment_course_id , double createnine, int sugar, double biluribin, double direct_biluribin, int AST, int ALT){
         super(analysis_id, analysis_date, treatment_course_id);
-        this.urea = urea;
         this.createnine = createnine;
         this.sugar = sugar;
         this.biluribin = biluribin;
@@ -21,12 +19,6 @@ public class BioBloodAnalysis extends Analysis{
         this.ALT = ALT;
     }
     
-    // Normal range: Approximately 7-25 mg/dL
-
-    public int getUrea(){
-        return urea;
-    }
-
     // Normal range: Approximately 0.6-1.2 mg/dL for females and 0.7-1.3 mg/dL for males
     public double getCreatenine(){
         return createnine;
@@ -57,26 +49,40 @@ public class BioBloodAnalysis extends Analysis{
     }
 
     //create if statement for validation
-        public int validationBioBloodAnalysis(int urea, double createnine, int sugar, double biluribin, double direct_biluribin, int AST, int ALT) {
-        if(urea >= 7 || urea <= 25){
+        public static int validationBioBloodAnalysis(String analysis_date, double createnine, int sugar, double biluribin, double direct_biluribin, int AST, int ALT) {
+        //Validate Analysis Date
+        if (analysis_date == "" || analysis_date == null) {
+             System.out.println("Analysis Date is empty");
             return 0;
         }
-        if(createnine >= 0.6 || createnine <= 1.2){
+        if(createnine <= 0.6 || createnine >= 1.2){
+            System.out.println(createnine);
+            System.out.println("Createnine is not in range");
             return 0;
         }
-        if(sugar >= 70 || sugar <= 100){
+        if(sugar <= 70 || sugar >= 100){
+            System.out.println(sugar);
+            System.out.println("Sugar is not in range");
             return 0;
         }
-        if(biluribin >= 0.1 || biluribin <= 1.2){
+        if(biluribin <= 0.1 || biluribin >= 1.2){
+            System.out.println(biluribin);
+            System.out.println("Biluribin is not in range");
             return 0;
         }
-        if(direct_biluribin >= 0.1 || direct_biluribin <= 0.3){
+        if(direct_biluribin <= 0.1 || direct_biluribin >= 0.3){
+            System.out.println(direct_biluribin);
+            System.out.println("Direct Biluribin is not in range");
             return 0;
         }
-        if(AST <= 40){
+        if(AST >= 40){
+            System.out.println(AST);
+            System.out.println("AST is not in range");
             return 0;
         }
-        if(ALT <= 40){
+        if(ALT >= 40){
+            System.out.println(ALT);
+            System.out.println("ALT is not in range");
             return 0;
         }
             return 1;
