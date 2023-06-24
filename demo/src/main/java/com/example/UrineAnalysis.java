@@ -15,6 +15,7 @@ public class UrineAnalysis extends Analysis{
         this.density = density;
     }
 
+
     // Normal urine color ranges from pale yellow to amber.
     public String getColor(){
         return color;
@@ -35,19 +36,36 @@ public class UrineAnalysis extends Analysis{
         return density;
     }
 
-    public int validationUrineAnalysis(String color, double reaction, String transparency, double density){
-        if (reaction >= 4.6 || reaction <= 8.0){
+    public static int validationUrineAnalysis(String analysis_date, String color, double reaction, String transparency, double density){
+        if(analysis_date == null || analysis_date.isEmpty()){
+            System.out.println("Analysis date is empty");
             return 0;
         }
-        if (density >= 1.005 || density <= 1.030){
+
+         if(color == null){
+            System.out.println(color);
+            System.out.println("Color is empty");
             return 0;
         }
-        if(color !="" | color.matches("\b(clear|pale|darkyellow|orange|darkorange|brown|pink|red|blue|green|cloudy|white)\b")){
+        
+        if (reaction <= 4.6 || reaction >= 8.0){
+            System.out.println(reaction);
+            System.out.println("Reaction is not in range");
             return 0;
         }
-        if (transparency == "clear"){
+
+        if (transparency == null){
+            System.out.println(transparency);
+            System.out.println("Transparency is empty");
             return 0;
         }
+
+        if (density <= 1.005 || density >= 1.030){
+            System.out.println(density);
+            System.out.println("Density is not in range");
+            return 0;
+        }
+
         return 1;
     }
 }
