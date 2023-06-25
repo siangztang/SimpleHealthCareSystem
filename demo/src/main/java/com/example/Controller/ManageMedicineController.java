@@ -169,7 +169,7 @@ public class ManageMedicineController {
     }
 
     public ObservableList<Medicine> refreshData(){
-        ObservableList<Medicine> listData = csvhandler.readCSV(CSVPath.MEDICINE_PATH, Medicine.class, CustomComparator.createComparator(Medicine::getMedicine_id), ParameterTypes.MEDICINE_PARAMETER_TYPES);
+        ObservableList<Medicine> listData = csvhandler.readCSV(CSVPath.MEDICINE_PATH, Medicine.class, CustomComparator.createComparator(Medicine::getMedicine_id, 1), ParameterTypes.MEDICINE_PARAMETER_TYPES);
         return listData;
     }
 
@@ -309,7 +309,7 @@ public class ManageMedicineController {
                 Medicine updatedMedicine = new Medicine(medicineID, medicineName, medicineDescription, medicineAmount);
 
                 // update the department in the csv file
-                csvhandler.updateCSV(CSVPath.MEDICINE_PATH, "id", medicineID, updatedMedicine);
+                csvhandler.updateCSV(CSVPath.MEDICINE_PATH, 0, medicineID, updatedMedicine);
 
 
                 // show success message
@@ -339,7 +339,7 @@ public class ManageMedicineController {
             String selectedMedicine = medicineTable.getSelectionModel().getSelectedItem().getMedicine_id();
             
             // delete the department
-            csvhandler.deleteCSV(CSVPath.MEDICINE_PATH, "id", selectedMedicine);
+            csvhandler.deleteCSV(CSVPath.MEDICINE_PATH, 0, selectedMedicine);
 
             // show success message
             alert.successMessage("Medicine deleted successfully");

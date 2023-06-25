@@ -175,7 +175,7 @@ public class ManageDoctorController {
     }
 
     public ObservableList<Doctor> refreshData(){
-        ObservableList<Doctor> listData = csvhandler.readCSV(CSVPath.DOCTOR_PATH, Doctor.class, CustomComparator.createComparator(Doctor::getDoctor_id), ParameterTypes.DOCTOR_PARAMETER_TYPES);
+        ObservableList<Doctor> listData = csvhandler.readCSV(CSVPath.DOCTOR_PATH, Doctor.class, CustomComparator.createComparator(Doctor::getDoctor_id, 3), ParameterTypes.DOCTOR_PARAMETER_TYPES);
         return listData;
     }
 
@@ -305,7 +305,7 @@ public class ManageDoctorController {
                     Doctor newDoctor = new Doctor(docId, doc_name, doc_specialization, qualification, contact_info);
 
                     // update doctor
-                    csvhandler.updateCSV(CSVPath.DOCTOR_PATH, "doctor_id", docId, newDoctor);
+                    csvhandler.updateCSV(CSVPath.DOCTOR_PATH, 0, docId, newDoctor);
 
                     // show success message
                     alert.successMessage("Doctor updated successfully");
@@ -333,7 +333,7 @@ public class ManageDoctorController {
             String docId = docTable.getSelectionModel().getSelectedItem().getDoctor_id();
 
             // delete doctor
-            csvhandler.deleteCSV(CSVPath.DOCTOR_PATH, "doctor_id", docId);
+            csvhandler.deleteCSV(CSVPath.DOCTOR_PATH, 0, docId);
 
             // show success message
             alert.successMessage("Doctor deleted successfully");

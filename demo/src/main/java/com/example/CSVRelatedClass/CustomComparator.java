@@ -5,12 +5,14 @@ import java.util.function.Function;
 
 public class CustomComparator {
 
-    public static <T> Comparator<T> createComparator(Function<T, String> idExtractor) {
+    public static <T> Comparator<T> createComparator(Function<T, String> idExtractor, int prefixLength) {
         return (d1, d2) -> {
-            String prefix1 = idExtractor.apply(d1).substring(0, 1);
-            String prefix2 = idExtractor.apply(d2).substring(0, 1);
-            int id1 = Integer.parseInt(idExtractor.apply(d1).substring(1));
-            int id2 = Integer.parseInt(idExtractor.apply(d2).substring(1));
+            String id1String = idExtractor.apply(d1);
+            String id2String = idExtractor.apply(d2);
+            String prefix1 = id1String.substring(0, prefixLength);
+            String prefix2 = id2String.substring(0, prefixLength);
+            int id1 = Integer.parseInt(id1String.substring(prefixLength));
+            int id2 = Integer.parseInt(id2String.substring(prefixLength));
 
             if (prefix1.compareTo(prefix2) != 0) {
                 return prefix1.compareTo(prefix2);

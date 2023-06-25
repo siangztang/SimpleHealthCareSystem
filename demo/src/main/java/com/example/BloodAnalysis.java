@@ -11,7 +11,7 @@ public class BloodAnalysis extends Analysis{
     private int lymphocytes;
     private int ESR;
 
-    public BloodAnalysis(String analysis_id, String analysis_date, String treatment_course_id, double red_cells, double haemoglobin, String color, String parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR){
+    public BloodAnalysis(double red_cells, double haemoglobin, String color, String parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR, String analysis_id, String analysis_date, String treatment_course_id){
         super(analysis_id, analysis_date, treatment_course_id);
         this.red_cells = red_cells;
         this.haemoglobin = haemoglobin;
@@ -23,10 +23,9 @@ public class BloodAnalysis extends Analysis{
         this.ESR = ESR;
     }
 
-
     public BloodAnalysis() {
+        super("", "", "");
     }
-
 
     // Normal range: Approximately 4.5-5.5 million cells/mcL (male), 4.0-5.0 million cells/mcL (female)
     public double getRed_cells() {
@@ -68,7 +67,7 @@ public class BloodAnalysis extends Analysis{
             return ESR;
         }
         //Validation for Blood Analysis Form
-        public static int validationBloodAnalysis(String analysis_date, double red_cells, double haemoglobin, String color, String parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR) {
+        public int validationBloodAnalysis(String analysis_date, double red_cells, double haemoglobin, String color, String parasites, int white_cells, int stab_neuthrophil, int lymphocytes, int ESR) {
             
             //Validate Analysis Date
             if (analysis_date == "" || analysis_date == null) {

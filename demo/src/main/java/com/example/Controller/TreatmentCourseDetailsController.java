@@ -15,6 +15,7 @@ import com.example.BioBloodAnalysis;
 import com.example.BloodAnalysis;
 import com.example.Diagnosis;
 import com.example.Doctor;
+import com.example.Medicine;
 import com.example.Patient;
 import com.example.Procedure;
 import com.example.RWAnalysis;
@@ -424,12 +425,16 @@ public class TreatmentCourseDetailsController {
         treatCourseDetRWAnalysisAidsResultField.getItems().addAll("Positive", "False-Positive", "Negative");
         treatCourseDetUrineAnalysisTransparencyField.getItems().addAll("Clear", "Slightly Cloudy", "Cloudy");
         treatCourseDetUrineAnalysisColorField.getItems().addAll("Pale Yellow", "Yellow", "Dark Yellow", "Brown", "Red", "Orange", "Black");
-        treatCourseDetProcedureMedicineChoice.getItems().addAll("Medicine 1", "Medicine 2", "Medicine 3", "Medicine 4", "Medicine 5");
 
-        ObservableList<Doctor> doctorListData = csvhandler.readCSV(CSVPath.DOCTOR_PATH, Doctor.class, CustomComparator.createComparator(Doctor::getDoctor_id), ParameterTypes.DOCTOR_PARAMETER_TYPES);
+        ObservableList<Medicine> medicineListData = csvhandler.readCSV(CSVPath.MEDICINE_PATH, Medicine.class, CustomComparator.createComparator(Medicine::getMedicine_id, 1), ParameterTypes.MEDICINE_PARAMETER_TYPES);
+        ObservableList<Doctor> doctorListData = csvhandler.readCSV(CSVPath.DOCTOR_PATH, Doctor.class, CustomComparator.createComparator(Doctor::getDoctor_id, 3), ParameterTypes.DOCTOR_PARAMETER_TYPES);
 
         for (Doctor doctor : doctorListData) {
             treatCourseDetDiagnosisDocNameField.getItems().add(doctor.getDoctor_name());
+        }
+
+        for (Medicine medicine : medicineListData) {
+            treatCourseDetProcedureMedicineChoice.getItems().add(medicine.getMedicine_name());
         }
 
         managePatientBtn.setOnAction(event -> {
@@ -509,15 +514,15 @@ public class TreatmentCourseDetailsController {
         });
 
         RWAnalysisUpdateBtn.setOnAction(event -> {
-            // updateRWAnalysisBtnAction();
+            updateRWAnalysisBtnAction();
         });
 
         bioBloodAnalysisUpdateBtn.setOnAction(event -> {
-            // updateBioBloodAnalysisBtnAction();
+            updateBioBloodAnalysisBtnAction();
         });
 
         urineAnalysisUpdateBtn.setOnAction(event -> {
-            // updateUrineAnalysisBtnAction();
+            updateUrineAnalysisBtnAction();
         });
 
         diagnosisDeleteBtn.setOnAction(event -> {
@@ -529,19 +534,19 @@ public class TreatmentCourseDetailsController {
         });
 
         bloodAnalysisDeleteBtn.setOnAction(event -> {
-            // deleteBloodAnalysisBtnAction();
+            deleteBloodAnalysisBtnAction();
         });
 
         RWAnalysisDeleteBtn.setOnAction(event -> {
-            // deleteRWAnalysisBtnAction();
+            deleteRWAnalysisBtnAction();
         });
 
         bioBloodAnalysisDeleteBtn.setOnAction(event -> {
-            // deleteBioBloodAnalysisBtnAction();
+            deleteBioBloodAnalysisBtnAction();
         });
 
         urineAnalysisDeleteBtn.setOnAction(event -> {
-            // deleteUrineAnalysisBtnAction();
+            deleteUrineAnalysisBtnAction();
         });        
 
         unFocusAll();
@@ -702,8 +707,12 @@ public class TreatmentCourseDetailsController {
 
     private CSVHandler csvhandler = new CSVHandler();
     private AlertMessage alert = new AlertMessage();
-    private Procedure procedureCheckInput = new Procedure();
     private Diagnosis diagnosisCheckInput = new Diagnosis();
+    private Procedure procedureCheckInput = new Procedure();
+    private BloodAnalysis bloodAnalysisCheckInput = new BloodAnalysis();
+    private BioBloodAnalysis bioBloodAnalysisCheckInput = new BioBloodAnalysis();
+    private RWAnalysis rwAnalysisCheckInput = new RWAnalysis();
+    private UrineAnalysis urineAnalysisCheckInput = new UrineAnalysis();
 
     public void initData(Admin admin, Patient patient_info, String history_id, String treatment_course_id){
         this.admin = admin;
@@ -721,7 +730,7 @@ public class TreatmentCourseDetailsController {
         unamelabel.setText(admin.getUname());
     }
 
-    public void diagnosisResetBtnAction(){
+    private void diagnosisResetBtnAction(){
         treatCourseDetDiagnosisNameField.setText("");
         treatCourseDetDiagnosisDiagDateField.setValue(null);
         treatCourseDetDiagnosisDocNameField.setValue(""); //unsure if correct
@@ -730,7 +739,7 @@ public class TreatmentCourseDetailsController {
         DiagnosisShowListData();
     }
 
-    public void procedureResetBtnAction(){
+    private void procedureResetBtnAction(){
         treatCourseDetProcedureDateField.setValue(null);
         treatCourseDetProcedureTimeField.setText("");
         treatCourseDetProcedureTypeField.setText("");
@@ -741,29 +750,34 @@ public class TreatmentCourseDetailsController {
         ProcedureShowListData();
     }
     
-    public void bloodAnalysisResetBtnAction(){
+    private void bloodAnalysisResetBtnAction(){
         treatCourseDetBloodAnalysisDateDateField.setValue(null);
         treatCourseDetBloodAnalysisRedCellsField.setText(String.valueOf(""));
         treatCourseDetBloodAnalysisHaemoglobinField.setText(String.valueOf(""));
         treatCourseDetBloodAnalysisColorField.setText(String.valueOf(""));
         treatCourseDetBloodAnalysisParasitesField.setValue(String.valueOf(""));
         treatCourseDetBloodAnalysisWhiteCellsField.setText(String.valueOf(""));
+        treatCourseDetBloodAnalysisStabNeuthrophilField.setText(String.valueOf(""));
         treatCourseDetBloodAnalysisLymphocytesField.setText(String.valueOf(""));
         treatCourseDetBloodAnalysisESRField.setText(String.valueOf(""));
         treatCourseDetBloodAnalysisTable.getSelectionModel().clearSelection(); 
+        treatCourseDetBloodAnalysisTable.setItems(bloodAnalysisRefreshData());
+        BloodAnalysisShowListData();
 
     }
 
-    public void RWAnalysisResetBtnAction(){
+    private void RWAnalysisResetBtnAction(){
         treatCourseDetRWAnalysisDateField.setValue(null);
         treatCourseDetRWAnalysisRWResultField.setValue(null);
         treatCourseDetRWAnalysisAidsDateField.setValue(null);
         treatCourseDetRWAnalysisAidsResultField.setValue(null);
-        treatCourseDetRWAnalysisTable.getSelectionModel().clearSelection(); 
+        treatCourseDetRWAnalysisTable.getSelectionModel().clearSelection();
+        treatCourseDetRWAnalysisTable.setItems(RWAnalysisRefreshData());
+        RWAnalysisShowListData();
 
     }
 
-    public void bioBloodAnalysisResetBtnAction(){
+    private void bioBloodAnalysisResetBtnAction(){
         treatCourseDetBioBloodAnalysisDateField.setValue(null);
         treatCourseDetBioBloodAnalysisCreatenineField.setText(String.valueOf(""));
         treatCourseDetBioBloodAnalysisSugarField.setText(String.valueOf(""));
@@ -774,17 +788,19 @@ public class TreatmentCourseDetailsController {
         treatCourseDetBioBloodAnalysisTable.getSelectionModel().clearSelection(); 
     }
 
-    public void urineAnalysisResetBtnAction(){
+    private void urineAnalysisResetBtnAction(){
         treatCourseDetUrineAnalysisDateField.setValue(null);
         treatCourseDetUrineAnalysisColorField.setValue("");
         treatCourseDetUrineAnalysisReactionField.setText("");
         treatCourseDetUrineAnalysisTransparencyField.setValue("");
         treatCourseDetUrineAnalysisDensityField.setText("");
-        treatCourseDetUrineAnalysisTable.getSelectionModel().clearSelection(); 
+        treatCourseDetUrineAnalysisTable.getSelectionModel().clearSelection();
+        treatCourseDetUrineAnalysisTable.setItems(urineAnalysisRefreshData());
+        UrineAnalysisShowListData();
         
     }
 
-    public void unFocusAll(){
+    private void unFocusAll(){
         managePatientBtn.setFocusTraversable(false);
         treatCourseDetDiagnosisTable.setFocusTraversable(false);
         treatCourseDetProcedureTable.setFocusTraversable(false);
@@ -823,12 +839,12 @@ public class TreatmentCourseDetailsController {
 
     }
 
-    public ObservableList<Diagnosis> diagnosisRefreshData(){
-        ObservableList<Diagnosis> listData = csvhandler.readCSV(CSVPath.DIAGNOSIS_PATH, Diagnosis.class, CustomComparator.createComparator(Diagnosis::getDiagnosis_id), ParameterTypes.DIAGNOSIS_PARAMETER_TYPES);
+    private ObservableList<Diagnosis> diagnosisRefreshData(){
+        ObservableList<Diagnosis> listData = csvhandler.readCSV(CSVPath.DIAGNOSIS_PATH, Diagnosis.class, CustomComparator.createComparator(Diagnosis::getDiagnosis_id, 3), ParameterTypes.DIAGNOSIS_PARAMETER_TYPES);
         return listData;
     }
 
-    public void DiagnosisShowListData(){
+    private void DiagnosisShowListData(){
 
         treatCourseDetDiagnosisIDCol.setCellValueFactory(new PropertyValueFactory<>("diagnosis_id"));
         treatCourseDetDiagnosisNameCol.setCellValueFactory(new PropertyValueFactory<>("diagnosis_name"));
@@ -867,7 +883,7 @@ public class TreatmentCourseDetailsController {
         if (!diagnosisCheckEmpty()) {
             if (diagnosisCheckInput.validationDiagnosis(diagnosis_name, diagnosis_date, doctor_name) == 1) {
                 // generate new diagnosis id
-                String diag_id = "D" + String.format("%d", diagnosisRefreshData().size() + 1);
+                String diag_id = "DIA" + String.format("%d", diagnosisRefreshData().size() + 1);
 
                 // create new diagnosis object
                 Diagnosis newDiagnosis = new Diagnosis(diag_id, diagnosis_name, diagnosis_date, doctor_name, treatment_course_id);
@@ -911,7 +927,7 @@ public class TreatmentCourseDetailsController {
                     Diagnosis newDiagnosis = new Diagnosis(diagnosisId, diagnosis_name, diagnosis_date, doctor_name, treatment_course_id);
 
                     // update selected diagnosis in csv file
-                    csvhandler.updateCSV(CSVPath.DIAGNOSIS_PATH, "diagnosis_id", diagnosisId, newDiagnosis);
+                    csvhandler.updateCSV(CSVPath.DIAGNOSIS_PATH, 0, diagnosisId, newDiagnosis);
 
                     // show success message
                     alert.successMessage("Diagnosis updated successfully");
@@ -939,7 +955,7 @@ public class TreatmentCourseDetailsController {
             String diagnosisId = treatCourseDetDiagnosisTable.getSelectionModel().getSelectedItem().getDiagnosis_id();
 
             // delete selected diagnosis in csv file
-            csvhandler.deleteCSV(CSVPath.DIAGNOSIS_PATH, "diagnosis_id", diagnosisId);
+            csvhandler.deleteCSV(CSVPath.DIAGNOSIS_PATH, 0, diagnosisId);
 
             // show success message
             alert.successMessage("Diagnosis deleted successfully");
@@ -957,12 +973,12 @@ public class TreatmentCourseDetailsController {
         }
     }
 
-    public ObservableList<Procedure> procedureRefreshData(){
-        ObservableList<Procedure> listData = csvhandler.readCSV(CSVPath.PROCEDURE_PATH, Procedure.class, CustomComparator.createComparator(Procedure::getProcedure_id), ParameterTypes.PROCEDURE_PARAMETER_TYPES);
+    private ObservableList<Procedure> procedureRefreshData(){
+        ObservableList<Procedure> listData = csvhandler.readCSV(CSVPath.PROCEDURE_PATH, Procedure.class, CustomComparator.createComparator(Procedure::getProcedure_id, 1), ParameterTypes.PROCEDURE_PARAMETER_TYPES);
         return listData;
     }
 
-    public void ProcedureShowListData(){
+    private void ProcedureShowListData(){
 
         treatCourseDetProcedureIDCol.setCellValueFactory(new PropertyValueFactory<>("procedure_id"));
         treatCourseDetProcedureDateCol.setCellValueFactory(new PropertyValueFactory<>("procedure_date"));
@@ -1046,7 +1062,7 @@ public class TreatmentCourseDetailsController {
                     Procedure newProcedure = new Procedure(procedureId, procedureType, procedureDate, procedureTime, treatment_course_id, procedureMedicine);
 
                     // update selected procedure in csv file
-                    csvhandler.updateCSV(CSVPath.PROCEDURE_PATH, "procedure_id", procedureId, newProcedure);
+                    csvhandler.updateCSV(CSVPath.PROCEDURE_PATH, 0, procedureId, newProcedure);
 
                     // show success message
                     alert.successMessage("Procedure updated successfully");
@@ -1074,7 +1090,7 @@ public class TreatmentCourseDetailsController {
             String procedureId = treatCourseDetProcedureTable.getSelectionModel().getSelectedItem().getProcedure_id();
 
             // delete selected procedure in csv file
-            csvhandler.deleteCSV(CSVPath.PROCEDURE_PATH, "procedure_id", procedureId);
+            csvhandler.deleteCSV(CSVPath.PROCEDURE_PATH, 0, procedureId);
 
             // show success message
             alert.successMessage("Procedure deleted successfully");
@@ -1123,67 +1139,12 @@ public class TreatmentCourseDetailsController {
         treatCourseDetProcedureMedicineList.setText(medicineListText);
     }
 
-    public void UrineAnalysisShowListData(){
-        ObservableList<UrineAnalysis> urineAnalysisListData = FXCollections.observableArrayList();
-
-        urineAnalysisListData.add(new UrineAnalysis("UA0001", "20/7/2023", "TC001", "Red", 5, "Clear", 1.023));
-        urineAnalysisListData.add(new UrineAnalysis("UA0002", "20/7/2023", "TC002", "Red", 4.8, "Clear", 1.023));
-
-        treatCourseDetUrineAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
-        treatCourseDetUrineAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
-        treatCourseDetUrineAnalysisColorCol.setCellValueFactory(new PropertyValueFactory<>("color"));
-        treatCourseDetUrineAnalysisReactionCol.setCellValueFactory(new PropertyValueFactory<>("reaction"));
-        treatCourseDetUrineAnalysisTransparencyCol.setCellValueFactory(new PropertyValueFactory<>("transparency"));
-        treatCourseDetUrineAnalysisDensityCol.setCellValueFactory(new PropertyValueFactory<>("density"));
-
-        treatCourseDetUrineAnalysisTable.setItems(urineAnalysisListData);
-
+    private ObservableList<BloodAnalysis> bloodAnalysisRefreshData(){
+        ObservableList<BloodAnalysis> listData = csvhandler.readCSV(CSVPath.BLOODANALYSIS_PATH, BloodAnalysis.class, CustomComparator.createComparator(BloodAnalysis::getAnalysis_id, 2), ParameterTypes.BLOOD_ANALYSIS_PARAMETER_TYPES);
+        return listData;
     }
 
-    public void RWAnalysisShowListData(){
-        ObservableList<RWAnalysis> RWAnalysisListData = FXCollections.observableArrayList();
-
-        RWAnalysisListData.add(new RWAnalysis("RW0001", "20/7/2023", "TC001", "Positive", "20/7/2023", "Positive"));
-        RWAnalysisListData.add(new RWAnalysis("RW0002", "20/7/2023", "TC002", "Positive", "20/7/2023", "Positive"));
-
-        treatCourseDetRWAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
-        treatCourseDetRWAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
-        treatCourseDetRWAnalysisRWResultCol.setCellValueFactory(new PropertyValueFactory<>("rw_result"));
-        treatCourseDetRWAnalysisAidsDateCol.setCellValueFactory(new PropertyValueFactory<>("aids_date"));
-        treatCourseDetRWAnalysisAidsResultCol.setCellValueFactory(new PropertyValueFactory<>("aids_result"));
-
-        treatCourseDetRWAnalysisTable.setItems(RWAnalysisListData);
-        
-    }
-
-    public void BioBloodAnalysisShowListData(){
-        ObservableList<BioBloodAnalysis> bioBloodAnalysisListData = FXCollections.observableArrayList();
-
-        bioBloodAnalysisListData.add(new BioBloodAnalysis("BB0001", "TC001", "20/7/2023", 1.512, 1, 2.21, 2.32, 1, 1));
-        bioBloodAnalysisListData.add(new BioBloodAnalysis("BB0002", "TC002", "20/7/2023", 1.512, 1, 2.21, 2.32, 1, 1));
-
-        treatCourseDetBioBloodAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
-        treatCourseDetBioBloodAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
-        treatCourseDetBioBloodAnalysisCreatenineCol.setCellValueFactory(new PropertyValueFactory<>("createnine"));
-        treatCourseDetBioBloodAnalysisSugarCol.setCellValueFactory(new PropertyValueFactory<>("sugar"));
-        treatCourseDetBioBloodAnalysisBiluribinCol.setCellValueFactory(new PropertyValueFactory<>("biluribin"));
-        treatCourseDetBioBloodAnalysisDirectBiluribinCol.setCellValueFactory(new PropertyValueFactory<>("direct_biluribin"));
-        treatCourseDetBioBloodAnalysisASTCol.setCellValueFactory(new PropertyValueFactory<>("AST"));
-        treatCourseDetBioBloodAnalysisALTCol.setCellValueFactory(new PropertyValueFactory<>("ALT"));
-
-        treatCourseDetBioBloodAnalysisTable.setItems(bioBloodAnalysisListData);
-
-    }
-
-    public ObservableList<BloodAnalysis> bloodAnalysisRefreshData(){
-    ObservableList<BloodAnalysis> listData = csvhandler.readCSV(CSVPath.BLOODANALYSIS_PATH, BloodAnalysis.class, CustomComparator.createComparator(BloodAnalysis::getAnalysis_id), ParameterTypes.BLOOD_ANALYSIS_PARAMETER_TYPES);
-    return listData;
-    }
-
-    public void BloodAnalysisShowListData(){
-
-        //bloodAnalysisListData.add(new BloodAnalysis("BA0001", "20/7/2023", "TC001", 4.5, 13.5, "Red", "Positive", 5000, 0, 20, 20));
-        //bloodAnalysisListData.add(new BloodAnalysis("BA0002", "20/7/2023", "TC002", 1.23, 1.512, "Red", "true", 2, 1, 1, 1));
+    private void BloodAnalysisShowListData(){
 
         treatCourseDetBloodAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetBloodAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
@@ -1200,45 +1161,85 @@ public class TreatmentCourseDetailsController {
 
     }
 
-<<<<<<< Updated upstream
     private boolean bloodAnalysisCheckEmpty(){
-    if (treatCourseDetBloodAnalysisDateDateField == null || treatCourseDetBloodAnalysisRedCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisHaemoglobinField.getText().isEmpty() || treatCourseDetBloodAnalysisColorField.getText().isEmpty() || treatCourseDetBloodAnalysisParasitesField == null || treatCourseDetBloodAnalysisWhiteCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisLymphocytesField.getText().isEmpty() || treatCourseDetBloodAnalysisESRField.getText().isEmpty()) {
-        // show error message
-        alert.errorMessage("Please fill in all the fields");
-        return true;
+        if (treatCourseDetBloodAnalysisDateDateField == null || treatCourseDetBloodAnalysisRedCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisHaemoglobinField.getText().isEmpty() || treatCourseDetBloodAnalysisColorField.getText().isEmpty() || treatCourseDetBloodAnalysisParasitesField == null || treatCourseDetBloodAnalysisWhiteCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisLymphocytesField.getText().isEmpty() || treatCourseDetBloodAnalysisESRField.getText().isEmpty()) {
+            // show error message
+            alert.errorMessage("Please fill in all the fields");
+            return true;
+        }
+        return false;
     }
-    return false;
-    }
+
     private boolean bloodAnalysisCheckSelected(){
-    if (treatCourseDetBloodAnalysisTable.getSelectionModel().getSelectedItem() == null) {
-        // show error message
-        alert.errorMessage("Please select a blood analysis");
-        return true;
-    }
-    return false;
+        if (treatCourseDetBloodAnalysisTable.getSelectionModel().getSelectedItem() == null) {
+            // show error message
+            alert.errorMessage("Please select a blood analysis");
+            return true;
+        }
+        return false;
     }
 
-        private void addBloodAnalysisBtnAction(){
-
-            if(!bloodAnalysisCheckEmpty()) {
+    private void addBloodAnalysisBtnAction(){
+        // check if any field is empty
+        if(!bloodAnalysisCheckEmpty()) {
 
             String analysis_date = treatCourseDetBloodAnalysisDateDateField.getValue().toString();
-            double red_cells = Double.parseDouble(treatCourseDetBloodAnalysisRedCellsField.getText());
-            double haemoglobin = Double.parseDouble(treatCourseDetBloodAnalysisHaemoglobinField.getText());
+
+            double red_cells = -1.0;
+            try {
+                red_cells = Double.parseDouble(treatCourseDetBloodAnalysisRedCellsField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid number for red cells");
+                return;
+            }
+
+            double haemoglobin = -1.0;
+            try {
+                haemoglobin = Double.parseDouble(treatCourseDetBloodAnalysisHaemoglobinField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid number for haemoglobin");
+                return;
+            }
+
             String color = treatCourseDetBloodAnalysisColorField.getText();
             String parasites = treatCourseDetBloodAnalysisParasitesField.getValue().toString();
-            int white_cells = Integer.parseInt(treatCourseDetBloodAnalysisWhiteCellsField.getText());
+
+            int white_cells = -1;
+            try {
+                white_cells = Integer.parseInt(treatCourseDetBloodAnalysisWhiteCellsField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid number for white cells");
+                return;
+            }
             int stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
-            int lymphocytes = Integer.parseInt(treatCourseDetBloodAnalysisLymphocytesField.getText());
-            int ESR = Integer.parseInt(treatCourseDetBloodAnalysisESRField.getText());
+            try {
+                stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid number for stab neuthrophil");
+                return;
+            }
+            int lymphocytes = -1;
+            try {
+                lymphocytes = Integer.parseInt(treatCourseDetBloodAnalysisLymphocytesField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid number for lymphocytes");
+                return;
+            }
+            int ESR = -1;
+            try {
+                ESR = Integer.parseInt(treatCourseDetBloodAnalysisESRField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid unit for ESR");
+                return;
+            }
             
-            if (BloodAnalysis.validationBloodAnalysis(analysis_date, red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR) == 1) {
+            if (bloodAnalysisCheckInput.validationBloodAnalysis(analysis_date, red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR) == 1) {
 
                 //generate new blood anaylsis id
                 String analysis_id = "BA" + String.format("%d", (bloodAnalysisRefreshData().size() + 1));
 
                 //create new analysis object
-                BloodAnalysis newBloodAnalysis = new BloodAnalysis(analysis_id, analysis_date, treatment_course_id, red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR);
+                BloodAnalysis newBloodAnalysis = new BloodAnalysis(red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR, analysis_id, analysis_date, treatment_course_id);
 
                 //add new analysis to csv
                 csvhandler.writeCSV(CSVPath.BLOODANALYSIS_PATH, newBloodAnalysis);
@@ -1248,6 +1249,9 @@ public class TreatmentCourseDetailsController {
 
                 //refresh data
                 bloodAnalysisRefreshData();
+
+                //refresh table
+                BloodAnalysisShowListData();
 
                 // reset all fields
                 bloodAnalysisResetBtnAction();
@@ -1259,32 +1263,71 @@ public class TreatmentCourseDetailsController {
             }
         }
     }
-
-    //i cant seem to add contstuctor on bloodanalysis
-    private BloodAnalysis bloodAnalysisCheckInput = new BloodAnalysis();
+    
     private void updateBloodAnalysisBtnAction(){
 
         if (!bloodAnalysisCheckSelected()){
             // get selected diagnosis
-            String analysis_id = treatCourseDetDiagnosisTable.getSelectionModel().getSelectedItem().getDiagnosis_id();
+            String analysis_id = treatCourseDetBloodAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
             String analysis_date = treatCourseDetBloodAnalysisDateDateField.getValue().toString();
-            double red_cells = Double.parseDouble(treatCourseDetBloodAnalysisRedCellsField.getText());
-            double haemoglobin = Double.parseDouble(treatCourseDetBloodAnalysisHaemoglobinField.getText());
+
+            double red_cells = -1.0;
+            try {
+                red_cells = Double.parseDouble(treatCourseDetBloodAnalysisRedCellsField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid number for red cells");
+                return;
+            }
+
+            double haemoglobin = -1.0;
+            try {
+                haemoglobin = Double.parseDouble(treatCourseDetBloodAnalysisHaemoglobinField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid number for haemoglobin");
+                return;
+            }
+
             String color = treatCourseDetBloodAnalysisColorField.getText();
             String parasites = treatCourseDetBloodAnalysisParasitesField.getValue().toString();
-            int white_cells = Integer.parseInt(treatCourseDetBloodAnalysisWhiteCellsField.getText());
+
+            int white_cells = -1;
+            try {
+                white_cells = Integer.parseInt(treatCourseDetBloodAnalysisWhiteCellsField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid number for white cells");
+                return;
+            }
             int stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
-            int lymphocytes = Integer.parseInt(treatCourseDetBloodAnalysisLymphocytesField.getText());
-            int ESR = Integer.parseInt(treatCourseDetBloodAnalysisESRField.getText());
-            if (!bloodAnalysisCheckInput()){
+            try {
+                stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid number for stab neuthrophil");
+                return;
+            }
+            int lymphocytes = -1;
+            try {
+                lymphocytes = Integer.parseInt(treatCourseDetBloodAnalysisLymphocytesField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid number for lymphocytes");
+                return;
+            }
+            int ESR = -1;
+            try {
+                ESR = Integer.parseInt(treatCourseDetBloodAnalysisESRField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid unit for ESR");
+                return;
+            }
+
+            if (!bloodAnalysisCheckEmpty()){
                 if (bloodAnalysisCheckInput.validationBloodAnalysis(analysis_date, red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR) == 1) {
                     
 
                     // create new diagnosis object
-                    BloodAnalysis newBloodAnalysis = new BloodAnalysis(analysis_id, analysis_date, parasites, red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR);
+                    BloodAnalysis newBloodAnalysis = new BloodAnalysis(red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR, analysis_id, analysis_date, treatment_course_id);
 
                     // update selected diagnosis in csv file
-                    csvhandler.updateCSV(CSVPath.BLOODANALYSIS_PATH, "analysis_id", analysis_id, newBloodAnalysis);
+                    csvhandler.updateCSV(CSVPath.BLOODANALYSIS_PATH, 8, analysis_id, newBloodAnalysis);
 
                     // show success message
                     alert.successMessage("Blood Analysis updated successfully");
@@ -1306,37 +1349,540 @@ public class TreatmentCourseDetailsController {
         }
     }
 
-    private void addMedicine(){
-        if (treatCourseDetProcedureMedicineChoice.getValue() == null) {
-            alert.errorMessage("No medicine selected");
-            return;
-        } else if (treatCourseDetProcedureMedicineList.getText().equals("")) {
-            medicineList = new String[]{treatCourseDetProcedureMedicineChoice.getValue()};
-        } else {
-            String medicineName = treatCourseDetProcedureMedicineChoice.getValue();
+    private void deleteBloodAnalysisBtnAction(){
+        if (!bloodAnalysisCheckSelected()){
+            // get selected diagnosis
+            String analysis_id = treatCourseDetBloodAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
+
+            // delete selected diagnosis in csv file
+            csvhandler.deleteCSV(CSVPath.BLOODANALYSIS_PATH, 8, analysis_id);
+
+            // show success message
+            alert.successMessage("Blood Analysis deleted successfully");
+
+            // refresh data
+            bloodAnalysisRefreshData();
+
+            // refresh table
+            BloodAnalysisShowListData();
+
+            // reset all fields
+            bloodAnalysisResetBtnAction();
+        }
+    }
+
+    private ObservableList<RWAnalysis> RWAnalysisRefreshData(){
+        ObservableList<RWAnalysis> listData = csvhandler.readCSV(CSVPath.RWANALYSIS_PATH, RWAnalysis.class, CustomComparator.createComparator(RWAnalysis::getAnalysis_id, 2), ParameterTypes.RW_ANALYSIS_PARAMETER_TYPES);
+        return listData;
+    }
+
+    private void RWAnalysisShowListData(){
+
+        treatCourseDetRWAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
+        treatCourseDetRWAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
+        treatCourseDetRWAnalysisRWResultCol.setCellValueFactory(new PropertyValueFactory<>("rw_result"));
+        treatCourseDetRWAnalysisAidsDateCol.setCellValueFactory(new PropertyValueFactory<>("aids_date"));
+        treatCourseDetRWAnalysisAidsResultCol.setCellValueFactory(new PropertyValueFactory<>("aids_result"));
+
+        treatCourseDetRWAnalysisTable.setItems(RWAnalysisRefreshData());
+        
+    }
+
+    private boolean RWAnalysisCheckEmpty(){
+        if(treatCourseDetRWAnalysisDateField.getValue() == null ||treatCourseDetRWAnalysisRWResultField.getValue() == null || treatCourseDetRWAnalysisAidsResultField.getValue() == null || treatCourseDetRWAnalysisAidsDateField.getValue() == null){
+            alert.errorMessage("Please fill all the fields");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean RWAnalysisCheckSelected(){
+        if (treatCourseDetRWAnalysisTable.getSelectionModel().isEmpty()){
+            alert.errorMessage("Please select a RW Analysis");
+            return true;
+        }
+        return false;
+    }
+
+    private void addRWAnalysisBtnAction(){
+        if (!RWAnalysisCheckEmpty()){
+            String analysis_date = treatCourseDetRWAnalysisDateField.getValue().toString();
+            String rw_result = treatCourseDetRWAnalysisRWResultField.getValue().toString();
+            String aids_result = treatCourseDetRWAnalysisAidsResultField.getValue().toString();
+            String aids_date = treatCourseDetRWAnalysisAidsDateField.getValue().toString();
             
-            boolean isDuplicate = false;
-            for(String medical : medicineList){
-                if(medical.equals(medicineName)){
-                    // show error
-                    alert.errorMessage("Medicine already added");
-                    isDuplicate = true;
-                    break;
+            if (rwAnalysisCheckInput.validationRWAnalysis(analysis_date, rw_result, aids_result, aids_date) == 1) {
+                // generate new diagnosis id
+                String analysis_id = "RW" + String.format("%d", (RWAnalysisRefreshData().size() + 1));
+
+                // create new diagnosis object
+                RWAnalysis newRWAnalysis = new RWAnalysis(rw_result, aids_date, aids_result, analysis_id, analysis_date, treatment_course_id);
+
+                // add new diagnosis to csv file
+                csvhandler.writeCSV(CSVPath.RWANALYSIS_PATH, newRWAnalysis);
+
+                // show success message
+                alert.successMessage("RW Analysis added successfully");
+
+                // refresh data
+                RWAnalysisRefreshData();
+
+                // refresh table
+                RWAnalysisShowListData();
+
+                // reset all fields
+                RWAnalysisResetBtnAction();
+
+            } else {
+                // show error message
+                alert.errorMessage("Please enter valid input");
+            }
+        }      
+    }
+
+    private void updateRWAnalysisBtnAction(){
+        if(!RWAnalysisCheckSelected()){
+            // get selected diagnosis
+            String analysis_id = treatCourseDetRWAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
+
+            String analysis_date = treatCourseDetRWAnalysisDateField.getValue().toString();
+            String rw_result = treatCourseDetRWAnalysisRWResultField.getValue().toString();
+            String aids_result = treatCourseDetRWAnalysisAidsResultField.getValue().toString();
+            String aids_date = treatCourseDetRWAnalysisAidsDateField.getValue().toString();
+
+            if (!RWAnalysisCheckEmpty()){
+                if (rwAnalysisCheckInput.validationRWAnalysis(analysis_date, rw_result, aids_result, aids_date) == 1) {
+                    // create new diagnosis object
+                    RWAnalysis newRWAnalysis = new RWAnalysis(rw_result, aids_date, aids_result, analysis_id, analysis_date, treatment_course_id);
+
+                    // update selected diagnosis in csv file
+                    csvhandler.updateCSV(CSVPath.RWANALYSIS_PATH, 3, analysis_id, newRWAnalysis);
+
+                    // show success message
+                    alert.successMessage("RW Analysis updated successfully");
+
+                    // refresh data
+                    RWAnalysisRefreshData();
+
+                    // refresh table
+                    RWAnalysisShowListData();
+
+                    // reset all fields
+                    RWAnalysisResetBtnAction();
+
+                } else {
+                    // show error message
+                    alert.errorMessage("Please enter valid input");
                 }
             }
-            if(!isDuplicate){
-                medicineList = Arrays.copyOf(medicineList, medicineList.length + 1);
-                medicineList[medicineList.length - 1] = medicineName;
-                alert.successMessage("Medicine added");
+        }
+    }
+
+    private void deleteRWAnalysisBtnAction(){
+        if(!RWAnalysisCheckSelected()){
+            // get selected diagnosis
+            String analysis_id = treatCourseDetRWAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
+
+            // delete selected diagnosis in csv file
+            csvhandler.deleteCSV(CSVPath.RWANALYSIS_PATH, 3, analysis_id);
+
+            // show success message
+            alert.successMessage("RW Analysis deleted successfully");
+
+            // refresh data
+            RWAnalysisRefreshData();
+
+            // refresh table
+            RWAnalysisShowListData();
+
+            // reset all fields
+            RWAnalysisResetBtnAction();
+        }
+    }
+
+    private ObservableList<BioBloodAnalysis> BioBloodAnalysisRefreshData(){
+        ObservableList<BioBloodAnalysis> listData = csvhandler.readCSV(CSVPath.BIOBLOODANALYSIS_PATH, BioBloodAnalysis.class, CustomComparator.createComparator(BioBloodAnalysis::getAnalysis_id, 2), ParameterTypes.BIO_BLOOD_ANALYSIS_PARAMETER_TYPES);
+        return listData;
+    }
+
+    private void BioBloodAnalysisShowListData(){
+
+        treatCourseDetBioBloodAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
+        treatCourseDetBioBloodAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
+        treatCourseDetBioBloodAnalysisCreatenineCol.setCellValueFactory(new PropertyValueFactory<>("createnine"));
+        treatCourseDetBioBloodAnalysisSugarCol.setCellValueFactory(new PropertyValueFactory<>("sugar"));
+        treatCourseDetBioBloodAnalysisBiluribinCol.setCellValueFactory(new PropertyValueFactory<>("biluribin"));
+        treatCourseDetBioBloodAnalysisDirectBiluribinCol.setCellValueFactory(new PropertyValueFactory<>("direct_biluribin"));
+        treatCourseDetBioBloodAnalysisASTCol.setCellValueFactory(new PropertyValueFactory<>("AST"));
+        treatCourseDetBioBloodAnalysisALTCol.setCellValueFactory(new PropertyValueFactory<>("ALT"));
+
+        treatCourseDetBioBloodAnalysisTable.setItems(BioBloodAnalysisRefreshData());
+
+    }
+
+    private boolean BioBloodAnalysisCheckEmpty(){
+        if(treatCourseDetBioBloodAnalysisDateField.getValue() == null || treatCourseDetBioBloodAnalysisCreatenineField.getText().isEmpty() || treatCourseDetBioBloodAnalysisSugarField.getText().isEmpty() || treatCourseDetBioBloodAnalysisBiluribinField.getText().isEmpty() || treatCourseDetBioBloodAnalysisDirectBiluribinField.getText().isEmpty() || treatCourseDetBioBloodAnalysisASTField.getText().isEmpty() || treatCourseDetBioBloodAnalysisALTField.getText().isEmpty()){
+            alert.errorMessage("Please fill all the fields");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean BioBloodAnalysisCheckSelected(){
+        if(treatCourseDetBioBloodAnalysisTable.getSelectionModel().getSelectedItem() == null){
+            alert.errorMessage("Please select a Bio Blood Analysis");
+            return true;
+        }
+        return false;
+    }
+
+    private void addBioBloodAnalysisBtnAction(){
+        if (!BioBloodAnalysisCheckEmpty()){
+            String analysis_date = treatCourseDetBioBloodAnalysisDateField.getValue().toString();
+            double createnine = -1.0;
+            try {
+                createnine = Double.parseDouble(treatCourseDetBioBloodAnalysisCreatenineField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid createnine value");
+                return;
+            }
+
+            int sugar = -1;
+            try {
+                sugar = Integer.parseInt(treatCourseDetBioBloodAnalysisSugarField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid sugar value");
+                return;
+            }
+
+            double biluribin = -1.0;
+            try {
+                biluribin = Double.parseDouble(treatCourseDetBioBloodAnalysisBiluribinField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid biluribin value");
+                return;
+            }
+
+            double direct_biluribin = -1.0;
+            try {
+                direct_biluribin = Double.parseDouble(treatCourseDetBioBloodAnalysisDirectBiluribinField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid direct biluribin value");
+                return;
+            }
+
+            int AST = -1;
+            try {
+                AST = Integer.parseInt(treatCourseDetBioBloodAnalysisASTField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid AST value");
+                return;
+            }
+
+            int ALT = -1;
+            try {
+                ALT = Integer.parseInt(treatCourseDetBioBloodAnalysisALTField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid ALT value");
+                return;
+            }
+
+            if (bioBloodAnalysisCheckInput.validationBioBloodAnalysis(analysis_date, createnine, sugar, biluribin, direct_biluribin, AST, ALT) == 1) {
+                // generate new diagnosis id
+                String analysis_id = "BB" + String.format("%d", (BioBloodAnalysisRefreshData().size() + 1));
+
+                // create new diagnosis object
+                BioBloodAnalysis newBioBloodAnalysis = new BioBloodAnalysis(createnine, sugar, biluribin, direct_biluribin, AST, ALT, analysis_id, analysis_date, treatment_course_id);
+
+                // add new diagnosis to csv file
+                csvhandler.writeCSV(CSVPath.BIOBLOODANALYSIS_PATH, newBioBloodAnalysis);
+
+                // show success message
+                alert.successMessage("Bio Blood Analysis added successfully");
+
+                // refresh data
+                BioBloodAnalysisRefreshData();
+
+                // refresh table
+                BioBloodAnalysisShowListData();
+
+                // reset all fields
+                bioBloodAnalysisResetBtnAction();
+
+            } else {
+                // show error message
+                alert.errorMessage("Please enter valid input");
             }
         }
-
-        String medicineListText = String.join("; ", medicineList);
-        treatCourseDetProcedureMedicineList.setText(medicineListText);
     }
-=======
+
+    private void updateBioBloodAnalysisBtnAction(){
+        if (!BioBloodAnalysisCheckSelected()){
+            // get selected bio blood analysis
+            String analysis_id = treatCourseDetBioBloodAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
+
+            String analysis_date = treatCourseDetBioBloodAnalysisDateField.getValue().toString();
+            double createnine = -1.0;
+            try {
+                createnine = Double.parseDouble(treatCourseDetBioBloodAnalysisCreatenineField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid createnine value");
+                return;
+            }
+
+            int sugar = -1;
+            try {
+                sugar = Integer.parseInt(treatCourseDetBioBloodAnalysisSugarField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid sugar value");
+                return;
+            }
+
+            double biluribin = -1.0;
+            try {
+                biluribin = Double.parseDouble(treatCourseDetBioBloodAnalysisBiluribinField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid biluribin value");
+                return;
+            }
+
+            double direct_biluribin = -1.0;
+            try {
+                direct_biluribin = Double.parseDouble(treatCourseDetBioBloodAnalysisDirectBiluribinField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid direct biluribin value");
+                return;
+            }
+
+            int AST = -1;
+            try {
+                AST = Integer.parseInt(treatCourseDetBioBloodAnalysisASTField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid AST value");
+                return;
+            }
+
+            int ALT = -1;
+            try {
+                ALT = Integer.parseInt(treatCourseDetBioBloodAnalysisALTField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid ALT value");
+                return;
+            }
+
+            if(!BioBloodAnalysisCheckEmpty()){
+                if (bioBloodAnalysisCheckInput.validationBioBloodAnalysis(analysis_date, createnine, sugar, biluribin, direct_biluribin, AST, ALT) == 1){
+                    // create new diagnosis object
+                    BioBloodAnalysis newBioBloodAnalysis = new BioBloodAnalysis(createnine, sugar, biluribin, direct_biluribin, AST, ALT, analysis_id, analysis_date, treatment_course_id);
+
+                    // update diagnosis in csv file
+                    csvhandler.updateCSV(CSVPath.BIOBLOODANALYSIS_PATH, 6, analysis_id, newBioBloodAnalysis);
+
+                    // show success message
+                    alert.successMessage("Bio Blood Analysis updated successfully");
+
+                    // refresh data
+                    BioBloodAnalysisRefreshData();
+
+                    // refresh table
+                    BioBloodAnalysisShowListData();
+
+                    // reset all fields
+                    bioBloodAnalysisResetBtnAction();
+
+                } else {
+                    // show error message
+                    alert.errorMessage("Please enter valid input");
+                }
+            }
+        }
+    }
+
+    private void deleteBioBloodAnalysisBtnAction(){
+        if (!BioBloodAnalysisCheckSelected()){
+            // get selected bio blood analysis
+            String analysis_id = treatCourseDetBioBloodAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
+
+            // delete diagnosis from csv file
+            csvhandler.deleteCSV(CSVPath.BIOBLOODANALYSIS_PATH, 6, analysis_id);
+
+            // show success message
+            alert.successMessage("Bio Blood Analysis deleted successfully");
+
+            // refresh data
+            BioBloodAnalysisRefreshData();
+
+            // refresh table
+            BioBloodAnalysisShowListData();
+
+            // reset all fields
+            bioBloodAnalysisResetBtnAction();
+        }
+    }
+
+    private ObservableList<UrineAnalysis> urineAnalysisRefreshData(){
+        ObservableList<UrineAnalysis> listData = csvhandler.readCSV(CSVPath.URINEANALYSIS_PATH, UrineAnalysis.class, CustomComparator.createComparator(UrineAnalysis::getAnalysis_id, 2), ParameterTypes.URINE_ANALYSIS_PARAMETER_TYPES);
+        return listData;
+    }
     
->>>>>>> Stashed changes
+    private void UrineAnalysisShowListData(){
+        treatCourseDetUrineAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
+        treatCourseDetUrineAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
+        treatCourseDetUrineAnalysisColorCol.setCellValueFactory(new PropertyValueFactory<>("color"));
+        treatCourseDetUrineAnalysisReactionCol.setCellValueFactory(new PropertyValueFactory<>("reaction"));
+        treatCourseDetUrineAnalysisTransparencyCol.setCellValueFactory(new PropertyValueFactory<>("transparency"));
+        treatCourseDetUrineAnalysisDensityCol.setCellValueFactory(new PropertyValueFactory<>("density"));
+
+        treatCourseDetUrineAnalysisTable.setItems(urineAnalysisRefreshData());
+    }
+
+    private boolean UrineAnalysisCheckEmpty(){
+        if (treatCourseDetUrineAnalysisDateField.getValue() == null || treatCourseDetUrineAnalysisColorField.getValue() == null || treatCourseDetUrineAnalysisReactionField.getText().isEmpty() || treatCourseDetUrineAnalysisTransparencyField.getValue() == null || treatCourseDetUrineAnalysisDensityField.getText().isEmpty()){
+            alert.errorMessage("Please fill all the fields");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean UrineAnalysisCheckSelected(){
+        if (treatCourseDetUrineAnalysisTable.getSelectionModel().isEmpty()){
+            alert.errorMessage("Please select a urine analysis");
+            return true;
+        }
+        return false;
+    }
+
+    private void addUrineAnalysisBtnAction(){
+        // check if all fields are filled
+        if(!UrineAnalysisCheckEmpty()){
+
+            String analysis_date = treatCourseDetUrineAnalysisDateField.getValue().toString();
+            String color = treatCourseDetUrineAnalysisColorField.getValue().toString();
+
+            Double reaction = -1.0;
+            try {
+                reaction = Double.parseDouble(treatCourseDetUrineAnalysisReactionField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid reaction value");
+                return;
+            }
+
+            String transparency = treatCourseDetUrineAnalysisTransparencyField.getValue().toString();
+
+            Double density = -1.0;
+            try {
+                density = Double.parseDouble(treatCourseDetUrineAnalysisDensityField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid density value");
+                return;
+            }
+
+            if (urineAnalysisCheckInput.validationUrineAnalysis(analysis_date, color, reaction, transparency, density) == 1){
+                // generate analysis id
+                String analysis_id = "UA" + String.format("%d", (urineAnalysisRefreshData().size() + 1));
+
+                // create new diagnosis object
+                UrineAnalysis newUrineAnalysis = new UrineAnalysis(color, reaction, transparency, density, analysis_id, analysis_date, treatment_course_id);
+
+                // add diagnosis to csv file
+                csvhandler.writeCSV(CSVPath.URINEANALYSIS_PATH, newUrineAnalysis);
+
+                // show success message
+                alert.successMessage("Urine Analysis added successfully");
+
+                // refresh data
+                urineAnalysisRefreshData();
+
+                // refresh table
+                UrineAnalysisShowListData();
+
+                // reset all fields
+                urineAnalysisResetBtnAction();
+
+            } else {
+                // show error message
+                alert.errorMessage("Please enter valid input");
+            }
+        }
+    }
+
+    private void updateUrineAnalysisBtnAction(){
+        if (!UrineAnalysisCheckSelected()){
+            // get selected urine analysis
+            String analysis_id = treatCourseDetUrineAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
+
+            String analysis_date = treatCourseDetUrineAnalysisDateField.getValue().toString();
+            String color = treatCourseDetUrineAnalysisColorField.getValue().toString();
+
+            Double reaction = -1.0;
+            try {
+                reaction = Double.parseDouble(treatCourseDetUrineAnalysisReactionField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid reaction value");
+                return;
+            }
+
+            String transparency = treatCourseDetUrineAnalysisTransparencyField.getValue().toString();
+
+            Double density = -1.0;
+            try {
+                density = Double.parseDouble(treatCourseDetUrineAnalysisDensityField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid density value");
+                return;
+            }
+
+            // check if all fields are filled
+            if (!UrineAnalysisCheckEmpty()){
+                if (urineAnalysisCheckInput.validationUrineAnalysis(analysis_date, color, reaction, transparency, density) == 1){
+                    // create new diagnosis object
+                    UrineAnalysis newUrineAnalysis = new UrineAnalysis(color, reaction, transparency, density, analysis_id, analysis_date, treatment_course_id);
+
+                    // update diagnosis in csv file
+                    csvhandler.updateCSV(CSVPath.URINEANALYSIS_PATH, 4, analysis_id, newUrineAnalysis);
+
+                    // show success message
+                    alert.successMessage("Urine Analysis updated successfully");
+
+                    // refresh data
+                    urineAnalysisRefreshData();
+
+                    // refresh table
+                    UrineAnalysisShowListData();
+
+                    // reset all fields
+                    urineAnalysisResetBtnAction();
+
+                } else {
+                    // show error message
+                    alert.errorMessage("Please enter valid input");
+                }
+            }
+
+        }
+    }
+
+    private void deleteUrineAnalysisBtnAction(){
+        if (!UrineAnalysisCheckSelected()){
+            // get selected urine analysis
+            String analysis_id = treatCourseDetUrineAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
+
+            // delete diagnosis from csv file
+            csvhandler.deleteCSV(CSVPath.URINEANALYSIS_PATH, 4, analysis_id);
+
+            // show success message
+            alert.successMessage("Urine Analysis deleted successfully");
+
+            // refresh data
+            urineAnalysisRefreshData();
+
+            // refresh table
+            UrineAnalysisShowListData();
+
+            // reset all fields
+            urineAnalysisResetBtnAction();
+        }
+    }
 
     private void showTimePopup() {
         if (timePopup == null) {
@@ -1394,76 +1940,6 @@ public class TreatmentCourseDetailsController {
         double y = treatCourseDetProcedureTimeField.localToScreen(treatCourseDetProcedureTimeField.getBoundsInLocal()).getMaxY();
         timePopup.show(treatCourseDetProcedureTimeField.getScene().getWindow(), x, y);
         
-    }
-
-    private void addRWAnalysisBtnAction(){
-        if(treatCourseDetRWAnalysisDateField.getValue() == null ||treatCourseDetRWAnalysisRWResultField.getValue() == null || treatCourseDetRWAnalysisAidsResultField.getValue() == null || treatCourseDetRWAnalysisAidsDateField.getValue() == null){
-            alert.errorMessage("Please fill all the fields");
-        }else{
-            String analysis_date = treatCourseDetRWAnalysisDateField.getValue().toString();
-            String rw_result = treatCourseDetRWAnalysisRWResultField.getValue().toString();
-            String aids_result = treatCourseDetRWAnalysisAidsResultField.getValue().toString();
-            String aids_date = treatCourseDetRWAnalysisAidsDateField.getValue().toString();
-            
-            if (RWAnalysis.validationRWAnalysis(analysis_date, rw_result, aids_result, aids_date) == 1) {
-                // reset all fields
-                RWAnalysisResetBtnAction();
-                // show success message
-                alert.successMessage("RW Analysis added successfully");
-
-            } else {
-                // show error message
-                alert.errorMessage("Please enter valid input");
-            }
-        }
-            
-    }
-
-    private void addBioBloodAnalysisBtnAction(){
-        if (treatCourseDetBioBloodAnalysisDateField == null||treatCourseDetBioBloodAnalysisCreatenineField.getText().isEmpty()  || treatCourseDetBioBloodAnalysisSugarField.getText().isEmpty() ||treatCourseDetBioBloodAnalysisBiluribinField.getText().isEmpty() || treatCourseDetBioBloodAnalysisDirectBiluribinField.getText().isEmpty() || treatCourseDetBioBloodAnalysisASTField.getText().isEmpty() || treatCourseDetBioBloodAnalysisALTField.getText().isEmpty()) {
-            alert.errorMessage("Please fill all the fields");
-        }else{
-            String analysis_date = treatCourseDetBioBloodAnalysisDateField.getValue().toString();
-            double createnine = Double.parseDouble(treatCourseDetBioBloodAnalysisCreatenineField.getText());
-            int sugar = Integer.parseInt(treatCourseDetBioBloodAnalysisSugarField.getText());
-            double biluribin = Double.parseDouble(treatCourseDetBioBloodAnalysisBiluribinField.getText());
-            double direct_biluribin = Double.parseDouble(treatCourseDetBioBloodAnalysisDirectBiluribinField.getText());
-            int AST = Integer.parseInt(treatCourseDetBioBloodAnalysisASTField.getText());
-            int ALT = Integer.parseInt(treatCourseDetBioBloodAnalysisALTField.getText());
-            
-            if (BioBloodAnalysis.validationBioBloodAnalysis(analysis_date, createnine, sugar, biluribin, direct_biluribin, AST, ALT) == 1) {
-                // reset all fields
-                bioBloodAnalysisResetBtnAction();
-                // show success message
-                alert.successMessage("Bio Blood Analysis added successfully");
-            } else {
-                // show error message
-                alert.errorMessage("Please enter valid input");
-            }
-        }
-    }
-    
-    private void addUrineAnalysisBtnAction(){
-        if(treatCourseDetUrineAnalysisDateField.getValue() == null || treatCourseDetUrineAnalysisColorField.getValue()== null || treatCourseDetUrineAnalysisReactionField == null || treatCourseDetUrineAnalysisTransparencyField.getValue()== null || treatCourseDetUrineAnalysisDensityField == null ){
-            alert.errorMessage("Please fill all the fields");
-        }else{
-            String analysis_date = treatCourseDetUrineAnalysisDateField.getValue().toString();
-            String color = treatCourseDetUrineAnalysisColorField.getValue().toString();
-            Double reaction = Double.parseDouble(treatCourseDetUrineAnalysisReactionField.getText());
-            String transparency = treatCourseDetUrineAnalysisTransparencyField.getValue().toString();
-            Double density = Double.parseDouble(treatCourseDetUrineAnalysisDensityField.getText());
-            
-            if (UrineAnalysis.validationUrineAnalysis(analysis_date, color, reaction, transparency, density) == 1) {
-                // reset all fields
-                urineAnalysisResetBtnAction();
-                // show success message
-                alert.successMessage("Urine Analysis added successfully");
-            } else {
-                // show error message
-                alert.errorMessage("Please enter valid input");
-            }
-        }
-
     }
 
 }

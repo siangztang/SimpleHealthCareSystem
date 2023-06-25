@@ -7,12 +7,17 @@ public class UrineAnalysis extends Analysis{
     private String transparency;
     private double density;
     
-    public UrineAnalysis(String analysis_id, String analysis_date, String treatment_course_id , String color, double reaction, String transparency, double density){
+    public UrineAnalysis(String color, double reaction, String transparency, double density, String analysis_id, String analysis_date, String treatment_course_id){
         super(analysis_id, analysis_date, treatment_course_id);
         this.color = color;
         this.reaction = reaction;
         this.transparency = transparency;
         this.density = density;
+    }
+
+
+    public UrineAnalysis() {
+        super("", "", "");
     }
 
 
@@ -36,7 +41,7 @@ public class UrineAnalysis extends Analysis{
         return density;
     }
 
-    public static int validationUrineAnalysis(String analysis_date, String color, double reaction, String transparency, double density){
+    public int validationUrineAnalysis(String analysis_date, String color, double reaction, String transparency, double density){
         if(analysis_date == null || analysis_date.isEmpty()){
             System.out.println("Analysis date is empty");
             return 0;
@@ -48,7 +53,7 @@ public class UrineAnalysis extends Analysis{
             return 0;
         }
         
-        if (reaction <= 4.6 || reaction >= 8.0){
+        if (reaction < 4.6 || reaction > 8.0){
             System.out.println(reaction);
             System.out.println("Reaction is not in range");
             return 0;
@@ -60,7 +65,7 @@ public class UrineAnalysis extends Analysis{
             return 0;
         }
 
-        if (density <= 1.005 || density >= 1.030){
+        if (density < 1.005 || density > 1.030){
             System.out.println(density);
             System.out.println("Density is not in range");
             return 0;

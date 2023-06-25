@@ -3,7 +3,8 @@ package com.example.Controller;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Comparator;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -17,7 +18,6 @@ import com.example.CSVRelatedClass.CSVPath;
 import com.example.CSVRelatedClass.CustomComparator;
 import com.example.CSVRelatedClass.ParameterTypes;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -118,7 +118,9 @@ public class PatientListController {
 
     @FXML
     void initialize(){
+
         SwitchPage switchpage = new SwitchPage();
+
         manageDptBtn.setOnAction(event -> {
             switchpage.switchPage(event, manageDptBtn);
         });
@@ -130,15 +132,12 @@ public class PatientListController {
         manageMedicineBtn.setOnAction(event -> {
             switchpage.switchPage(event, manageMedicineBtn);
         });
+
         patGenderBox.getItems().addAll("M", "F");
         
-        CSVHandler csvhandler = new CSVHandler();
-        String filePath = CSVPath.DEPARTMENT_PATH;
-        Class<?>[] parameterTypes = ParameterTypes.DEPARTMENT_PARAMETER_TYPES;
-        Comparator<Department> comparator = CustomComparator.createComparator(Department::getId);
-        ObservableList<Department> listData = csvhandler.readCSV(filePath, Department.class, comparator, parameterTypes);
+        ObservableList<Department> depListData = csvhandler.readCSV(CSVPath.DEPARTMENT_PATH, Department.class, CustomComparator.createComparator(Department::getId, 1), ParameterTypes.DEPARTMENT_PARAMETER_TYPES);
 
-        for (Department department : listData) {
+        for (Department department : depListData) {
             patDepartmentField.getItems().add(department.getName());
         }
 
@@ -193,7 +192,9 @@ public class PatientListController {
     }
 
     private Admin admin;
-
+    CSVHandler csvhandler = new CSVHandler();
+    private AlertMessage alert = new AlertMessage();
+    private Patient checkInput = new Patient();
 
     public void initData(Admin admin){
         this.admin = admin;
@@ -227,13 +228,12 @@ public class PatientListController {
         resetBtn.setFocusTraversable(false);
     }
 
-    ObservableList<Patient> listData = FXCollections.observableArrayList();
+    private ObservableList<Patient> refreshData(){
+        ObservableList<Patient> listData = csvhandler.readCSV(CSVPath.PATIENT_PATH, Patient.class, CustomComparator.createComparator(Patient::getPatient_id, 3), ParameterTypes.PATIENT_PARAMETER_TYPES);
+        return listData;
+    }
 
     public void patientShowListData(){
-
-        
-        listData.add(new Patient("P0001", "John", 12345612234L, 20, 'M', "0167863524", "Emergency"));
-        listData.add(new Patient("P0002", "Mary", 12345612234L, 20, 'F', "0167863524", "Emergency"));
 
         patIDCol.setCellValueFactory(new PropertyValueFactory<>("patient_id"));
         patNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -243,12 +243,12 @@ public class PatientListController {
         patCotInfoCol.setCellValueFactory(new PropertyValueFactory<>("contact_info"));
         patDepartmentCol.setCellValueFactory(new PropertyValueFactory<>("department"));
         
-        patListTable.setItems(listData);
+        patListTable.setItems(refreshData());
 
     }
 
     private void searchFilter(){
-        FilteredList<Patient> filteredData = new FilteredList<>(listData, e -> true);
+        FilteredList<Patient> filteredData = new FilteredList<>(refreshData(), e -> true);
         searchField.setOnKeyReleased(e->{
         
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -284,42 +284,80 @@ public class PatientListController {
 
         });
 
-        
     }
 
-    
-    private AlertMessage alert = new AlertMessage();
-    private Patient checkInput = new Patient();
-
-    public void addBtnAction(){
-
+    private boolean checkEmpty(){
         if (patNameField.getText().isEmpty() || patICField.getText().isEmpty() || patCotField.getText().isEmpty() || patDepartmentField.getValue() == null || patGenderBox.getValue() == null) {
             // show error message
             alert.errorMessage("Please fill in all the fields");
-        } else {
-            String patName = patNameField.getText();
-            String patIC = patICField.getText();
-            String patCot = patCotField.getText();
-            String patDepartment = patDepartmentField.getValue();
-            String patGender = patGenderBox.getValue();
+            return true;
+        }
+        return false;
+    }
 
+    private boolean checkSelected(){
+        if (patListTable.getSelectionModel().getSelectedItem() == null) {
+            // show error message
+            alert.errorMessage("Please select a patient");
+            return true;
+        }
+        return false;
+    }
+
+    public void addBtnAction(){
+
+        String patName = patNameField.getText();
+
+        String patIC = patICField.getText();
+        int birthYear = Integer.parseInt(patIC.substring(0, 4));
+        int birthMonth = Integer.parseInt(patIC.substring(4, 6));
+        int birthDay = Integer.parseInt(patIC.substring(6, 8));
+        System.out.println(birthYear + " " + birthMonth + " " + birthDay);
+
+        // Calculate age
+        LocalDate birthDate = LocalDate.of(birthYear, birthMonth, birthDay);
+        LocalDate currentDate = LocalDate.now();
+        int patAge = Period.between(birthDate, currentDate).getYears();
+
+        String patCot = patCotField.getText();
+        String patDepartment = patDepartmentField.getValue();
+        String patGenderStr = patGenderBox.getValue();
+        char patGender = patGenderStr.charAt(0);
+
+        if (!checkEmpty()){
             if (checkInput.validationPatient(patName, patIC, patGender, patCot, patDepartment) == 1) {
-                // add patient to database
-                // Patient.new(patName, patIC, patCot, patDepartment, patGender);
 
-                // refresh table
-                listData.clear();
-                patientShowListData();
+                // check if patient already exist
+                for (Patient patient : refreshData()){
+                    if (patient.getName().equals(patName)){
+                        alert.errorMessage("Patient already exists");
+                        return;
+                    }
+                }
 
-                // reset all input field
-                resetBtnAction();
+                // generate patient id
+                String patID = "PAT" + String.format("%d", csvhandler.getMaxId(refreshData(), Patient::getPatient_id, "PAT") + 1);
+
+                // creata patient object
+                Patient patient = new Patient(patID, patName, patIC, patAge, patGender, patCot, patDepartment);
+
+                // add new patient to csv file
+                csvhandler.writeCSV(CSVPath.PATIENT_PATH, patient);
 
                 // show success message
                 alert.successMessage("Patient has been added successfully");
 
+                // refresh data
+                refreshData();
+
+                // refresh table
+                patientShowListData();
+                // reset all input field
+                resetBtnAction();
+
             } else {
                 // show error message
-                alert.errorMessage("Please enter valid input");
+                alert.errorMessage("Please enter a valid input");
             }
         }
     }

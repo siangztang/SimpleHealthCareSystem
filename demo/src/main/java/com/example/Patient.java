@@ -4,13 +4,13 @@ public class Patient {
 
     private String patient_id;
     private String name;
-    private long ic;
+    private String ic;
     private int age;
     private char gender;
     private String contact_info;
     private String department;
 
-    public Patient(String patient_id, String name, long ic, int age, char gender, String contact_info, String department) {
+    public Patient(String patient_id, String name, String ic, int age, char gender, String contact_info, String department) {
         this.patient_id = patient_id;
         this.name = name;
         this.ic = ic;
@@ -35,7 +35,7 @@ public class Patient {
         return name;
     }
 
-    public long getIc() {
+    public String getIc() {
         return ic;
     }
 
@@ -55,7 +55,7 @@ public class Patient {
         return department;
     }
 
-    public int validationPatient(String name, String ic, String gender, String contact, String department) {
+    public int validationPatient(String name, String ic, char gender, String contact, String department) {
         // Validate name
         if (name == null || name.isEmpty() || !name.matches("^[A-Z][a-zA-Z '.-]*[A-Za-z][^-]$")) {
             return 0;
@@ -67,7 +67,7 @@ public class Patient {
         }
 
         // Validate gender
-        if (gender == null || (!gender.equals("M") && !gender.equals("F"))) {
+        if (gender == '\u0000' || (!Character.valueOf(gender).equals('M') && !Character.valueOf(gender).equals('F'))) {
             return 0;
         }
 

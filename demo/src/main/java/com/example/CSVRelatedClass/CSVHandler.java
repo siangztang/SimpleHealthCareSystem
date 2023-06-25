@@ -33,10 +33,10 @@ public class CSVHandler {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-
                 Constructor<T> constructor = clazz.getDeclaredConstructor(parameterTypes);
                 int parameterCount = constructor.getParameterCount();
-
+                System.out.println(constructor);
+                System.out.println(parameterCount);
                 // Check if the number of parameters matches the CSV data columns
                 if (parameterCount == data.length) {
                     Object[] arguments = new Object[parameterCount];
@@ -115,6 +115,10 @@ public class CSVHandler {
             return Double.parseDouble(value);
         } else if (targetType == boolean.class || targetType == Boolean.class) {
             return Boolean.parseBoolean(value);
+        } else if (targetType == long.class || targetType == Long.class) {
+            return Long.parseLong(value);
+        } else if (targetType == char.class || targetType == Character.class) {
+            return value.charAt(0);
         } else if (targetType.isArray()) {
             String[] values = value.split(",");
             Class<?> componentType = targetType.getComponentType();
@@ -143,10 +147,12 @@ public class CSVHandler {
 
     public <T> int getMaxId(ObservableList<T> list, Function<T, String> getIdFunction, String prefix) {
         int maxId = 0;
+        int prefixLength = prefix.length();
+        System.out.println(prefixLength);
         for (T item : list) {
             String id = getIdFunction.apply(item);
             if (id.startsWith(prefix)) {
-                String numberPart = id.substring(1); // Remove the prefix "D"
+                String numberPart = id.substring(prefixLength); // Get the number part of the id
                 try {
                     int currentNumber = Integer.parseInt(numberPart);
                     if (currentNumber > maxId) {
@@ -174,15 +180,14 @@ public class CSVHandler {
     // end of write to csv
 
     // start update csv
-    public <T> void updateCSV(String filePath, String checkField, String checkValue, T updatedObject) {
+    public <T> void updateCSV(String filePath, int valueLocate, String checkValue, T updatedObject) {
         List<String> lines = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-
-                if (data.length > 1 && data[0].equals(checkValue)) {
+                if (data.length > 1 && data[valueLocate].equals(checkValue)) {
                     // Replace the entire line with the updated object's values
                     String updatedLine = getCSVLine(updatedObject);
                     lines.add(updatedLine);
@@ -211,7 +216,13 @@ public class CSVHandler {
     // for write and update csv
     private static String getCSVLine(Object object) {
         StringBuilder line = new StringBuilder();
-        Field[] fields = object.getClass().getDeclaredFields();
+        Class<?> clazz = object.getClass();
+
+        List<Field> fields = new ArrayList<>();
+        while (clazz != null) {
+            fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+            clazz = clazz.getSuperclass();
+        }
 
         for (Field field : fields) {
             field.setAccessible(true);
@@ -233,7 +244,7 @@ public class CSVHandler {
     // end of this method for write and update csv
 
     // start delete csv
-    public void deleteCSV(String filePath, String checkField, String checkValue) {
+    public void deleteCSV(String filePath, int valueLocate, String checkValue) {
         List<String> lines = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -241,7 +252,7 @@ public class CSVHandler {
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
 
-                if (data.length > 1 && data[0].equals(checkValue)) {
+                if (data.length > 1 && data[valueLocate].equals(checkValue)) {
                     // Skip the line to be deleted
                     continue;
                 }

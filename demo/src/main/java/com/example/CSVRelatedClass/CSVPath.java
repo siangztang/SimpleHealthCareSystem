@@ -12,4 +12,5 @@ public class CSVPath {
     public final static String PROCEDURE_PATH = "demo\\src\\main\\java\\com\\example\\db\\procedure.csv";
     public final static String TREATMENTCOURSE_PATH = "demo\\src\\main\\java\\com\\example\\db\\treatmentCourse.csv";
     public final static String URINEANALYSIS_PATH = "demo\\src\\main\\java\\com\\example\\db\\urineAnalysis.csv";
+    public final static String RWANALYSIS_PATH = "demo\\src\\main\\java\\com\\example\\db\\RWAnalysis.csv";
 }

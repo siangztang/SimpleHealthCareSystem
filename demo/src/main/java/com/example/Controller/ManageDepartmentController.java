@@ -148,7 +148,7 @@ public class ManageDepartmentController {
     }
 
     public ObservableList<Department> refreshData(){
-        ObservableList<Department> listData = csvhandler.readCSV(CSVPath.DEPARTMENT_PATH, Department.class, CustomComparator.createComparator(Department::getId), ParameterTypes.DEPARTMENT_PARAMETER_TYPES);
+        ObservableList<Department> listData = csvhandler.readCSV(CSVPath.DEPARTMENT_PATH, Department.class, CustomComparator.createComparator(Department::getId, 1), ParameterTypes.DEPARTMENT_PARAMETER_TYPES);
         return listData;
     }
     
@@ -269,7 +269,7 @@ public class ManageDepartmentController {
                 Department updatedDepartment = new Department(dptId, dptName);
 
                 // update the department
-                csvhandler.updateCSV(CSVPath.DEPARTMENT_PATH, "id", dptId, updatedDepartment);
+                csvhandler.updateCSV(CSVPath.DEPARTMENT_PATH, 0, dptId, updatedDepartment);
 
                 // show success message
                 alert.successMessage("Department updated successfully");
@@ -298,7 +298,7 @@ public class ManageDepartmentController {
             String selectedDepartment = departmentTable.getSelectionModel().getSelectedItem().getId();
             
             // delete the department
-            csvhandler.deleteCSV(CSVPath.DEPARTMENT_PATH, "id", selectedDepartment);
+            csvhandler.deleteCSV(CSVPath.DEPARTMENT_PATH, 0, selectedDepartment);
 
             // show success message
             alert.successMessage("Department deleted successfully");

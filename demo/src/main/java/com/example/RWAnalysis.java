@@ -9,11 +9,15 @@ public class RWAnalysis extends Analysis{
     private String aids_date;
     private String aids_result;
 
-    public RWAnalysis(String analysis_id, String analysis_date, String treatment_course_id, String rw_result, String aids_date, String aids_result){
+    public RWAnalysis(String rw_result, String aids_date, String aids_result, String analysis_id, String analysis_date, String treatment_course_id){
         super(analysis_id, analysis_date, treatment_course_id);
         this.rw_result = rw_result;
         this.aids_date = aids_date;
         this.aids_result = aids_result;
+    }
+
+    public RWAnalysis() {
+        super("", "", "");
     }
 
     // positive or negative
@@ -31,7 +35,7 @@ public class RWAnalysis extends Analysis{
         return aids_result;
     }
 
-    public static int validationRWAnalysis(String analysis_date, String rw_result, String aids_date, String aids_result){
+    public int validationRWAnalysis(String analysis_date, String rw_result, String aids_date, String aids_result){
         if(analysis_date == null || analysis_date.isEmpty()){
             System.out.println("Analysis date is empty");
             return 0;
