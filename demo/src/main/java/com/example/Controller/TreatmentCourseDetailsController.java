@@ -14,6 +14,7 @@ import com.example.AlertMessage;
 import com.example.BioBloodAnalysis;
 import com.example.BloodAnalysis;
 import com.example.Diagnosis;
+import com.example.Doctor;
 import com.example.Patient;
 import com.example.Procedure;
 import com.example.RWAnalysis;
@@ -424,6 +425,13 @@ public class TreatmentCourseDetailsController {
         treatCourseDetUrineAnalysisTransparencyField.getItems().addAll("Clear", "Slightly Cloudy", "Cloudy");
         treatCourseDetUrineAnalysisColorField.getItems().addAll("Pale Yellow", "Yellow", "Dark Yellow", "Brown", "Red", "Orange", "Black");
         treatCourseDetProcedureMedicineChoice.getItems().addAll("Medicine 1", "Medicine 2", "Medicine 3", "Medicine 4", "Medicine 5");
+
+        ObservableList<Doctor> doctorListData = csvhandler.readCSV(CSVPath.DOCTOR_PATH, Doctor.class, CustomComparator.createComparator(Doctor::getDoctor_id), ParameterTypes.DOCTOR_PARAMETER_TYPES);
+
+        for (Doctor doctor : doctorListData) {
+            treatCourseDetDiagnosisDocNameField.getItems().add(doctor.getDoctor_name());
+        }
+
         managePatientBtn.setOnAction(event -> {
             switchpage.switchPage(event, managePatientBtn);
         });
@@ -464,6 +472,10 @@ public class TreatmentCourseDetailsController {
             addMedicine();
         });
 
+        diagnosisAddBtn.setOnAction(event -> {
+            addDiagnosisBtnAction();
+        });
+
         procedureAddBtn.setOnAction(event -> {
             addProcedureBtnAction();
         });
@@ -483,7 +495,54 @@ public class TreatmentCourseDetailsController {
         urineAnalysisAddBtn.setOnAction(event -> {
             addUrineAnalysisBtnAction();
         });
-        
+
+        diagnosisUpdateBtn.setOnAction(event -> {
+            updateDiagnosisBtnAction();
+        });
+
+        procedureUpdateBtn.setOnAction(event -> {
+            updateProcedureBtnAction();
+        });
+
+        bloodAnalysisUpdateBtn.setOnAction(event -> {
+            // updateBloodAnalysisBtnAction();
+        });
+
+        RWAnalysisUpdateBtn.setOnAction(event -> {
+            // updateRWAnalysisBtnAction();
+        });
+
+        bioBloodAnalysisUpdateBtn.setOnAction(event -> {
+            // updateBioBloodAnalysisBtnAction();
+        });
+
+        urineAnalysisUpdateBtn.setOnAction(event -> {
+            // updateUrineAnalysisBtnAction();
+        });
+
+        diagnosisDeleteBtn.setOnAction(event -> {
+            deleteDiagnosisBtnAction();
+        });
+
+        procedureDeleteBtn.setOnAction(event -> {
+            deleteProcedureBtnAction();
+        });
+
+        bloodAnalysisDeleteBtn.setOnAction(event -> {
+            // deleteBloodAnalysisBtnAction();
+        });
+
+        RWAnalysisDeleteBtn.setOnAction(event -> {
+            // deleteRWAnalysisBtnAction();
+        });
+
+        bioBloodAnalysisDeleteBtn.setOnAction(event -> {
+            // deleteBioBloodAnalysisBtnAction();
+        });
+
+        urineAnalysisDeleteBtn.setOnAction(event -> {
+            // deleteUrineAnalysisBtnAction();
+        });        
 
         unFocusAll();
 
@@ -495,7 +554,7 @@ public class TreatmentCourseDetailsController {
                 if (selectedDiagnosis != null){
                     System.out.println("Selected diagnosis ID: " + selectedDiagnosis.getDiagnosis_id());
                     treatCourseDetDiagnosisNameField.setText(selectedDiagnosis.getDiagnosis_name());
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate diagnosis_date = LocalDate.parse(selectedDiagnosis.getDiagnosis_date(), formatter);
                     treatCourseDetDiagnosisDiagDateField.setValue(diagnosis_date);
                     treatCourseDetDiagnosisDocNameField.setValue(selectedDiagnosis.getDoctor_name());
@@ -512,14 +571,14 @@ public class TreatmentCourseDetailsController {
             if (event.getClickCount() == 1){
                 if (selectedProcedure != null){
                     System.out.println("Selected procedure ID: " + selectedProcedure.getProcedure_id());
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate procedure_date = LocalDate.parse(selectedProcedure.getProcedure_date(), formatter);
                     treatCourseDetProcedureDateField.setValue(procedure_date);
                     treatCourseDetProcedureTimeField.setText(selectedProcedure.getProcedure_time());
                     treatCourseDetProcedureTypeField.setText(selectedProcedure.getType());
-                    String[] medicineList = selectedProcedure.getMedicine_list();
+                    String[] medicineList = selectedProcedure.getMedicine_list().split("; ");
                     this.medicineList = medicineList;
-                    String medicineListText = String.join(", ", medicineList);
+                    String medicineListText = String.join("; ", medicineList);
                     treatCourseDetProcedureMedicineList.setText(medicineListText);
                 }
             } else if (event.getClickCount() == 2){
@@ -533,7 +592,7 @@ public class TreatmentCourseDetailsController {
                     stage.setResizable(false);
                     stage.show();
                     ProcedureDetailsController controller = loader.getController();
-                    String[] medicineList = selectedProcedure.getMedicine_list();
+                    String[] medicineList = selectedProcedure.getMedicine_list().split("; ");
                     this.medicineList = medicineList;
                     controller.initData(admin, patient_info, history_id, treatment_course_id, selectedProcedure.getProcedure_id(), medicineList);
                     Node node = (Node) event.getSource();
@@ -553,7 +612,7 @@ public class TreatmentCourseDetailsController {
             if (event.getClickCount() == 1){
                 if (selectedUrineAnalysis != null){
                     System.out.println("Selected urine analysis ID: " + selectedUrineAnalysis.getAnalysis_id());
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate urine_analysis_date = LocalDate.parse(selectedUrineAnalysis.getAnalysis_date(), formatter);
                     treatCourseDetUrineAnalysisDateField.setValue(urine_analysis_date);
                     treatCourseDetUrineAnalysisColorField.setValue(selectedUrineAnalysis.getColor());
@@ -572,7 +631,7 @@ public class TreatmentCourseDetailsController {
                 if (selectedRWAnalysis != null){
                     System.out.println("Selected RW analysis ID: " + selectedRWAnalysis.getAnalysis_id());
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate rw_analysis_date = LocalDate.parse(selectedRWAnalysis.getAnalysis_date(), formatter);
                     LocalDate aids_date = LocalDate.parse(selectedRWAnalysis.getAids_date(), formatter);
 
@@ -592,7 +651,7 @@ public class TreatmentCourseDetailsController {
                 if (selectedBioBloodAnalysis != null){
                     System.out.println("Selected bio blood analysis ID: " + selectedBioBloodAnalysis.getAnalysis_id());
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate bio_blood_analysis_date = LocalDate.parse(selectedBioBloodAnalysis.getAnalysis_date(), formatter);
 
                     treatCourseDetBioBloodAnalysisDateField.setValue(bio_blood_analysis_date);
@@ -615,7 +674,7 @@ public class TreatmentCourseDetailsController {
                 if (selectedBloodAnalysis != null){
                     System.out.println("Selected blood analysis ID: " + selectedBloodAnalysis.getAnalysis_id());
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate blood_analysis_date = LocalDate.parse(selectedBloodAnalysis.getAnalysis_date(), formatter);
 
                     treatCourseDetBloodAnalysisDateDateField.setValue(blood_analysis_date);
@@ -628,13 +687,10 @@ public class TreatmentCourseDetailsController {
                     treatCourseDetBloodAnalysisLymphocytesField.setText(String.valueOf(selectedBloodAnalysis.getLymphocytes()));
                     treatCourseDetBloodAnalysisESRField.setText(String.valueOf(selectedBloodAnalysis.getESR()));
                     
-                    
                 }
             }
         });
         BloodAnalysisShowListData();
-    
-
 
     }
 
@@ -670,7 +726,8 @@ public class TreatmentCourseDetailsController {
         treatCourseDetDiagnosisDiagDateField.setValue(null);
         treatCourseDetDiagnosisDocNameField.setValue(""); //unsure if correct
         treatCourseDetDiagnosisTable.getSelectionModel().clearSelection(); 
-
+        treatCourseDetDiagnosisTable.setItems(diagnosisRefreshData());
+        DiagnosisShowListData();
     }
 
     public void procedureResetBtnAction(){
@@ -680,7 +737,8 @@ public class TreatmentCourseDetailsController {
         treatCourseDetProcedureMedicineList.setText("");
         treatCourseDetProcedureMedicineChoice.setValue(null);
         treatCourseDetProcedureTable.getSelectionModel().clearSelection(); 
-
+        treatCourseDetProcedureTable.setItems(procedureRefreshData());
+        ProcedureShowListData();
     }
     
     public void bloodAnalysisResetBtnAction(){
@@ -766,7 +824,7 @@ public class TreatmentCourseDetailsController {
     }
 
     public ObservableList<Diagnosis> diagnosisRefreshData(){
-        ObservableList<Diagnosis> listData = csvhandler.readCSV(CSVPath.DIAGNOSIS_PATH, Diagnosis.class, CustomComparator.createComparator(Diagnosis::getDiagnosis_id), ParameterTypes.DEPARTMENT_PARAMETER_TYPES);
+        ObservableList<Diagnosis> listData = csvhandler.readCSV(CSVPath.DIAGNOSIS_PATH, Diagnosis.class, CustomComparator.createComparator(Diagnosis::getDiagnosis_id), ParameterTypes.DIAGNOSIS_PARAMETER_TYPES);
         return listData;
     }
 
@@ -793,7 +851,7 @@ public class TreatmentCourseDetailsController {
     private boolean diagnosisCheckSelected(){
         if (treatCourseDetDiagnosisTable.getSelectionModel().getSelectedItem() == null) {
             // show error message
-            alert.errorMessage("Please select a doctor");
+            alert.errorMessage("Please select a diagnosis");
             return true;
         }
         return false;
@@ -817,11 +875,17 @@ public class TreatmentCourseDetailsController {
                 // add new diagnosis to csv file
                 csvhandler.writeCSV(CSVPath.DIAGNOSIS_PATH, newDiagnosis);
 
-                // reset all fields
-                diagnosisResetBtnAction();
-
                 // show success message
                 alert.successMessage("Diagnosis added successfully");
+
+                // refresh data
+                diagnosisRefreshData();
+
+                // refresh table
+                DiagnosisShowListData();
+
+                // reset all fields
+                diagnosisResetBtnAction();
 
             } else {
                 // show error message
@@ -831,20 +895,202 @@ public class TreatmentCourseDetailsController {
 
     }
 
-    public void ProcedureShowListData(){
-        ObservableList<Procedure> procedureListData = FXCollections.observableArrayList();
+    private void updateDiagnosisBtnAction(){
 
-        procedureListData.add(new Procedure("P0001", "Surgery", "20/7/2023", "11:25", "1", new String[]{"Aspirin", "Ibuprofen"}));
-        procedureListData.add(new Procedure("P0002", "Radiology", "20/7/2023", "11:25", "2", new String[]{"X-ray", "CT scan"}));
+        if (!diagnosisCheckSelected()){
+            // get selected diagnosis
+            String diagnosisId = treatCourseDetDiagnosisTable.getSelectionModel().getSelectedItem().getDiagnosis_id();
+            String diagnosis_name = treatCourseDetDiagnosisNameField.getText();
+            String diagnosis_date = treatCourseDetDiagnosisDiagDateField.getValue().toString();
+            String doctor_name = treatCourseDetDiagnosisDocNameField.getValue();
+            if (!diagnosisCheckEmpty()){
+                if (diagnosisCheckInput.validationDiagnosis(diagnosis_name, diagnosis_date, doctor_name) == 1) {
+                    
+
+                    // create new diagnosis object
+                    Diagnosis newDiagnosis = new Diagnosis(diagnosisId, diagnosis_name, diagnosis_date, doctor_name, treatment_course_id);
+
+                    // update selected diagnosis in csv file
+                    csvhandler.updateCSV(CSVPath.DIAGNOSIS_PATH, "diagnosis_id", diagnosisId, newDiagnosis);
+
+                    // show success message
+                    alert.successMessage("Diagnosis updated successfully");
+
+                    // refresh data
+                    diagnosisRefreshData();
+
+                    // refresh table
+                    DiagnosisShowListData();
+
+                    // reset all fields
+                    diagnosisResetBtnAction();
+
+                } else {
+                    // show error message
+                    alert.errorMessage("Please enter valid input");
+                }
+            }
+        }
+    }
+
+    private void deleteDiagnosisBtnAction(){
+        if (!diagnosisCheckSelected()){
+            // get selected diagnosis
+            String diagnosisId = treatCourseDetDiagnosisTable.getSelectionModel().getSelectedItem().getDiagnosis_id();
+
+            // delete selected diagnosis in csv file
+            csvhandler.deleteCSV(CSVPath.DIAGNOSIS_PATH, "diagnosis_id", diagnosisId);
+
+            // show success message
+            alert.successMessage("Diagnosis deleted successfully");
+
+            // refresh data
+            diagnosisRefreshData();
+
+            // refresh table
+            DiagnosisShowListData();
+            
+            // reset all fields
+            diagnosisResetBtnAction();
+
+            
+        }
+    }
+
+    public ObservableList<Procedure> procedureRefreshData(){
+        ObservableList<Procedure> listData = csvhandler.readCSV(CSVPath.PROCEDURE_PATH, Procedure.class, CustomComparator.createComparator(Procedure::getProcedure_id), ParameterTypes.PROCEDURE_PARAMETER_TYPES);
+        return listData;
+    }
+
+    public void ProcedureShowListData(){
 
         treatCourseDetProcedureIDCol.setCellValueFactory(new PropertyValueFactory<>("procedure_id"));
         treatCourseDetProcedureDateCol.setCellValueFactory(new PropertyValueFactory<>("procedure_date"));
         treatCourseDetProcedureTimeCol.setCellValueFactory(new PropertyValueFactory<>("procedure_time"));
         treatCourseDetProcedureTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
 
-        treatCourseDetProcedureTable.setItems(procedureListData);
+        treatCourseDetProcedureTable.setItems(procedureRefreshData());
 
     }
+
+    private boolean procedureCheckEmpty(){
+        if (treatCourseDetProcedureTypeField.getText().isEmpty() || treatCourseDetProcedureDateField == null || treatCourseDetProcedureTimeField.getText().isEmpty() || treatCourseDetProcedureMedicineList.getText().equals("")) {
+            // show error message
+            alert.errorMessage("Please fill in all the fields");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean procedureCheckSelected(){
+        if (treatCourseDetProcedureTable.getSelectionModel().getSelectedItem() == null) {
+            // show error message
+            alert.errorMessage("Please select a procedure");
+            return true;
+        }
+        return false;
+    }
+
+    private void addProcedureBtnAction(){
+        String procedureType = treatCourseDetProcedureTypeField.getText();
+        String procedureDate = treatCourseDetProcedureDateField.getValue().toString();
+        String procedureTime = treatCourseDetProcedureTimeField.getText();
+        String procedureMedicine = treatCourseDetProcedureMedicineList.getText();
+
+        // check if any field is empty
+        if (!procedureCheckEmpty()){
+            if (procedureCheckInput.validationProcedure(procedureType, procedureDate, procedureTime, procedureMedicine) == 1) {
+                
+                // generate new procedure id
+                String procedureId = "P" + String.format("%d", csvhandler.getMaxId(procedureRefreshData(), Procedure::getProcedure_id, "P") + 1);
+                
+                // create new procedure object
+                Procedure newProcedure = new Procedure(procedureId, procedureType, procedureDate, procedureTime, treatment_course_id, procedureMedicine);
+
+                // add new procedure to csv file
+                csvhandler.writeCSV(CSVPath.PROCEDURE_PATH, newProcedure);
+
+                // show success message
+                alert.successMessage("Procedure added successfully");
+
+                // refresh data
+                procedureRefreshData();
+
+                // refresh table
+                ProcedureShowListData();
+
+                // reset all fields
+                procedureResetBtnAction();
+
+            } else {
+                // show error message
+                alert.errorMessage("Please enter valid input");
+            }
+        }
+    }
+
+    private void updateProcedureBtnAction(){
+        if (!procedureCheckSelected()){
+            // get selected procedure
+            String procedureId = treatCourseDetProcedureTable.getSelectionModel().getSelectedItem().getProcedure_id();
+            String procedureType = treatCourseDetProcedureTypeField.getText();
+            String procedureDate = treatCourseDetProcedureDateField.getValue().toString();
+            String procedureTime = treatCourseDetProcedureTimeField.getText();
+            String procedureMedicine = treatCourseDetProcedureMedicineList.getText();
+
+            // check if any field is empty
+            if (!procedureCheckEmpty()){
+                if (procedureCheckInput.validationProcedure(procedureType, procedureDate, procedureTime, procedureMedicine) == 1) {
+                    
+                    // create new procedure object
+                    Procedure newProcedure = new Procedure(procedureId, procedureType, procedureDate, procedureTime, treatment_course_id, procedureMedicine);
+
+                    // update selected procedure in csv file
+                    csvhandler.updateCSV(CSVPath.PROCEDURE_PATH, "procedure_id", procedureId, newProcedure);
+
+                    // show success message
+                    alert.successMessage("Procedure updated successfully");
+
+                    // refresh data
+                    procedureRefreshData();
+
+                    // refresh table
+                    ProcedureShowListData();
+
+                    // reset all fields
+                    procedureResetBtnAction();
+
+                } else {
+                    // show error message
+                    alert.errorMessage("Please enter valid input");
+                }
+            }
+        }
+    }
+
+    private void deleteProcedureBtnAction(){
+        if (!procedureCheckSelected()){
+            // get selected procedure
+            String procedureId = treatCourseDetProcedureTable.getSelectionModel().getSelectedItem().getProcedure_id();
+
+            // delete selected procedure in csv file
+            csvhandler.deleteCSV(CSVPath.PROCEDURE_PATH, "procedure_id", procedureId);
+
+            // show success message
+            alert.successMessage("Procedure deleted successfully");
+
+            // refresh data
+            procedureRefreshData();
+
+            // refresh table
+            ProcedureShowListData();
+            
+            // reset all fields
+            procedureResetBtnAction();
+        }
+    }
+
+
 
     public void UrineAnalysisShowListData(){
         ObservableList<UrineAnalysis> urineAnalysisListData = FXCollections.observableArrayList();
@@ -944,37 +1190,8 @@ public class TreatmentCourseDetailsController {
             }
         }
 
-        String medicineListText = String.join(", ", medicineList);
+        String medicineListText = String.join("; ", medicineList);
         treatCourseDetProcedureMedicineList.setText(medicineListText);
-    }
-
-    private void addProcedureBtnAction(){
-        if (treatCourseDetProcedureTypeField.getText().isEmpty() || treatCourseDetProcedureDateField == null || treatCourseDetProcedureTimeField.getText().isEmpty() || treatCourseDetProcedureMedicineList.getText().equals("")){
-            // show error message
-            alert.errorMessage("Please fill in all the fields");
-        } else {
-            String procedureType = treatCourseDetProcedureTypeField.getText();
-            String procedureDate = treatCourseDetProcedureDateField.getValue().toString();
-            String procedureTime = treatCourseDetProcedureTimeField.getText();
-            String procedureMedicine = treatCourseDetProcedureMedicineList.getText();
-            String[] procedureMedicineList = procedureMedicine.split(",");
-
-            if (procedureCheckInput.validationProcedure(procedureType, procedureDate, procedureTime, procedureMedicineList) == 1) {
-                // add patient to database
-                // Patient.new(patName, patIC, patCot, patDepartment, patGender);
-
-
-                // reset all input field
-                procedureResetBtnAction();
-
-                // show success message
-                alert.successMessage("Procedure has been added successfully");
-
-            } else {
-                // show error message
-                alert.errorMessage("Please enter valid input");
-            }
-        }
     }
 
     private void showTimePopup() {

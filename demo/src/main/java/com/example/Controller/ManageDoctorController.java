@@ -128,10 +128,12 @@ public class ManageDoctorController {
         docTable.getColumns().forEach(e -> e.setReorderable(false));
         docTable.setOnMouseClicked(event -> {
             Doctor doctor = docTable.getSelectionModel().getSelectedItem();
-            docNameField.setText(doctor.getDoctor_name());
-            docContactField.setText(String.valueOf(doctor.getContact_info()));
-            docQualificationField.setText(doctor.getQualification());
-            docSpecializationField.setText(doctor.getDoctor_specialization());
+            if (doctor != null) {
+                docNameField.setText(doctor.getDoctor_name());
+                docContactField.setText(String.valueOf(doctor.getContact_info()));
+                docQualificationField.setText(doctor.getQualification());
+                docSpecializationField.setText(doctor.getDoctor_specialization());
+            }
         });
 
         doctorShowListData();
@@ -173,7 +175,7 @@ public class ManageDoctorController {
     }
 
     public ObservableList<Doctor> refreshData(){
-        ObservableList<Doctor> listData = csvhandler.readCSV(CSVPath.DOCTOR_PATH, Doctor.class, CustomComparator.createComparator(Doctor::getDoctor_id), ParameterTypes.DEPARTMENT_PARAMETER_TYPES);
+        ObservableList<Doctor> listData = csvhandler.readCSV(CSVPath.DOCTOR_PATH, Doctor.class, CustomComparator.createComparator(Doctor::getDoctor_id), ParameterTypes.DOCTOR_PARAMETER_TYPES);
         return listData;
     }
 
@@ -263,11 +265,17 @@ public class ManageDoctorController {
                 // add new doctor to csv file
                 csvhandler.writeCSV(CSVPath.DOCTOR_PATH, newDoctor);
 
-                // reset all fields
-                resetBtnAction();
-
                 // show success message
                 alert.successMessage("Doctor added successfully");
+
+                // refresh data
+                refreshData();
+                    
+                // refresh table
+                doctorShowListData();
+
+                // reset all fields
+                resetBtnAction();
 
             } else {
                 // show error message
@@ -310,8 +318,6 @@ public class ManageDoctorController {
 
                     // reset all fields
                     resetBtnAction();
-
-                    
 
                 } else {
                     alert.errorMessage("Please enter valid input");

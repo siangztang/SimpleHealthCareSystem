@@ -5,8 +5,10 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
@@ -113,6 +115,10 @@ public class CSVHandler {
             return Double.parseDouble(value);
         } else if (targetType == boolean.class || targetType == Boolean.class) {
             return Boolean.parseBoolean(value);
+        } else if (targetType.isArray()) {
+            String[] values = value.split(",");
+            Class<?> componentType = targetType.getComponentType();
+            return Arrays.stream(values).map(s -> convertToType(s.trim(), componentType)).toArray(size -> (Object[]) Array.newInstance(componentType, size));
         } else {
             throw new IllegalArgumentException("Unsupported parameter type: " + targetType.getSimpleName());
         }
@@ -226,6 +232,7 @@ public class CSVHandler {
     }
     // end of this method for write and update csv
 
+    // start delete csv
     public void deleteCSV(String filePath, String checkField, String checkValue) {
         List<String> lines = new ArrayList<>();
 
@@ -259,4 +266,5 @@ public class CSVHandler {
             e.printStackTrace();
         }
     }
+    // end of delete csv
 }
