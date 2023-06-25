@@ -14,7 +14,6 @@ import com.example.CSVRelatedClass.CSVPath;
 import com.example.CSVRelatedClass.CustomComparator;
 import com.example.CSVRelatedClass.ParameterTypes;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -112,6 +111,14 @@ public class ManageMedicineController {
         addBtn.setOnAction(event -> {
             addBtnAction();
         });
+        updateBtn.setOnAction(event -> {
+            updateBtnAction();
+        });
+
+        deleteBtn.setOnAction(event -> {
+            deleteBtnAction();
+        });
+
 
         unFocusAll();
 
@@ -229,6 +236,7 @@ public class ManageMedicineController {
         //check if all fields are filled    
         if (!checkEmpty()) {
             String medicine_name = medicineNameField.getText();
+            String medicine_description = medicineDescriptionField.getText();
             int medicine_amount = -1;
             try {
                 medicine_amount = Integer.parseInt(medicineAmountField.getText());
@@ -236,7 +244,6 @@ public class ManageMedicineController {
                 alert.errorMessage("Please enter a valid integer for medicine amount");
                 return;
             }
-            String medicine_description = medicineDescriptionField.getText();
         
             if (checkInput.validationMedicine(medicine_name, medicine_description, medicine_amount) == 1){
                     //check if medicine already exist
@@ -253,6 +260,9 @@ public class ManageMedicineController {
                     Medicine newMedicine = new Medicine(medicine_id, medicine_name, medicine_description, medicine_amount);
                     //add new medicine to csv file
                     csvhandler.writeCSV(CSVPath.MEDICINE_PATH, newMedicine);
+
+                    // show success message
+                    alert.successMessage("Medicine added successfully!");
                     
                     //refresh data
                     refreshData();
@@ -262,20 +272,87 @@ public class ManageMedicineController {
                     
                     // reset input field
                     resetBtnAction();
-                
-                    // show success message
-                    alert.successMessage("Medicine added successfully!");
-                
+                                
                 } else {
                     // show error message
                     alert.errorMessage("Please enter a valid input!");
                 }
             
-                    // show success message
-                    alert.successMessage("Medicine added successfully!");
         }
+    }
+    private void updateBtnAction(){
+
+        if (!checkSelected()){
+            String medicineID = medicineTable.getSelectionModel().getSelectedItem().getMedicine_id();
+            String medicineName = medicineNameField.getText();
+            String medicineDescription = medicineDescriptionField.getText();
+            int medicineAmount = -1;
+
+            try {
+                medicineAmount = Integer.parseInt(medicineAmountField.getText());
+            } catch (NumberFormatException e) {
+                alert.errorMessage("Please enter a valid integer for medicine amount");
+                return;
+            }
+
+            // check if the input is empty
+            if (!checkEmpty()) {
+                if (checkInput.validationMedicine(medicineName,medicineDescription,medicineAmount) == 1 && medicineName != null) {
+                // check if the medicine already exists
+                for (Medicine medicine : refreshData()){
+                    if (medicine.getMedicine_name().equals(medicineName)){
+                        alert.errorMessage("Medicine already exists");
+                        return;
+                    }
+                }
+                // creata a new department object
+                Medicine updatedMedicine = new Medicine(medicineID, medicineName, medicineDescription, medicineAmount);
+
+                // update the department in the csv file
+                csvhandler.updateCSV(CSVPath.MEDICINE_PATH, "id", medicineID, updatedMedicine);
 
 
+                // show success message
+                alert.successMessage("Medicine updated successfully");
+
+                // refresh data
+                refreshData();
+
+                // refresh table
+                medicineShowListData();
+
+                // reset all fields
+                resetBtnAction();
+
+            } else {
+                // show error message
+                alert.errorMessage("Please enter valid input");
+            }
+            }
+        }
+    }
+
+     private void deleteBtnAction(){
+        // check if a department is selected
+        if (!checkSelected()){
+            // get the selected department id
+            String selectedMedicine = medicineTable.getSelectionModel().getSelectedItem().getMedicine_id();
+            
+            // delete the department
+            csvhandler.deleteCSV(CSVPath.MEDICINE_PATH, "id", selectedMedicine);
+
+            // show success message
+            alert.successMessage("Medicine deleted successfully");
+
+            // refresh data
+            refreshData();
+
+            // refresh table
+            medicineShowListData();
+
+            // reset all fields
+            resetBtnAction();
+        }
     }
 
 }
