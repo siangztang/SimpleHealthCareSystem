@@ -1090,7 +1090,38 @@ public class TreatmentCourseDetailsController {
         }
     }
 
-
+    private void addMedicine(){
+        if (treatCourseDetProcedureMedicineChoice.getValue() == null) {
+            // show error message
+            alert.errorMessage("No medicine selected");
+            return;
+        } else if (treatCourseDetProcedureMedicineList.getText().equals("")) {
+            // add medicine to list
+            medicineList = new String[]{treatCourseDetProcedureMedicineChoice.getValue()};
+        } else {
+            // add medicine to list
+            String medicineName = treatCourseDetProcedureMedicineChoice.getValue();
+            // check if medicine already added
+            boolean isDuplicate = false;
+            for(String medical : medicineList){
+                if(medical.equals(medicineName)){
+                    // show error
+                    alert.errorMessage("Medicine already added");
+                    isDuplicate = true;
+                    break;
+                }
+            }
+            // add medicine to list
+            if(!isDuplicate){
+                medicineList = Arrays.copyOf(medicineList, medicineList.length + 1);
+                medicineList[medicineList.length - 1] = medicineName;
+                alert.successMessage("Medicine added");
+            }
+        }
+        // display medicine list
+        String medicineListText = String.join("; ", medicineList);
+        treatCourseDetProcedureMedicineList.setText(medicineListText);
+    }
 
     public void UrineAnalysisShowListData(){
         ObservableList<UrineAnalysis> urineAnalysisListData = FXCollections.observableArrayList();
@@ -1169,6 +1200,7 @@ public class TreatmentCourseDetailsController {
 
     }
 
+<<<<<<< Updated upstream
     private boolean bloodAnalysisCheckEmpty(){
     if (treatCourseDetBloodAnalysisDateDateField == null || treatCourseDetBloodAnalysisRedCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisHaemoglobinField.getText().isEmpty() || treatCourseDetBloodAnalysisColorField.getText().isEmpty() || treatCourseDetBloodAnalysisParasitesField == null || treatCourseDetBloodAnalysisWhiteCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisLymphocytesField.getText().isEmpty() || treatCourseDetBloodAnalysisESRField.getText().isEmpty()) {
         // show error message
@@ -1302,6 +1334,9 @@ public class TreatmentCourseDetailsController {
         String medicineListText = String.join("; ", medicineList);
         treatCourseDetProcedureMedicineList.setText(medicineListText);
     }
+=======
+    
+>>>>>>> Stashed changes
 
     private void showTimePopup() {
         if (timePopup == null) {
