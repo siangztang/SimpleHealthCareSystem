@@ -163,8 +163,8 @@ public class ManageMedicineController {
     }
 
     public ObservableList<Medicine> refreshData(){
-        ObservableList<Medicine> listData = csvhandler.readCSV(CSVPath.MEDICINE_PATH, Medicine.class, CustomComparator.createComparator(Medicine::getMedicine_id) ParameterTypes.MEDICINE);
-
+        ObservableList<Medicine> listData = csvhandler.readCSV(CSVPath.MEDICINE_PATH, Medicine.class, CustomComparator.createComparator(Medicine::getMedicine_id), ParameterTypes.MEDICINE_PARAMETER_TYPES);
+        return listData;
     }
 
     public void medicineShowListData() {
