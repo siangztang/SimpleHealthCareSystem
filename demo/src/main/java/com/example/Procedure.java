@@ -7,10 +7,10 @@ public class Procedure{
     private String procedure_date;
     private String procedure_time;
     private String treatment_course_id;
-    private String[] medicine_list;
+    private String medicine_list;
 
 
-    public Procedure(String procedure_id, String type, String procedure_date, String procedure_time, String treatment_course_id, String[] medicine_list) {
+    public Procedure(String procedure_id, String type, String procedure_date, String procedure_time, String treatment_course_id, String medicine_list) {
         this.procedure_id = procedure_id;
         this.type = type;
         this.procedure_date = procedure_date;
@@ -42,11 +42,11 @@ public class Procedure{
         return treatment_course_id;
     }
 
-    public String[] getMedicine_list() {
+    public String getMedicine_list() {
         return medicine_list;
     }
 
-        public int validationProcedure(String type, String procedure_date, String procedure_time, String[] medicine_list){
+        public int validationProcedure(String type, String procedure_date, String procedure_time, String medicine_list){
         // check if type is in the future
         if (type == null || type.isEmpty() || type.length() < 5) {
             return 0;
@@ -60,7 +60,7 @@ public class Procedure{
             return 0;
         }
         // check if medicine_list is valid
-        if (medicine_list == null || medicine_list.length == 0) {
+        if (medicine_list == null || medicine_list.isEmpty()) {
             return 0;
         }
         return 1;

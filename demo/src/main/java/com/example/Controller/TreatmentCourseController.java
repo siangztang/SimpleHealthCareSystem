@@ -125,7 +125,7 @@ public class TreatmentCourseController {
                 if (selectedTreatmentCourse != null) {
                     // Do something with the selected patient data
                     System.out.println("Selected treatment course ID: " + selectedTreatmentCourse.getTreatment_course_id());
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate startDate = LocalDate.parse(selectedTreatmentCourse.getStart_date(), formatter);
                     LocalDate enDate = LocalDate.parse(selectedTreatmentCourse.getEnd_date(), formatter);
                     treatmentCourseStartDateField.setValue(startDate);
@@ -196,7 +196,7 @@ public class TreatmentCourseController {
         ObservableList<TreatmentCourse> listData = FXCollections.observableArrayList();
 
         Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("d/M/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = dateFormat.format(currentDate);
 
         listData.add(new TreatmentCourse("H001", "TC001", dateString, dateString));
@@ -217,8 +217,8 @@ public class TreatmentCourseController {
             // show error message
             alert.errorMessage("Please fill in all fields");
         } else {
-            String startDate = treatmentCourseStartDateField.getValue().format(DateTimeFormatter.ofPattern("d/M/yyyy"));
-            String endDate = treatmentCourseEndDateField.getValue().format(DateTimeFormatter.ofPattern("d/M/yyyy"));
+            String startDate = treatmentCourseStartDateField.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String endDate = treatmentCourseEndDateField.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
             if (checkInput.validateTreatmentCourse(startDate, endDate) == 1) {
 
