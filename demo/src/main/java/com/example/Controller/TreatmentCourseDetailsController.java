@@ -505,7 +505,7 @@ public class TreatmentCourseDetailsController {
         });
 
         bloodAnalysisUpdateBtn.setOnAction(event -> {
-            // updateBloodAnalysisBtnAction();
+            updateBloodAnalysisBtnAction();
         });
 
         RWAnalysisUpdateBtn.setOnAction(event -> {
@@ -1144,11 +1144,15 @@ public class TreatmentCourseDetailsController {
 
     }
 
-    public void BloodAnalysisShowListData(){
-        ObservableList<BloodAnalysis> bloodAnalysisListData = FXCollections.observableArrayList();
+    public ObservableList<BloodAnalysis> bloodAnalysisRefreshData(){
+    ObservableList<BloodAnalysis> listData = csvhandler.readCSV(CSVPath.BLOODANALYSIS_PATH, BloodAnalysis.class, CustomComparator.createComparator(BloodAnalysis::getAnalysis_id), ParameterTypes.BLOOD_ANALYSIS_PARAMETER_TYPES);
+    return listData;
+    }
 
-        bloodAnalysisListData.add(new BloodAnalysis("BA0001", "20/7/2023", "TC001", 4.5, 13.5, "Red", "Positive", 5000, 0, 20, 20));
-        bloodAnalysisListData.add(new BloodAnalysis("BA0002", "20/7/2023", "TC002", 1.23, 1.512, "Red", "true", 2, 1, 1, 1));
+    public void BloodAnalysisShowListData(){
+
+        //bloodAnalysisListData.add(new BloodAnalysis("BA0001", "20/7/2023", "TC001", 4.5, 13.5, "Red", "Positive", 5000, 0, 20, 20));
+        //bloodAnalysisListData.add(new BloodAnalysis("BA0002", "20/7/2023", "TC002", 1.23, 1.512, "Red", "true", 2, 1, 1, 1));
 
         treatCourseDetBloodAnalysisIDCol.setCellValueFactory(new PropertyValueFactory<>("analysis_id"));
         treatCourseDetBloodAnalysisDateCol.setCellValueFactory(new PropertyValueFactory<>("analysis_date"));
@@ -1161,8 +1165,113 @@ public class TreatmentCourseDetailsController {
         treatCourseDetBloodAnalysisLymphocytesCol.setCellValueFactory(new PropertyValueFactory<>("lymphocytes"));
         treatCourseDetBloodAnalysisESRCol.setCellValueFactory(new PropertyValueFactory<>("ESR"));
 
-        treatCourseDetBloodAnalysisTable.setItems(bloodAnalysisListData);
+        treatCourseDetBloodAnalysisTable.setItems(bloodAnalysisRefreshData());
 
+    }
+
+    private boolean bloodAnalysisCheckEmpty(){
+    if (treatCourseDetBloodAnalysisDateDateField == null || treatCourseDetBloodAnalysisRedCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisHaemoglobinField.getText().isEmpty() || treatCourseDetBloodAnalysisColorField.getText().isEmpty() || treatCourseDetBloodAnalysisParasitesField == null || treatCourseDetBloodAnalysisWhiteCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisLymphocytesField.getText().isEmpty() || treatCourseDetBloodAnalysisESRField.getText().isEmpty()) {
+        // show error message
+        alert.errorMessage("Please fill in all the fields");
+        return true;
+    }
+    return false;
+    }
+    private boolean bloodAnalysisCheckSelected(){
+    if (treatCourseDetBloodAnalysisTable.getSelectionModel().getSelectedItem() == null) {
+        // show error message
+        alert.errorMessage("Please select a blood analysis");
+        return true;
+    }
+    return false;
+    }
+
+        private void addBloodAnalysisBtnAction(){
+
+            if(!bloodAnalysisCheckEmpty()) {
+
+            String analysis_date = treatCourseDetBloodAnalysisDateDateField.getValue().toString();
+            double red_cells = Double.parseDouble(treatCourseDetBloodAnalysisRedCellsField.getText());
+            double haemoglobin = Double.parseDouble(treatCourseDetBloodAnalysisHaemoglobinField.getText());
+            String color = treatCourseDetBloodAnalysisColorField.getText();
+            String parasites = treatCourseDetBloodAnalysisParasitesField.getValue().toString();
+            int white_cells = Integer.parseInt(treatCourseDetBloodAnalysisWhiteCellsField.getText());
+            int stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
+            int lymphocytes = Integer.parseInt(treatCourseDetBloodAnalysisLymphocytesField.getText());
+            int ESR = Integer.parseInt(treatCourseDetBloodAnalysisESRField.getText());
+            
+            if (BloodAnalysis.validationBloodAnalysis(analysis_date, red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR) == 1) {
+
+                //generate new blood anaylsis id
+                String analysis_id = "BA" + String.format("%d", (bloodAnalysisRefreshData().size() + 1));
+
+                //create new analysis object
+                BloodAnalysis newBloodAnalysis = new BloodAnalysis(analysis_id, analysis_date, treatment_course_id, red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR);
+
+                //add new analysis to csv
+                csvhandler.writeCSV(CSVPath.BLOODANALYSIS_PATH, newBloodAnalysis);
+
+                // show success message
+                alert.successMessage("Blood Analysis added successfully");
+
+                //refresh data
+                bloodAnalysisRefreshData();
+
+                // reset all fields
+                bloodAnalysisResetBtnAction();
+
+
+            } else {
+                // show error message
+                alert.errorMessage("Please enter valid input");
+            }
+        }
+    }
+
+    //i cant seem to add contstuctor on bloodanalysis
+    private BloodAnalysis bloodAnalysisCheckInput = new BloodAnalysis();
+    private void updateBloodAnalysisBtnAction(){
+
+        if (!bloodAnalysisCheckSelected()){
+            // get selected diagnosis
+            String analysis_id = treatCourseDetDiagnosisTable.getSelectionModel().getSelectedItem().getDiagnosis_id();
+            String analysis_date = treatCourseDetBloodAnalysisDateDateField.getValue().toString();
+            double red_cells = Double.parseDouble(treatCourseDetBloodAnalysisRedCellsField.getText());
+            double haemoglobin = Double.parseDouble(treatCourseDetBloodAnalysisHaemoglobinField.getText());
+            String color = treatCourseDetBloodAnalysisColorField.getText();
+            String parasites = treatCourseDetBloodAnalysisParasitesField.getValue().toString();
+            int white_cells = Integer.parseInt(treatCourseDetBloodAnalysisWhiteCellsField.getText());
+            int stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
+            int lymphocytes = Integer.parseInt(treatCourseDetBloodAnalysisLymphocytesField.getText());
+            int ESR = Integer.parseInt(treatCourseDetBloodAnalysisESRField.getText());
+            if (!bloodAnalysisCheckInput()){
+                if (bloodAnalysisCheckInput.validationBloodAnalysis(analysis_date, red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR) == 1) {
+                    
+
+                    // create new diagnosis object
+                    BloodAnalysis newBloodAnalysis = new BloodAnalysis(analysis_id, analysis_date, parasites, red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR);
+
+                    // update selected diagnosis in csv file
+                    csvhandler.updateCSV(CSVPath.BLOODANALYSIS_PATH, "analysis_id", analysis_id, newBloodAnalysis);
+
+                    // show success message
+                    alert.successMessage("Blood Analysis updated successfully");
+
+                    // refresh data
+                    bloodAnalysisRefreshData();
+
+                    // refresh table
+                    BloodAnalysisShowListData();
+
+                    // reset all fields
+                    bloodAnalysisResetBtnAction();
+
+                } else {
+                    // show error message
+                    alert.errorMessage("Please enter valid input");
+                }
+            }
+        }
     }
 
     private void addMedicine(){
@@ -1250,34 +1359,6 @@ public class TreatmentCourseDetailsController {
         double y = treatCourseDetProcedureTimeField.localToScreen(treatCourseDetProcedureTimeField.getBoundsInLocal()).getMaxY();
         timePopup.show(treatCourseDetProcedureTimeField.getScene().getWindow(), x, y);
         
-    }
-
-    private void addBloodAnalysisBtnAction(){
-        if (treatCourseDetBloodAnalysisDateDateField == null || treatCourseDetBloodAnalysisRedCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisHaemoglobinField.getText().isEmpty() || treatCourseDetBloodAnalysisColorField.getText().isEmpty() || treatCourseDetBloodAnalysisParasitesField == null || treatCourseDetBloodAnalysisWhiteCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisLymphocytesField.getText().isEmpty() || treatCourseDetBloodAnalysisESRField.getText().isEmpty()){
-        alert.errorMessage("Please fill all the fields");
-
-        } else {
-            String analysis_date = treatCourseDetBloodAnalysisDateDateField.getValue().toString();
-            double red_cells = Double.parseDouble(treatCourseDetBloodAnalysisRedCellsField.getText());
-            double haemoglobin = Double.parseDouble(treatCourseDetBloodAnalysisHaemoglobinField.getText());
-            String color = treatCourseDetBloodAnalysisColorField.getText();
-            String parasites = treatCourseDetBloodAnalysisParasitesField.getValue().toString();
-            int white_cells = Integer.parseInt(treatCourseDetBloodAnalysisWhiteCellsField.getText());
-            int stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
-            int lymphocytes = Integer.parseInt(treatCourseDetBloodAnalysisLymphocytesField.getText());
-            int ESR = Integer.parseInt(treatCourseDetBloodAnalysisESRField.getText());
-            
-            if (BloodAnalysis.validationBloodAnalysis(analysis_date, red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR) == 1) {
-                // reset all fields
-                bloodAnalysisResetBtnAction();
-                // show success message
-                alert.successMessage("Blood Analysis added successfully");
-
-            } else {
-                // show error message
-                alert.errorMessage("Please enter valid input");
-            }
-        }
     }
 
     private void addRWAnalysisBtnAction(){

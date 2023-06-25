@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 import com.example.Admin;
 import com.example.AlertMessage;
-import com.example.Department;
 import com.example.Medicine;
 import com.example.SwitchPage;
 import com.example.CSVRelatedClass.CSVHandler;
@@ -246,38 +245,39 @@ public class ManageMedicineController {
             }
         
             if (checkInput.validationMedicine(medicine_name, medicine_description, medicine_amount) == 1){
-                    //check if medicine already exist
-                    for (Medicine medicine : refreshData()){
-                        if (medicine.getMedicine_name().equals(medicine_name)){
-                            alert.errorMessage("Department already exists");
-                            return;
-                        }
+                //check if medicine already exist
+                for (Medicine medicine : refreshData()){
+                    if (medicine.getMedicine_name().equals(medicine_name)){
+                        alert.errorMessage("Department already exists");
+                        return;
                     }
-                    
-                    //generate medicine id
-                    String medicine_id = "M" + String.format("%d", csvhandler.getMaxId(refreshData(), Medicine::getMedicine_id, "M") + 1);
-                    //create new medicine object
-                    Medicine newMedicine = new Medicine(medicine_id, medicine_name, medicine_description, medicine_amount);
-                    //add new medicine to csv file
-                    csvhandler.writeCSV(CSVPath.MEDICINE_PATH, newMedicine);
-
-                    // show success message
-                    alert.successMessage("Medicine added successfully!");
-                    
-                    //refresh data
-                    refreshData();
-
-                    //refresh table
-                    medicineShowListData();
-                    
-                    // reset input field
-                    resetBtnAction();
-                                
-                } else {
-                    // show error message
-                    alert.errorMessage("Please enter a valid input!");
                 }
-            
+
+                //generate medicine id
+                String medicine_id = "M" + String.format("%d", csvhandler.getMaxId(refreshData(), Medicine::getMedicine_id, "M") + 1);
+
+                //create new medicine object
+                Medicine newMedicine = new Medicine(medicine_id, medicine_name, medicine_description, medicine_amount);
+
+                //add new medicine to csv file
+                csvhandler.writeCSV(CSVPath.MEDICINE_PATH, newMedicine);
+
+                // show success message
+                alert.successMessage("Medicine added successfully!");
+                
+                //refresh data
+                refreshData();
+
+                //refresh table
+                medicineShowListData();
+                
+                // reset input field
+                resetBtnAction();
+                                
+            } else {
+                // show error message
+                alert.errorMessage("Please enter a valid input!");
+            }
         }
     }
     private void updateBtnAction(){
@@ -324,15 +324,15 @@ public class ManageMedicineController {
                 // reset all fields
                 resetBtnAction();
 
-            } else {
+                } else {
                 // show error message
                 alert.errorMessage("Please enter valid input");
-            }
+                }
             }
         }
     }
 
-     private void deleteBtnAction(){
+    private void deleteBtnAction(){
         // check if a department is selected
         if (!checkSelected()){
             // get the selected department id

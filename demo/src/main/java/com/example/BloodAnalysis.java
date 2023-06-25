@@ -23,6 +23,11 @@ public class BloodAnalysis extends Analysis{
         this.ESR = ESR;
     }
 
+
+    public BloodAnalysis() {
+    }
+
+
     // Normal range: Approximately 4.5-5.5 million cells/mcL (male), 4.0-5.0 million cells/mcL (female)
     public double getRed_cells() {
         return red_cells;
