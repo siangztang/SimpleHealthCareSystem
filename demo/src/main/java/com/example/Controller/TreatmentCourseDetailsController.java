@@ -14,7 +14,6 @@ import com.example.AlertMessage;
 import com.example.BioBloodAnalysis;
 import com.example.BloodAnalysis;
 import com.example.Diagnosis;
-import com.example.Doctor;
 import com.example.Patient;
 import com.example.Procedure;
 import com.example.RWAnalysis;
