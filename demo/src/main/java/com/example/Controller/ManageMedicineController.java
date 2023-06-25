@@ -6,8 +6,13 @@ import java.util.function.Predicate;
 
 import com.example.Admin;
 import com.example.AlertMessage;
+import com.example.Department;
 import com.example.Medicine;
 import com.example.SwitchPage;
+import com.example.CSVRelatedClass.CSVHandler;
+import com.example.CSVRelatedClass.CSVPath;
+import com.example.CSVRelatedClass.CustomComparator;
+import com.example.CSVRelatedClass.ParameterTypes;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -85,7 +90,9 @@ public class ManageMedicineController {
     private Button updateBtn;
     @FXML
     void initialize() {
+
         SwitchPage switchpage = new SwitchPage();
+
         manageDptBtn.setOnAction(event -> {
             switchpage.switchPage(event, manageDptBtn);
         });
@@ -107,6 +114,7 @@ public class ManageMedicineController {
         });
 
         unFocusAll();
+
         medicineTable.getColumns().forEach(e -> e.setReorderable(false));
         medicineTable.setOnMouseClicked(event -> {
             Medicine selectedMedicine = medicineTable.getSelectionModel().getSelectedItem();
@@ -119,6 +127,11 @@ public class ManageMedicineController {
         medicineShowListData();
         searchFilter();
     }
+
+    private CSVHandler csvhandler = new CSVHandler();
+    private AlertMessage alert = new AlertMessage();
+    private Medicine checkInput = new Medicine();
+
 
     public void initData(Admin admin){
         unameLabel.setText(admin.getUname());
@@ -149,24 +162,23 @@ public class ManageMedicineController {
         resetBtn.setFocusTraversable(false);
     }
 
-    ObservableList<Medicine> listData = FXCollections.observableArrayList();
+    public ObservableList<Medicine> refreshData(){
+        ObservableList<Medicine> listData = csvhandler.readCSV(CSVPath.MEDICINE_PATH, Medicine.class, CustomComparator.createComparator(Medicine::getMedicine_id) ParameterTypes.MEDICINE);
+
+    }
 
     public void medicineShowListData() {
-
-        listData.add(new Medicine("M001", "Paracetamol", "500mg For fever", 100));
-        listData.add(new Medicine("M002", "Panadol", "500mg For fever", 100));
-
         medicineIDCol.setCellValueFactory(new PropertyValueFactory<>("medicine_id"));
         medicineNameCol.setCellValueFactory(new PropertyValueFactory<>("medicine_name"));
         medicineAmountCol.setCellValueFactory(new PropertyValueFactory<>("medicine_amount"));
         medicineDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("medicine_description"));
 
-        medicineTable.setItems(listData);
+        medicineTable.setItems(refreshData());
 
     }
 
     private void searchFilter(){
-        FilteredList<Medicine> filteredData = new FilteredList<>(listData, b -> true);
+        FilteredList<Medicine> filteredData = new FilteredList<>(refreshData(), b -> true);
         searchField.setOnKeyReleased(e->{
         
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -194,13 +206,28 @@ public class ManageMedicineController {
         });
     }
 
-    private AlertMessage alert = new AlertMessage();
-    private Medicine checkInput = new Medicine();
-    private void addBtnAction(){
-
-        if (medicineNameField.getText().isEmpty() || medicineAmountField.getText().isEmpty() || medicineDescriptionField.getText().isEmpty()) {
+    private boolean checkEmpty(){
+        if (medicineNameField.getText().isEmpty()) {
+            // show error message
             alert.errorMessage("Please fill in all the fields");
-        } else {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkSelected(){
+        if (medicineTable.getSelectionModel().getSelectedItem() == null) {
+            // show error message
+            alert.errorMessage("Please select a medicine");
+            return true;
+        }
+        return false;
+    }
+
+
+    private void addBtnAction(){
+        //check if all fields are filled    
+        if (!checkEmpty()) {
             String medicine_name = medicineNameField.getText();
             int medicine_amount = -1;
             try {
@@ -210,21 +237,45 @@ public class ManageMedicineController {
                 return;
             }
             String medicine_description = medicineDescriptionField.getText();
+        
+            if (checkInput.validationMedicine(medicine_name, medicine_description, medicine_amount) == 1){
+                    //check if medicine already exist
+                    for (Medicine medicine : refreshData()){
+                        if (medicine.getMedicine_name().equals(medicine_name)){
+                            alert.errorMessage("Department already exists");
+                            return;
+                        }
+                    }
+                    
+                    //generate medicine id
+                    String medicine_id = "M" + String.format("%d", csvhandler.getMaxId(refreshData(), Medicine::getMedicine_id, "M") + 1);
+                    //create new medicine object
+                    Medicine newMedicine = new Medicine(medicine_id, medicine_name, medicine_description, medicine_amount);
+                    //add new medicine to csv file
+                    csvhandler.writeCSV(CSVPath.MEDICINE_PATH, newMedicine);
+                    
+                    //refresh data
+                    refreshData();
 
-            if (checkInput.validationMedicine(medicine_name,medicine_description, medicine_amount) == 1){
+                    //refresh table
+                    medicineShowListData();
+                    
+                    // reset input field
+                    resetBtnAction();
                 
-                // reset input field
-                resetBtnAction();
-
-                // show success message
-                alert.successMessage("Medicine added successfully!");
-
-            } else {
-                // show error message
-                alert.errorMessage("Please enter a valid input!");
-            }
+                    // show success message
+                    alert.successMessage("Medicine added successfully!");
+                
+                } else {
+                    // show error message
+                    alert.errorMessage("Please enter a valid input!");
+                }
             
+                    // show success message
+                    alert.successMessage("Medicine added successfully!");
         }
+
+
     }
 
 }

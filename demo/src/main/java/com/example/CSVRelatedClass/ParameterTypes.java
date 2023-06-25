@@ -7,7 +7,7 @@ public class ParameterTypes {
     public final static Class<?>[] DEPARTMENT_PARAMETER_TYPES = {String.class, String.class};
     public final static Class<?>[] DIAGNOSIS_PARAMETER_TYPES = {String.class, String.class, String.class, String.class, String.class};
     public final static Class<?>[] DOCTOR_PARAMETER_TYPES = {String.class, String.class, String.class, String.class, String.class};
-    public final static Class<?>[] MEDICINE_PARAMETER_TYPES = {String.class, String.class, String.class, String.class, int.class};
+    public final static Class<?>[] MEDICINE_PARAMETER_TYPES = {String.class, String.class, String.class, int.class};
     public final static Class<?>[] PATIENT_PARAMETER_TYPES = {String.class, String.class, long.class, int.class, char.class, String.class};
     public final static Class<?>[] PATIENT_HISTORY_PARAMETER_TYPES = {String.class, String.class, int.class, String.class, String.class, String.class, String.class, String.class};
     public final static Class<?>[] PROCEDURE_PARAMETER_TYPES = {String.class, String.class, String.class, String.class, String.class, String[].class};
