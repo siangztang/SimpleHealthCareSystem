@@ -14,11 +14,16 @@ import com.example.AlertMessage;
 import com.example.BioBloodAnalysis;
 import com.example.BloodAnalysis;
 import com.example.Diagnosis;
+import com.example.Doctor;
 import com.example.Patient;
 import com.example.Procedure;
 import com.example.RWAnalysis;
 import com.example.SwitchPage;
 import com.example.UrineAnalysis;
+import com.example.CSVRelatedClass.CSVHandler;
+import com.example.CSVRelatedClass.CSVPath;
+import com.example.CSVRelatedClass.CustomComparator;
+import com.example.CSVRelatedClass.ParameterTypes;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -638,6 +643,12 @@ public class TreatmentCourseDetailsController {
     private Patient patient_info;
     private String history_id;
     private String treatment_course_id;
+    private Popup timePopup;
+
+    private CSVHandler csvhandler = new CSVHandler();
+    private AlertMessage alert = new AlertMessage();
+    private Procedure procedureCheckInput = new Procedure();
+    private Diagnosis diagnosisCheckInput = new Diagnosis();
 
     public void initData(Admin admin, Patient patient_info, String history_id, String treatment_course_id){
         this.admin = admin;
@@ -706,7 +717,7 @@ public class TreatmentCourseDetailsController {
         treatCourseDetBioBloodAnalysisTable.getSelectionModel().clearSelection(); 
     }
 
-        public void urineAnalysisResetBtnAction(){
+    public void urineAnalysisResetBtnAction(){
         treatCourseDetUrineAnalysisDateField.setValue(null);
         treatCourseDetUrineAnalysisColorField.setValue("");
         treatCourseDetUrineAnalysisReactionField.setText("");
@@ -755,18 +766,69 @@ public class TreatmentCourseDetailsController {
 
     }
 
-    public void DiagnosisShowListData(){
-        ObservableList<Diagnosis> diagnosisListData = FXCollections.observableArrayList();
+    public ObservableList<Diagnosis> diagnosisRefreshData(){
+        ObservableList<Diagnosis> listData = csvhandler.readCSV(CSVPath.DIAGNOSIS_PATH, Diagnosis.class, CustomComparator.createComparator(Diagnosis::getDiagnosis_id), ParameterTypes.DEPARTMENT_PARAMETER_TYPES);
+        return listData;
+    }
 
-        diagnosisListData.add(new Diagnosis("D0001", "Test 1", "20/7/2023", "4", "6"));
-        diagnosisListData.add(new Diagnosis("D0002", "Test 2", "20/7/2023", "4", "6"));
+    public void DiagnosisShowListData(){
 
         treatCourseDetDiagnosisIDCol.setCellValueFactory(new PropertyValueFactory<>("diagnosis_id"));
         treatCourseDetDiagnosisNameCol.setCellValueFactory(new PropertyValueFactory<>("diagnosis_name"));
         treatCourseDetDiagnosisDiagDateCol.setCellValueFactory(new PropertyValueFactory<>("diagnosis_date"));
         treatCourseDetDiagnosisDocNameCol.setCellValueFactory(new PropertyValueFactory<>("doctor_name"));
 
-        treatCourseDetDiagnosisTable.setItems(diagnosisListData);
+        treatCourseDetDiagnosisTable.setItems(diagnosisRefreshData());
+
+    }
+
+    private boolean diagnosisCheckEmpty(){
+        if (treatCourseDetDiagnosisNameField.getText().isEmpty() || treatCourseDetDiagnosisDiagDateField.getValue() == null || treatCourseDetDiagnosisDocNameField.getValue().isEmpty()) {
+            // show error message
+            alert.errorMessage("Please fill in all the fields");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean diagnosisCheckSelected(){
+        if (treatCourseDetDiagnosisTable.getSelectionModel().getSelectedItem() == null) {
+            // show error message
+            alert.errorMessage("Please select a doctor");
+            return true;
+        }
+        return false;
+    }
+
+    private void addDiagnosisBtnAction(){
+
+        String diagnosis_name = treatCourseDetDiagnosisNameField.getText();
+        String diagnosis_date = treatCourseDetDiagnosisDiagDateField.getValue().toString();
+        String doctor_name = treatCourseDetDiagnosisDocNameField.getValue();
+
+        // check if any field is empty
+        if (!diagnosisCheckEmpty()) {
+            if (diagnosisCheckInput.validationDiagnosis(diagnosis_name, diagnosis_date, doctor_name) == 1) {
+                // generate new diagnosis id
+                String diag_id = "D" + String.format("%d", diagnosisRefreshData().size() + 1);
+
+                // create new diagnosis object
+                Diagnosis newDiagnosis = new Diagnosis(diag_id, diagnosis_name, diagnosis_date, doctor_name, treatment_course_id);
+
+                // add new diagnosis to csv file
+                csvhandler.writeCSV(CSVPath.DIAGNOSIS_PATH, newDiagnosis);
+
+                // reset all fields
+                diagnosisResetBtnAction();
+
+                // show success message
+                alert.successMessage("Diagnosis added successfully");
+
+            } else {
+                // show error message
+                alert.errorMessage("Please enter valid input");
+            }
+        }
 
     }
 
@@ -858,8 +920,6 @@ public class TreatmentCourseDetailsController {
 
     }
 
-    private AlertMessage alert = new AlertMessage();
-
     private void addMedicine(){
         if (treatCourseDetProcedureMedicineChoice.getValue() == null) {
             alert.errorMessage("No medicine selected");
@@ -889,8 +949,6 @@ public class TreatmentCourseDetailsController {
         treatCourseDetProcedureMedicineList.setText(medicineListText);
     }
 
-    private Procedure procedureCheckInput = new Procedure();
-
     private void addProcedureBtnAction(){
         if (treatCourseDetProcedureTypeField.getText().isEmpty() || treatCourseDetProcedureDateField == null || treatCourseDetProcedureTimeField.getText().isEmpty() || treatCourseDetProcedureMedicineList.getText().equals("")){
             // show error message
@@ -919,8 +977,6 @@ public class TreatmentCourseDetailsController {
             }
         }
     }
-
-    private Popup timePopup;
 
     private void showTimePopup() {
         if (timePopup == null) {
@@ -1054,6 +1110,7 @@ public class TreatmentCourseDetailsController {
             }
         }
     }
+    
     private void addUrineAnalysisBtnAction(){
         if(treatCourseDetUrineAnalysisDateField.getValue() == null || treatCourseDetUrineAnalysisColorField.getValue()== null || treatCourseDetUrineAnalysisReactionField == null || treatCourseDetUrineAnalysisTransparencyField.getValue()== null || treatCourseDetUrineAnalysisDensityField == null ){
             alert.errorMessage("Please fill all the fields");
@@ -1076,8 +1133,6 @@ public class TreatmentCourseDetailsController {
         }
 
     }
-
-
 
 }
 

@@ -16,6 +16,9 @@ public class Diagnosis{
         this.doctor_name = doctor_name;
     }
 
+    public Diagnosis() {
+    }
+
     public String getDiagnosis_id() {
         return diagnosis_id;
     }
@@ -36,7 +39,20 @@ public class Diagnosis{
         return treatment_course_id;
     }
 
-    public int validationDiagnosis(){
+    public int validationDiagnosis(String diagnosis_name, String diagnosis_date, String doctor_name){
+
+        if (diagnosis_name == null || diagnosis_name.isEmpty()) {
+            return 0;
+        }
+
+        if (diagnosis_date == null || diagnosis_date.isEmpty()) {
+            return 0;
+        }
+
+        if (doctor_name == null || doctor_name.isEmpty()) {
+            return 0;
+        }
+        
         return 1;
     }
     

@@ -7,8 +7,11 @@ import com.example.Admin;
 import com.example.AlertMessage;
 import com.example.Doctor;
 import com.example.SwitchPage;
+import com.example.CSVRelatedClass.CSVHandler;
+import com.example.CSVRelatedClass.CSVPath;
+import com.example.CSVRelatedClass.CustomComparator;
+import com.example.CSVRelatedClass.ParameterTypes;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -91,6 +94,7 @@ public class ManageDoctorController {
     @FXML
     void initialize() {
         SwitchPage switchpage = new SwitchPage();
+
         manageDptBtn.setOnAction(event -> {
             switchpage.switchPage(event, manageDptBtn);
         });
@@ -111,6 +115,14 @@ public class ManageDoctorController {
             addBtnAction();
         });
 
+        updateBtn.setOnAction(event -> {
+            updateBtnAction();
+        });
+
+        deleteBtn.setOnAction(event -> {
+            deleteBtnAction();
+        });
+
         unFocusAll();
 
         docTable.getColumns().forEach(e -> e.setReorderable(false));
@@ -126,12 +138,15 @@ public class ManageDoctorController {
         searchField();
     }
 
+    private CSVHandler csvhandler = new CSVHandler();
+    private AlertMessage alert = new AlertMessage();
+    private Doctor checkInput = new Doctor();
+
     public void initData(Admin admin){
         unameLabel.setText(admin.getUname());
     }
 
     public void resetBtnAction(){
-
         searchField.setText("");
         docNameField.setText("");
         docContactField.setText("");
@@ -157,12 +172,12 @@ public class ManageDoctorController {
         docSpecializationField.setFocusTraversable(false);
     }
 
-    ObservableList<Doctor> listData = FXCollections.observableArrayList();
+    public ObservableList<Doctor> refreshData(){
+        ObservableList<Doctor> listData = csvhandler.readCSV(CSVPath.DOCTOR_PATH, Doctor.class, CustomComparator.createComparator(Doctor::getDoctor_id), ParameterTypes.DEPARTMENT_PARAMETER_TYPES);
+        return listData;
+    }
 
     public void doctorShowListData(){
-
-        listData.add(new Doctor("D001", "Dr. A", "Cardiologist", "MBBS", "1234567890"));
-        listData.add(new Doctor("D002", "Dr. B", "Dermatologist", "MBBS", "1234567890"));
 
         docIDCol.setCellValueFactory(new PropertyValueFactory<>("doctor_id"));
         docNameCol.setCellValueFactory(new PropertyValueFactory<>("doctor_name"));
@@ -170,11 +185,11 @@ public class ManageDoctorController {
         docSpecializationCol.setCellValueFactory(new PropertyValueFactory<>("doctor_specialization"));
         docContactCol.setCellValueFactory(new PropertyValueFactory<>("contact_info"));
 
-        docTable.setItems(listData);
+        docTable.setItems(refreshData());
     }
 
     private void searchField(){
-        FilteredList<Doctor> filteredData = new FilteredList<>(listData, b -> true);
+        FilteredList<Doctor> filteredData = new FilteredList<>(refreshData(), b -> true);
         searchField.setOnKeyReleased(e-> {
         
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -206,33 +221,125 @@ public class ManageDoctorController {
 
     }
 
-    private AlertMessage alert = new AlertMessage();
-    private Doctor checkInput = new Doctor();
+    private boolean checkEmpty(){
+        if (docNameField.getText().isEmpty() || docContactField.getText().isEmpty() || docQualificationField.getText().isEmpty() || docSpecializationField.getText().isEmpty()) {
+            // show error message
+            alert.errorMessage("Please fill in all the fields");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkSelected(){
+        if (docTable.getSelectionModel().getSelectedItem() == null) {
+            // show error message
+            alert.errorMessage("Please select a doctor");
+            return true;
+        }
+        return false;
+    }
     
     private void addBtnAction(){
-
-        if (docNameField.getText().isEmpty() || docContactField.getText().isEmpty() || docQualificationField.getText().isEmpty() || docSpecializationField.getText().isEmpty()) {
-
-            alert.errorMessage("Please fill all the fields");
-
-        } else {
-            String doc_name = docNameField.getText();
-            String doc_specialization = docSpecializationField.getText();
-            String qualification = docQualificationField.getText();
-            String contact_info = docContactField.getText();
-
+        String doc_name = docNameField.getText();
+        String doc_specialization = docSpecializationField.getText();
+        String qualification = docQualificationField.getText();
+        String contact_info = docContactField.getText();
+        // check if any field is empty
+        if (!checkEmpty()) {
             if (checkInput.validationDoctor(doc_name, doc_specialization, qualification, contact_info) == 1) {
+                // check if doctor already exists
+                for (Doctor doctor : refreshData()) {
+                    if (doctor.getDoctor_name().equals(doc_name)) {
+                        alert.errorMessage("Doctor already exists");
+                        return;
+                    }
+                }
+                // generate new doctor id
+                String doc_id = "DOC" + String.format("%d", refreshData().size() + 1);
 
+                // create new doctor object
+                Doctor newDoctor = new Doctor(doc_id, doc_name, doc_specialization, qualification, contact_info);
+
+                // add new doctor to csv file
+                csvhandler.writeCSV(CSVPath.DOCTOR_PATH, newDoctor);
 
                 // reset all fields
                 resetBtnAction();
+
                 // show success message
                 alert.successMessage("Doctor added successfully");
 
             } else {
-                System.out.println(contact_info);
+                // show error message
                 alert.errorMessage("Please enter valid input");
             }
+        }
+    }
+
+    private void updateBtnAction(){
+        if (!checkSelected()){
+            String docId = docTable.getSelectionModel().getSelectedItem().getDoctor_id();
+            String doc_name = docNameField.getText();
+            String doc_specialization = docSpecializationField.getText();
+            String qualification = docQualificationField.getText();
+            String contact_info = docContactField.getText();
+            // check if any field is empty
+            if (!checkEmpty()) {
+                if (checkInput.validationDoctor(doc_name, doc_specialization, qualification, contact_info) == 1) {
+                    // check if doctor already exists
+                    for (Doctor doctor : refreshData()) {
+                        if (doctor.getDoctor_name().equals(doc_name) && !doctor.getDoctor_id().equals(docId)) {
+                            alert.errorMessage("Doctor already exists");
+                            return;
+                        }
+                    }
+                    // create new doctor object
+                    Doctor newDoctor = new Doctor(docId, doc_name, doc_specialization, qualification, contact_info);
+
+                    // update doctor
+                    csvhandler.updateCSV(CSVPath.DOCTOR_PATH, "doctor_id", docId, newDoctor);
+
+                    // show success message
+                    alert.successMessage("Doctor updated successfully");
+
+                    // refresh data
+                    refreshData();
+                    
+                    // refresh table
+                    doctorShowListData();
+
+                    // reset all fields
+                    resetBtnAction();
+
+                    
+
+                } else {
+                    alert.errorMessage("Please enter valid input");
+                }
+            }
+        }
+    }
+
+    private void deleteBtnAction(){
+        // check if any doctor is selected
+        if (!checkSelected()){
+            // get the selected doctor id
+            String docId = docTable.getSelectionModel().getSelectedItem().getDoctor_id();
+
+            // delete doctor
+            csvhandler.deleteCSV(CSVPath.DOCTOR_PATH, "doctor_id", docId);
+
+            // show success message
+            alert.successMessage("Doctor deleted successfully");
+
+            // refresh data
+            refreshData();
+            
+            // refresh table
+            doctorShowListData();
+
+            // reset all fields
+            resetBtnAction();
         }
     }
 
