@@ -39,15 +39,6 @@ public class TreatmentCourse {
     public int validateTreatmentCourse(String start_date, String end_date){
         LocalDate startDate = LocalDate.parse(start_date, DateTimeFormatter.ofPattern("d/M/yyyy"));
         LocalDate endDate = LocalDate.parse(end_date, DateTimeFormatter.ofPattern("d/M/yyyy"));
-        LocalDate currentDate = LocalDate.now();
-
-        if(startDate.isBefore(currentDate)){
-            return 0;
-        }
-
-        if(endDate.isBefore(currentDate)){
-            return 0;
-        }
 
         if(endDate.isBefore(startDate)){
             return 0;

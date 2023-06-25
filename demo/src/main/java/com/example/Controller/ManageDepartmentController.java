@@ -72,7 +72,9 @@ public class ManageDepartmentController {
 
     @FXML
     void initialize() {
+        
         SwitchPage switchpage = new SwitchPage();
+
         manageDocBtn.setOnAction(event -> {
             switchpage.switchPage(event, manageDocBtn);
         });
@@ -102,6 +104,7 @@ public class ManageDepartmentController {
         });
 
         unFocusAll();
+
         departmentTable.getColumns().forEach(e -> e.setReorderable(false));
         departmentTable.setOnMouseClicked(event -> {
             Department selectedDepartment = departmentTable.getSelectionModel().getSelectedItem();
@@ -109,6 +112,7 @@ public class ManageDepartmentController {
                 dptNameField.setText(selectedDepartment.getName());
             }
         });
+
         departmentShowListData();
         searchFilter();
     }
@@ -117,7 +121,7 @@ public class ManageDepartmentController {
     private AlertMessage alert = new AlertMessage();
     private Department checkInput = new Department();
     
-
+    
     public void initData(Admin admin){
         unameLabel.setText(admin.getUname());
     }
@@ -205,36 +209,45 @@ public class ManageDepartmentController {
 
         String dptName = dptNameField.getText();
 
+        // check if all fields are filled
         if (!checkEmpty()){
             if (checkInput.validationDepartment(dptName) == 1) {
-            
+
+                // check if department already exists
                 for (Department deparment : refreshData()){
                     if (deparment.getName().equals(dptName)){
                         alert.errorMessage("Department already exists");
                         return;
                     }
                 }
+
+                // generate new department id
                 String dpt_id = "D" + String.format("%d", csvhandler.getMaxId(refreshData(), Department::getId, "D") + 1);
+                
+                // creata a new department object
                 Department newDepartment = new Department(dpt_id, dptName);
+
+                // add new department to csv file
                 csvhandler.writeCSV(CSVPath.DEPARTMENT_PATH, newDepartment);
+
+                // show success message
                 alert.successMessage("Department added successfully");
 
                 // refresh data
                 refreshData();
 
-                // reset all fields
-                resetBtnAction();
-
                 // refresh table
                 departmentShowListData();
 
+                // reset all fields
+                resetBtnAction();
+
             } else {
+
                 // show error message
                 alert.errorMessage("Please enter valid input");
             }
         }
-            
-
     }
 
     private void updateBtnAction(){
@@ -242,52 +255,62 @@ public class ManageDepartmentController {
         if (!checkSelected()){
             String dptId = departmentTable.getSelectionModel().getSelectedItem().getId();
             String dptName = dptNameField.getText();
-            if (checkInput.validationDepartment(dptName) == 1 && dptId != null) {
-                
+            // check if the input is empty
+            if (!checkEmpty()) {
+                if (checkInput.validationDepartment(dptName) == 1 && dptId != null) {
+                // check if the department already exists
                 for (Department deparment : refreshData()){
                     if (deparment.getName().equals(dptName)){
                         alert.errorMessage("Department already exists");
                         return;
                     }
                 }
-
+                // creata a new department object
                 Department updatedDepartment = new Department(dptId, dptName);
+
+                // update the department
                 csvhandler.updateCSV(CSVPath.DEPARTMENT_PATH, "id", dptId, updatedDepartment);
 
+                // show success message
                 alert.successMessage("Department updated successfully");
 
                 // refresh data
                 refreshData();
 
-                // reset all fields
-                resetBtnAction();
-
                 // refresh table
                 departmentShowListData();
+
+                // reset all fields
+                resetBtnAction();
 
             } else {
                 // show error message
                 alert.errorMessage("Please enter valid input");
             }
+            }
         }
     }
 
     private void deleteBtnAction(){
+        // check if a department is selected
         if (!checkSelected()){
-            
+            // get the selected department id
             String selectedDepartment = departmentTable.getSelectionModel().getSelectedItem().getId();
-
+            
+            // delete the department
             csvhandler.deleteCSV(CSVPath.DEPARTMENT_PATH, "id", selectedDepartment);
+
+            // show success message
             alert.successMessage("Department deleted successfully");
 
             // refresh data
             refreshData();
 
-            // reset all fields
-            resetBtnAction();
-
             // refresh table
             departmentShowListData();
+
+            // reset all fields
+            resetBtnAction();
         }
     }
 
