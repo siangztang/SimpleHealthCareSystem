@@ -25,8 +25,7 @@ public class CSVHandler {
         return readCSV(filePath, clazz, null, parameterTypes);
     }
 
-    public <T> ObservableList<T> readCSV(String filePath, Class<T> clazz, Comparator<T> comparator,
-            Class<?>... parameterTypes) {
+    public <T> ObservableList<T> readCSV(String filePath, Class<T> clazz, Comparator<T> comparator, Class<?>... parameterTypes) {
         List<T> objects = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -35,8 +34,7 @@ public class CSVHandler {
                 String[] data = line.split(",");
                 Constructor<T> constructor = clazz.getDeclaredConstructor(parameterTypes);
                 int parameterCount = constructor.getParameterCount();
-                // System.out.println(constructor);
-                // System.out.println(parameterCount);
+
                 // Check if the number of parameters matches the CSV data columns
                 if (parameterCount == data.length) {
                     Object[] arguments = new Object[parameterCount];
@@ -66,7 +64,7 @@ public class CSVHandler {
         return FXCollections.observableList(objects);
     }
 
-    public <T> ObservableList<T> readCSVSpecific(String filePath, Class<T> clazz, String getColumnName, String getValue, Class<?>... parameterTypes) {
+    public <T> ObservableList<T> readCSVSpecific(String filePath, Class<T> clazz, String getColumnName, String getValue, Comparator<T> comparator, Class<?>... parameterTypes) {
         ObservableList<T> objects = FXCollections.observableArrayList();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -88,6 +86,8 @@ public class CSVHandler {
                     T object = constructor.newInstance(arguments);
 
                     // Check if the id matches the specified value
+                    // System.out.println(getFieldValue(objects, getColumnName));
+                    
                     String matchValue = getFieldValue(object, getColumnName);
                     if (matchValue != null && matchValue.equals(getValue)) {
                         objects.add(object);
@@ -103,7 +103,11 @@ public class CSVHandler {
             e.printStackTrace();
         }
 
-        return objects;
+        if (comparator != null) {
+            objects.sort(comparator);
+        }
+
+        return FXCollections.observableList(objects);
     }
 
     private static Object convertToType(String value, Class<?> targetType) {

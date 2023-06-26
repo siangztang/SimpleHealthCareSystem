@@ -276,7 +276,7 @@ public class PatientListController {
                     return true;
                 }else if(String.valueOf(pat.getAge()).contains(toLowerCaseNewValue)){
                     return true;
-                }else if(String.valueOf(pat.getGender()).contains(toLowerCaseNewValue)){
+                }else if(String.valueOf(pat.getGender()).toLowerCase().equals(toLowerCaseNewValue)){
                     return true;
                 }else if(String.valueOf(pat.getContact_info()).contains(toLowerCaseNewValue)){
                     return true;

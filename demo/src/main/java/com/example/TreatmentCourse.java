@@ -5,14 +5,14 @@ import java.time.format.DateTimeFormatter;
 
 public class TreatmentCourse {
 
-    private String history_id;
     private String treatment_course_id;
+    private String history_id;
     private String start_date;
     private String end_date;
 
-    public TreatmentCourse(String history_id, String treatment_course_id, String start_date, String end_date) {
-        this.history_id = history_id;
+    public TreatmentCourse(String treatment_course_id, String history_id, String start_date, String end_date) {
         this.treatment_course_id = treatment_course_id;
+        this.history_id = history_id;
         this.start_date = start_date;
         this.end_date = end_date;
     }
@@ -37,8 +37,8 @@ public class TreatmentCourse {
     }
 
     public int validateTreatmentCourse(String start_date, String end_date){
-        LocalDate startDate = LocalDate.parse(start_date, DateTimeFormatter.ofPattern("d/M/yyyy"));
-        LocalDate endDate = LocalDate.parse(end_date, DateTimeFormatter.ofPattern("d/M/yyyy"));
+        LocalDate startDate = LocalDate.parse(start_date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate endDate = LocalDate.parse(end_date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         if(endDate.isBefore(startDate)){
             return 0;

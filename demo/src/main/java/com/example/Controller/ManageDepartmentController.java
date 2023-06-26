@@ -283,10 +283,10 @@ public class ManageDepartmentController {
                 // reset all fields
                 resetBtnAction();
 
-            } else {
-                // show error message
-                alert.errorMessage("Please enter valid input");
-            }
+                } else {
+                    // show error message
+                    alert.errorMessage("Please enter valid input");
+                }
             }
         }
     }

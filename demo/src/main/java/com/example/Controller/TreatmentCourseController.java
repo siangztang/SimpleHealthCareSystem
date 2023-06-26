@@ -3,10 +3,8 @@ package com.example.Controller;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.example.Admin;
@@ -14,8 +12,11 @@ import com.example.AlertMessage;
 import com.example.Patient;
 import com.example.SwitchPage;
 import com.example.TreatmentCourse;
+import com.example.CSVRelatedClass.CSVHandler;
+import com.example.CSVRelatedClass.CSVPath;
+import com.example.CSVRelatedClass.CustomComparator;
+import com.example.CSVRelatedClass.ParameterTypes;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -115,6 +116,14 @@ public class TreatmentCourseController {
             addBtnAction();
         });
 
+        updateBtn.setOnAction(event -> {
+            updateBtnAction();
+        });
+
+        deleteBtn.setOnAction(event -> {
+            deleteBtnAction();
+        });
+
         unFocusAll();
 
         treatmentCourseTable.getColumns().forEach(e -> e.setReorderable(false));
@@ -156,12 +165,13 @@ public class TreatmentCourseController {
             }
         });
 
-        TreatmentCourseShowListData();
-
     }
     
     private Admin admin;
     private Patient patient_info;
+    private CSVHandler csvhandler = new CSVHandler();
+    private AlertMessage alert = new AlertMessage();
+    private TreatmentCourse checkInput = new TreatmentCourse();
 
     public void initData(Admin admin, Patient patient_info, String history_id){
         this.admin = admin;
@@ -174,11 +184,15 @@ public class TreatmentCourseController {
         patInfoContactInfo.setText(patient_info.getContact_info());
         patInfoHisID.setText(history_id);
         unameLabel.setText(admin.getUname());
+        TreatmentCourseShowListData();
     }
 
     public void resetBtnAction(){
         treatmentCourseStartDateField.setValue(null);
         treatmentCourseEndDateField.setValue(null);
+        treatmentCourseTable.getSelectionModel().clearSelection();
+        treatmentCourseTable.setItems(refreshData());
+        TreatmentCourseShowListData();
     }
 
     public void unFocusAll(){
@@ -192,50 +206,133 @@ public class TreatmentCourseController {
         resetBtn.setFocusTraversable(false);
     }
 
-    public void TreatmentCourseShowListData(){
-        ObservableList<TreatmentCourse> listData = FXCollections.observableArrayList();
+    private ObservableList<TreatmentCourse> refreshData(){
+        String history_id = patInfoHisID.getText();
+        ObservableList<TreatmentCourse> listData = csvhandler.readCSVSpecific(CSVPath.TREATMENTCOURSE_PATH, TreatmentCourse.class, "history_id", history_id, CustomComparator.createComparator(TreatmentCourse::getTreatment_course_id, 2), ParameterTypes. TREATMENT_COURSE_PARAMETER_TYPES);
+        return listData;
+    }
 
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String dateString = dateFormat.format(currentDate);
+    private ObservableList<TreatmentCourse> refreshAllData(){
+        ObservableList<TreatmentCourse> listData = csvhandler.readCSV(CSVPath.TREATMENTCOURSE_PATH, TreatmentCourse.class, CustomComparator.createComparator(TreatmentCourse::getTreatment_course_id, 2), ParameterTypes. TREATMENT_COURSE_PARAMETER_TYPES);
+        return listData;
+    }
 
-        listData.add(new TreatmentCourse("H001", "TC001", dateString, dateString));
+    private void TreatmentCourseShowListData(){
 
         treatmentCourseIDCol.setCellValueFactory(new PropertyValueFactory<>("treatment_course_id"));
         treatmentCourseStartDateCol.setCellValueFactory(new PropertyValueFactory<>("start_date"));
         treatmentCourseEndDateCol.setCellValueFactory(new PropertyValueFactory<>("end_date"));
 
-        treatmentCourseTable.setItems(listData);
-
+        treatmentCourseTable.setItems(refreshData());
     }
 
-    private AlertMessage alert = new AlertMessage();
-    private TreatmentCourse checkInput = new TreatmentCourse();
-    
-    private void addBtnAction(){
+    private boolean checkEmpty(){
         if (treatmentCourseStartDateField.getValue() == null || treatmentCourseEndDateField.getValue() == null) {
             // show error message
             alert.errorMessage("Please fill in all fields");
-        } else {
-            String startDate = treatmentCourseStartDateField.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            String endDate = treatmentCourseEndDateField.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-            if (checkInput.validateTreatmentCourse(startDate, endDate) == 1) {
-
-                // show success message
-                alert.successMessage("Treatment course added successfully");
-
-            } else {
-
-                // show error message
-                alert.errorMessage("Please input valid date");
-            }
+            return true;
         }
-        
-
-
+        return false;
     }
 
+    private boolean checkSelected(){
+        if (treatmentCourseTable.getSelectionModel().getSelectedItem() == null) {
+            // show error message
+            alert.errorMessage("Please select a treatment course");
+            return true;
+        }
+        return false;
+    }
     
+    private void addBtnAction(){
+        String startDate = treatmentCourseStartDateField.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String endDate = treatmentCourseEndDateField.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
+        if (!checkEmpty()){
+            if(checkInput.validateTreatmentCourse(startDate, endDate) == 1){
+
+                //generate treatment course id
+                String treatment_course_id = "TC" + String.format("%d", csvhandler.getMaxId(refreshAllData(), TreatmentCourse::getTreatment_course_id, "TC") + 1);
+
+                //creata a new treatment course object
+                TreatmentCourse newTreatmentCourse = new TreatmentCourse(treatment_course_id, patInfoHisID.getText(), startDate, endDate);
+
+                //add new treatment course to csv file
+                csvhandler.writeCSV(CSVPath.TREATMENTCOURSE_PATH, newTreatmentCourse);
+
+                //show success message
+                alert.successMessage("Treatment course added successfully");
+
+                //refresh data
+                refreshData();
+
+                //refresh table
+                TreatmentCourseShowListData();
+
+                // reset fields
+                resetBtnAction();
+            } else {
+                // show error message
+                alert.errorMessage("Invalid date input");
+            }
+        }
+    }
+
+    private void updateBtnAction(){
+        if (!checkSelected()){
+            // get selected treatment course
+            String treatment_course_id = treatmentCourseTable.getSelectionModel().getSelectedItem().getTreatment_course_id();
+            String start_date = treatmentCourseStartDateField.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String end_date = treatmentCourseEndDateField.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+            if (!checkEmpty()){
+                if (checkInput.validateTreatmentCourse(start_date, end_date) == 1){
+                        
+                    //create a new treatment course object
+                    TreatmentCourse updatedTreatmentCourse = new TreatmentCourse(treatment_course_id, patInfoHisID.getText(), start_date, end_date);
+
+                    //update treatment course in csv file
+                    csvhandler.updateCSV(CSVPath.TREATMENTCOURSE_PATH, 0, treatment_course_id, updatedTreatmentCourse);
+
+                    //show success message
+                    alert.successMessage("Treatment course updated successfully");
+
+                    //refresh data
+                    refreshData();
+
+                    //refresh table
+                    TreatmentCourseShowListData();
+
+                    // reset fields
+                    resetBtnAction();
+
+                } else {
+                    // show error message
+                    alert.errorMessage("Invalid date input");
+                }
+            }
+        }
+    }
+
+    private void deleteBtnAction(){
+        if (!checkSelected()){
+            // get selected treatment course
+            String treatment_course_id = treatmentCourseTable.getSelectionModel().getSelectedItem().getTreatment_course_id();
+
+            //delete treatment course in csv file
+            csvhandler.deleteCSV(CSVPath.TREATMENTCOURSE_PATH, 0, treatment_course_id);
+
+            //show success message
+            alert.successMessage("Treatment course deleted successfully");
+
+            //refresh data
+            refreshData();
+
+            //refresh table
+            TreatmentCourseShowListData();
+
+            // reset fields
+            resetBtnAction();
+        }
+    }
 }

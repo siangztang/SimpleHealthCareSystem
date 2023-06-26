@@ -11,8 +11,11 @@ import com.example.AlertMessage;
 import com.example.Patient;
 import com.example.PatientHistory;
 import com.example.SwitchPage;
+import com.example.CSVRelatedClass.CSVHandler;
+import com.example.CSVRelatedClass.CSVPath;
+import com.example.CSVRelatedClass.CustomComparator;
+import com.example.CSVRelatedClass.ParameterTypes;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -125,6 +128,7 @@ public class PatientHistoryController {
 
     @FXML
     void initialize() {
+
         SwitchPage switchpage = new SwitchPage();
         managePatientBtn.setOnAction(event -> {
             switchpage.switchPage(event, managePatientBtn);
@@ -136,6 +140,14 @@ public class PatientHistoryController {
 
         addBtn.setOnAction(event -> {
             addBtnAction();
+        });
+
+        updateBtn.setOnAction(event -> {
+            updateBtnAction();
+        });
+
+        deleteBtn.setOnAction(event -> {
+            deleteBtnAction();
         });
         
         unFocusAll();
@@ -180,12 +192,14 @@ public class PatientHistoryController {
                 }
             }
         });
-        patientHistoryShowListData();
-        searchFilter();
+        
     }
 
     private Admin admin;
     private Patient patient_info;
+    private CSVHandler csvhandler = new CSVHandler();
+    private AlertMessage alert = new AlertMessage();
+    private PatientHistory checkInput = new PatientHistory();
 
     public void initData(Admin admin, Patient patient_info){
         this.admin = admin;
@@ -197,6 +211,8 @@ public class PatientHistoryController {
         patInfoDep.setText(patient_info.getDepartment());
         patInfoContactInfo.setText(patient_info.getContact_info());
         unameLabel.setText(admin.getUname());
+        patientHistoryShowListData();
+        searchFilter();
     }
 
     public void resetBtnAction(){
@@ -207,6 +223,8 @@ public class PatientHistoryController {
         patHisSpecialCommentsField.setText("");
         patHisWardField.setText("");
         patHisTable.getSelectionModel().clearSelection();
+        patHisTable.setItems(refreshData());
+        patientHistoryShowListData();
     }
 
     public void unFocusAll(){
@@ -225,12 +243,19 @@ public class PatientHistoryController {
         resetBtn.setFocusTraversable(false);
     }
 
-    ObservableList<PatientHistory> listData = FXCollections.observableArrayList();
+    public ObservableList<PatientHistory> refreshData(){
+        String patient_id = patient_info.getPatient_id();
+        ObservableList<PatientHistory> listData = csvhandler.readCSVSpecific(CSVPath.PATIENTHISTORY_PATH, PatientHistory.class, "pat_id", patient_id, CustomComparator.createComparator(PatientHistory::getHistory_id, 1), ParameterTypes.PATIENT_HISTORY_PARAMETER_TYPES);
+        return listData;
+    }
+
+    public ObservableList<PatientHistory> refreshAllData(){
+        ObservableList<PatientHistory> listData = csvhandler.readCSV(CSVPath.PATIENTHISTORY_PATH, PatientHistory.class, CustomComparator.createComparator(PatientHistory::getHistory_id, 1), ParameterTypes.PATIENT_HISTORY_PARAMETER_TYPES);
+        return listData;
+    }
+
 
     public void patientHistoryShowListData(){
-
-        listData.add(new PatientHistory("H0001","P0001", 1, "Dr. A", "None", "Walking", "Good", "None"));
-        listData.add(new PatientHistory("H0002","P0002", 2, "Dr. B", "None", "Walking", "Good", "None" )); 
         
         patHisHIDCol.setCellValueFactory(new PropertyValueFactory<>("history_id"));
         patHisWardCol.setCellValueFactory(new PropertyValueFactory<>("ward_no"));
@@ -240,12 +265,11 @@ public class PatientHistoryController {
         patHisResultsCol.setCellValueFactory(new PropertyValueFactory<>("results"));
         patHisSpecialCommentsCol.setCellValueFactory(new PropertyValueFactory<>("special_comments"));
         
-        patHisTable.setItems(listData);
-
+        patHisTable.setItems(refreshData());
     }
 
     private void searchFilter(){
-        FilteredList<PatientHistory> filteredData = new FilteredList<>(listData, b -> true);
+        FilteredList<PatientHistory> filteredData = new FilteredList<>(refreshData(), b -> true);
         searchField.setOnKeyReleased(e ->{
         
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -280,15 +304,72 @@ public class PatientHistoryController {
         });
     }
 
-    private AlertMessage alert = new AlertMessage();
-    private PatientHistory checkInput = new PatientHistory();
-
-    private void addBtnAction() {
-        // get all user input
-
+    private boolean checkEmpty(){
         if (patHisWardField.getText().isEmpty() || patHisDirectedByField.getText().isEmpty() || patHisMajorComplicationsField.getText().isEmpty() || patHisMovementMeansField.getText().isEmpty() || patHisResultsField.getText().isEmpty() || patHisSpecialCommentsField.getText().isEmpty()) {
             alert.errorMessage("Please fill all the fields");
-        } else {
+            return true;
+        }
+        return false;
+    }
+    
+    private boolean checkSelected(){
+        if (patHisTable.getSelectionModel().getSelectedIndex() == -1) {
+            alert.errorMessage("Please select a Patient History from the table");
+            return true;
+        }
+        return false;
+    }
+
+    private void addBtnAction() {
+
+        String patient_id = patient_info.getPatient_id();
+        int ward_no = -1;
+        try {
+            ward_no = Integer.parseInt(patHisWardField.getText());
+        } catch (NumberFormatException e) {
+            alert.errorMessage("Please enter a valid integer for ward number");
+            return;
+        }
+
+        String directed_by = patHisDirectedByField.getText();
+        String major_complications = patHisMajorComplicationsField.getText();
+        String movement_means = patHisMovementMeansField.getText();
+        String results = patHisResultsField.getText();
+        String special_comments = patHisSpecialCommentsField.getText();
+
+        if (!checkEmpty()){
+            if (checkInput.validationPatientHistory(patient_id, ward_no, movement_means, directed_by, major_complications, results, special_comments) == 1){
+                // generate new history id
+                String history_id = "H" + String.format("%d", csvhandler.getMaxId(refreshAllData(), PatientHistory::getHistory_id, "H") + 1);
+
+                // create new patient history object
+                PatientHistory newpatient_history = new PatientHistory(history_id, patient_id, ward_no, directed_by, major_complications, movement_means, results, special_comments);
+
+                // add new patient history to csv file
+                csvhandler.writeCSV(CSVPath.PATIENTHISTORY_PATH, newpatient_history);
+
+                // show success message
+                alert.successMessage("Patient History added successfully");
+
+                // refresh data
+                refreshData();
+
+                // refresh table
+                patientHistoryShowListData();
+
+                // reset all fields
+                resetBtnAction();
+            } else {
+                // show error message
+                alert.errorMessage("Please enter valid input");
+            }
+        }
+    }
+
+    private void updateBtnAction(){
+        if (!checkSelected()){
+            // get selected patient history
+            String history_id = patHisTable.getSelectionModel().getSelectedItem().getHistory_id();
             String patient_id = patient_info.getPatient_id();
             int ward_no = -1;
             try {
@@ -304,19 +385,52 @@ public class PatientHistoryController {
             String results = patHisResultsField.getText();
             String special_comments = patHisSpecialCommentsField.getText();
 
-            if (checkInput.validationPatientHistory(patient_id, ward_no, directed_by, major_complications, movement_means, results, special_comments) == 1) {
-                
-                // reset all input field
-                resetBtnAction();
+            if(!checkEmpty()){
+                if(checkInput.validationPatientHistory(patient_id, ward_no, movement_means, directed_by, major_complications, results, special_comments) == 1){
+                    // create new patient history object
+                    PatientHistory newpatient_history = new PatientHistory(history_id, patient_id, ward_no, directed_by, major_complications, movement_means, results, special_comments);
 
-                // show success message
-                alert.successMessage("Patient History Added Successfully");
-            } else {
-                // show error message
-                alert.errorMessage("Please enter valid input");
+                    // update patient history in csv file
+                    csvhandler.updateCSV(CSVPath.PATIENTHISTORY_PATH, 0, history_id, newpatient_history);
+
+                    // show success message
+                    alert.successMessage("Patient History updated successfully");
+
+                    // refresh data
+                    refreshData();
+
+                    // refresh table
+                    patientHistoryShowListData();
+
+                    // reset all fields
+                    resetBtnAction();
+                } else {
+                    // show error message
+                    alert.errorMessage("Please enter valid input");
+                }
             }
         }
-
     }
 
+    private void deleteBtnAction(){
+        if (!checkSelected()){
+            // get selected patient history
+            String history_id = patHisTable.getSelectionModel().getSelectedItem().getHistory_id();
+
+            // delete patient history from csv file
+            csvhandler.deleteCSV(CSVPath.PATIENTHISTORY_PATH, 0, history_id);
+
+            // show success message
+            alert.successMessage("Patient History deleted successfully");
+
+            // refresh data
+            refreshData();
+
+            // refresh table
+            patientHistoryShowListData();
+
+            // reset all fields
+            resetBtnAction();
+        }
+    }
 }

@@ -256,8 +256,9 @@ public class ManageDoctorController {
                         return;
                     }
                 }
+
                 // generate new doctor id
-                String doc_id = "DOC" + String.format("%d", refreshData().size() + 1);
+                String doc_id = "DOC" + String.format("%d", csvhandler.getMaxId(refreshData(), Doctor::getDoctor_id, "DOC") + 1);
 
                 // create new doctor object
                 Doctor newDoctor = new Doctor(doc_id, doc_name, doc_specialization, qualification, contact_info);

@@ -567,7 +567,6 @@ public class TreatmentCourseDetailsController {
             }
             
         });
-        DiagnosisShowListData();
 
         treatCourseDetProcedureTable.getColumns().forEach(e -> e.setReorderable(false));
 
@@ -587,29 +586,30 @@ public class TreatmentCourseDetailsController {
                     treatCourseDetProcedureMedicineList.setText(medicineListText);
                 }
             } else if (event.getClickCount() == 2){
-                try {
-                    System.out.println("Selected procedure ID: " + selectedProcedure.getProcedure_id());
-                    FXMLLoader loader = new FXMLLoader();
-                    Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ProcedureDetails.fxml"));
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.show();
-                    ProcedureDetailsController controller = loader.getController();
-                    String[] medicineList = selectedProcedure.getMedicine_list().split("; ");
-                    this.medicineList = medicineList;
-                    controller.initData(admin, patient_info, history_id, treatment_course_id, selectedProcedure.getProcedure_id(), medicineList);
-                    Node node = (Node) event.getSource();
-                    Stage currentStage = (Stage) node.getScene().getWindow();
-                    currentStage.close();
-                    
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (selectedProcedure != null){
+                    try {
+                        System.out.println("Selected procedure ID: " + selectedProcedure.getProcedure_id());
+                        FXMLLoader loader = new FXMLLoader();
+                        Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ProcedureDetails.fxml"));
+                        Scene scene = new Scene(root);
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.setResizable(false);
+                        stage.show();
+                        ProcedureDetailsController controller = loader.getController();
+                        String[] medicineList = selectedProcedure.getMedicine_list().split("; ");
+                        this.medicineList = medicineList;
+                        controller.initData(admin, patient_info, history_id, treatment_course_id, selectedProcedure.getProcedure_id(), medicineList);
+                        Node node = (Node) event.getSource();
+                        Stage currentStage = (Stage) node.getScene().getWindow();
+                        currentStage.close();
+                        
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
-        ProcedureShowListData();
 
         treatCourseDetUrineAnalysisTable.getColumns().forEach(e -> e.setReorderable(false));
         treatCourseDetUrineAnalysisTable.setOnMouseClicked(event -> {
@@ -627,8 +627,7 @@ public class TreatmentCourseDetailsController {
                 }
             }
         });
-        UrineAnalysisShowListData();
-
+        
         treatCourseDetRWAnalysisTable.getColumns().forEach(e -> e.setReorderable(false));
         treatCourseDetRWAnalysisTable.setOnMouseClicked(event -> {
             RWAnalysis selectedRWAnalysis = treatCourseDetRWAnalysisTable.getSelectionModel().getSelectedItem();
@@ -647,7 +646,6 @@ public class TreatmentCourseDetailsController {
                 }
             }
         });
-        RWAnalysisShowListData();
 
         treatCourseDetBioBloodAnalysisTable.getColumns().forEach(e -> e.setReorderable(false));
         treatCourseDetBioBloodAnalysisTable.setOnMouseClicked(event -> {
@@ -670,7 +668,6 @@ public class TreatmentCourseDetailsController {
                 }
             }
         });
-        BioBloodAnalysisShowListData();
 
         treatCourseDetBloodAnalysisTable.getColumns().forEach(e -> e.setReorderable(false));
         treatCourseDetBloodAnalysisTable.setOnMouseClicked(event -> {
@@ -695,8 +692,6 @@ public class TreatmentCourseDetailsController {
                 }
             }
         });
-        BloodAnalysisShowListData();
-
     }
 
     private Admin admin;
@@ -728,6 +723,13 @@ public class TreatmentCourseDetailsController {
         patInfoHisID.setText(history_id);
         patInfoCourseID.setText(treatment_course_id);
         unamelabel.setText(admin.getUname());
+
+        DiagnosisShowListData();
+        ProcedureShowListData();
+        UrineAnalysisShowListData();
+        RWAnalysisShowListData();
+        BioBloodAnalysisShowListData();
+        BloodAnalysisShowListData();
     }
 
     private void diagnosisResetBtnAction(){
@@ -840,6 +842,12 @@ public class TreatmentCourseDetailsController {
     }
 
     private ObservableList<Diagnosis> diagnosisRefreshData(){
+        String treatment_course_id = patInfoCourseID.getText();
+        ObservableList<Diagnosis> listData = csvhandler.readCSVSpecific(CSVPath.DIAGNOSIS_PATH, Diagnosis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(Diagnosis::getDiagnosis_id, 3), ParameterTypes.DIAGNOSIS_PARAMETER_TYPES);
+        return listData;
+    }
+
+    private ObservableList<Diagnosis> diagnosisAllRefreshData(){
         ObservableList<Diagnosis> listData = csvhandler.readCSV(CSVPath.DIAGNOSIS_PATH, Diagnosis.class, CustomComparator.createComparator(Diagnosis::getDiagnosis_id, 3), ParameterTypes.DIAGNOSIS_PARAMETER_TYPES);
         return listData;
     }
@@ -882,8 +890,9 @@ public class TreatmentCourseDetailsController {
         // check if any field is empty
         if (!diagnosisCheckEmpty()) {
             if (diagnosisCheckInput.validationDiagnosis(diagnosis_name, diagnosis_date, doctor_name) == 1) {
+
                 // generate new diagnosis id
-                String diag_id = "DIA" + String.format("%d", diagnosisRefreshData().size() + 1);
+                String diag_id = "DIA" + String.format("%d", csvhandler.getMaxId(diagnosisAllRefreshData(), Diagnosis::getDiagnosis_id, "DIA") + 1);
 
                 // create new diagnosis object
                 Diagnosis newDiagnosis = new Diagnosis(diag_id, diagnosis_name, diagnosis_date, doctor_name, treatment_course_id);
@@ -974,6 +983,12 @@ public class TreatmentCourseDetailsController {
     }
 
     private ObservableList<Procedure> procedureRefreshData(){
+        String treatment_course_id = patInfoCourseID.getText();
+        ObservableList<Procedure> listData = csvhandler.readCSVSpecific(CSVPath.PROCEDURE_PATH, Procedure.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(Procedure::getProcedure_id, 1), ParameterTypes.PROCEDURE_PARAMETER_TYPES);
+        return listData;
+    }
+
+    private ObservableList<Procedure> procedureRefreshAllData(){
         ObservableList<Procedure> listData = csvhandler.readCSV(CSVPath.PROCEDURE_PATH, Procedure.class, CustomComparator.createComparator(Procedure::getProcedure_id, 1), ParameterTypes.PROCEDURE_PARAMETER_TYPES);
         return listData;
     }
@@ -1018,7 +1033,7 @@ public class TreatmentCourseDetailsController {
             if (procedureCheckInput.validationProcedure(procedureType, procedureDate, procedureTime, procedureMedicine) == 1) {
                 
                 // generate new procedure id
-                String procedureId = "P" + String.format("%d", csvhandler.getMaxId(procedureRefreshData(), Procedure::getProcedure_id, "P") + 1);
+                String procedureId = "P" + String.format("%d", csvhandler.getMaxId(procedureRefreshAllData(), Procedure::getProcedure_id, "P") + 1);
                 
                 // create new procedure object
                 Procedure newProcedure = new Procedure(procedureId, procedureType, procedureDate, procedureTime, treatment_course_id, procedureMedicine);
@@ -1140,6 +1155,12 @@ public class TreatmentCourseDetailsController {
     }
 
     private ObservableList<BloodAnalysis> bloodAnalysisRefreshData(){
+        String treatment_course_id = patInfoCourseID.getText();
+        ObservableList<BloodAnalysis> listData = csvhandler.readCSVSpecific(CSVPath.BLOODANALYSIS_PATH, BloodAnalysis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(BloodAnalysis::getAnalysis_id, 2), ParameterTypes.BLOOD_ANALYSIS_PARAMETER_TYPES);
+        return listData;
+    }
+
+    private ObservableList<BloodAnalysis> bloodAnalysisRefreshAllData(){
         ObservableList<BloodAnalysis> listData = csvhandler.readCSV(CSVPath.BLOODANALYSIS_PATH, BloodAnalysis.class, CustomComparator.createComparator(BloodAnalysis::getAnalysis_id, 2), ParameterTypes.BLOOD_ANALYSIS_PARAMETER_TYPES);
         return listData;
     }
@@ -1234,9 +1255,9 @@ public class TreatmentCourseDetailsController {
             }
             
             if (bloodAnalysisCheckInput.validationBloodAnalysis(analysis_date, red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR) == 1) {
-
+                
                 //generate new blood anaylsis id
-                String analysis_id = "BA" + String.format("%d", (bloodAnalysisRefreshData().size() + 1));
+                String analysis_id = "BA" + String.format("%d", csvhandler.getMaxId(bloodAnalysisRefreshAllData(), BloodAnalysis::getAnalysis_id, "BA") + 1);
 
                 //create new analysis object
                 BloodAnalysis newBloodAnalysis = new BloodAnalysis(red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR, analysis_id, analysis_date, treatment_course_id);
@@ -1372,6 +1393,12 @@ public class TreatmentCourseDetailsController {
     }
 
     private ObservableList<RWAnalysis> RWAnalysisRefreshData(){
+        String treatment_course_id = patInfoCourseID.getText();
+        ObservableList<RWAnalysis> listData = csvhandler.readCSVSpecific(CSVPath.RWANALYSIS_PATH, RWAnalysis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(RWAnalysis::getAnalysis_id, 2), ParameterTypes.RW_ANALYSIS_PARAMETER_TYPES);
+        return listData;
+    }
+
+    private ObservableList<RWAnalysis> RWAnalysisRefreshAllData(){
         ObservableList<RWAnalysis> listData = csvhandler.readCSV(CSVPath.RWANALYSIS_PATH, RWAnalysis.class, CustomComparator.createComparator(RWAnalysis::getAnalysis_id, 2), ParameterTypes.RW_ANALYSIS_PARAMETER_TYPES);
         return listData;
     }
@@ -1413,7 +1440,7 @@ public class TreatmentCourseDetailsController {
             
             if (rwAnalysisCheckInput.validationRWAnalysis(analysis_date, rw_result, aids_result, aids_date) == 1) {
                 // generate new diagnosis id
-                String analysis_id = "RW" + String.format("%d", (RWAnalysisRefreshData().size() + 1));
+                String analysis_id = "RW" + String.format("%d", csvhandler.getMaxId(RWAnalysisRefreshAllData(), RWAnalysis::getAnalysis_id, "RW") + 1);
 
                 // create new diagnosis object
                 RWAnalysis newRWAnalysis = new RWAnalysis(rw_result, aids_date, aids_result, analysis_id, analysis_date, treatment_course_id);
@@ -1501,6 +1528,12 @@ public class TreatmentCourseDetailsController {
     }
 
     private ObservableList<BioBloodAnalysis> BioBloodAnalysisRefreshData(){
+        String treatment_course_id = patInfoCourseID.getText();
+        ObservableList<BioBloodAnalysis> listData = csvhandler.readCSVSpecific(CSVPath.BIOBLOODANALYSIS_PATH, BioBloodAnalysis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(BioBloodAnalysis::getAnalysis_id, 2), ParameterTypes.BIO_BLOOD_ANALYSIS_PARAMETER_TYPES);
+        return listData;
+    }
+
+    private ObservableList<BioBloodAnalysis> BioBloodAnalysisRefreshAllData(){
         ObservableList<BioBloodAnalysis> listData = csvhandler.readCSV(CSVPath.BIOBLOODANALYSIS_PATH, BioBloodAnalysis.class, CustomComparator.createComparator(BioBloodAnalysis::getAnalysis_id, 2), ParameterTypes.BIO_BLOOD_ANALYSIS_PARAMETER_TYPES);
         return listData;
     }
@@ -1589,7 +1622,7 @@ public class TreatmentCourseDetailsController {
 
             if (bioBloodAnalysisCheckInput.validationBioBloodAnalysis(analysis_date, createnine, sugar, biluribin, direct_biluribin, AST, ALT) == 1) {
                 // generate new diagnosis id
-                String analysis_id = "BB" + String.format("%d", (BioBloodAnalysisRefreshData().size() + 1));
+                String analysis_id = "BB" + String.format("%d", csvhandler.getMaxId(BioBloodAnalysisRefreshAllData(), BioBloodAnalysis::getAnalysis_id, "BB") + 1);
 
                 // create new diagnosis object
                 BioBloodAnalysis newBioBloodAnalysis = new BioBloodAnalysis(createnine, sugar, biluribin, direct_biluribin, AST, ALT, analysis_id, analysis_date, treatment_course_id);
@@ -1721,6 +1754,12 @@ public class TreatmentCourseDetailsController {
     }
 
     private ObservableList<UrineAnalysis> urineAnalysisRefreshData(){
+        String treatment_course_id = patInfoCourseID.getText();
+        ObservableList<UrineAnalysis> listData = csvhandler.readCSVSpecific(CSVPath.URINEANALYSIS_PATH, UrineAnalysis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(UrineAnalysis::getAnalysis_id, 2), ParameterTypes.URINE_ANALYSIS_PARAMETER_TYPES);
+        return listData;
+    }
+
+    private ObservableList<UrineAnalysis> urineAnalysisRefreshAllData(){
         ObservableList<UrineAnalysis> listData = csvhandler.readCSV(CSVPath.URINEANALYSIS_PATH, UrineAnalysis.class, CustomComparator.createComparator(UrineAnalysis::getAnalysis_id, 2), ParameterTypes.URINE_ANALYSIS_PARAMETER_TYPES);
         return listData;
     }
@@ -1779,7 +1818,7 @@ public class TreatmentCourseDetailsController {
 
             if (urineAnalysisCheckInput.validationUrineAnalysis(analysis_date, color, reaction, transparency, density) == 1){
                 // generate analysis id
-                String analysis_id = "UA" + String.format("%d", (urineAnalysisRefreshData().size() + 1));
+                String analysis_id = "UA" + String.format("%d", csvhandler.getMaxId(urineAnalysisRefreshAllData(), UrineAnalysis::getAnalysis_id, "UA") + 1);
 
                 // create new diagnosis object
                 UrineAnalysis newUrineAnalysis = new UrineAnalysis(color, reaction, transparency, density, analysis_id, analysis_date, treatment_course_id);
