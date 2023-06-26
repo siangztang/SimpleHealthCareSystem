@@ -149,6 +149,14 @@ public class PatientListController {
             addBtnAction();
         });
 
+        updateBtn.setOnAction(event -> {
+            updateBtnAction();
+        });
+
+        deleteBtn.setOnAction(event -> {
+            deleteBtnAction();
+        });
+
         unFocusAll();
         patListTable.getColumns().forEach(e -> e.setReorderable(false));
         patListTable.setOnMouseClicked(event -> {
@@ -208,7 +216,9 @@ public class PatientListController {
         patDepartmentField.setValue("");
         patGenderBox.setValue("");
         searchField.setText("");
-        patListTable.getSelectionModel().clearSelection();        
+        patListTable.getSelectionModel().clearSelection();
+        patListTable.setItems(refreshData());
+        patientShowListData();      
     }
 
     public void unFocusAll(){
@@ -307,18 +317,8 @@ public class PatientListController {
     public void addBtnAction(){
 
         String patName = patNameField.getText();
-
         String patIC = patICField.getText();
-        int birthYear = Integer.parseInt(patIC.substring(0, 4));
-        int birthMonth = Integer.parseInt(patIC.substring(4, 6));
-        int birthDay = Integer.parseInt(patIC.substring(6, 8));
-        System.out.println(birthYear + " " + birthMonth + " " + birthDay);
-
-        // Calculate age
-        LocalDate birthDate = LocalDate.of(birthYear, birthMonth, birthDay);
-        LocalDate currentDate = LocalDate.now();
-        int patAge = Period.between(birthDate, currentDate).getYears();
-
+        int patAge = ageCal(patIC);
         String patCot = patCotField.getText();
         String patDepartment = patDepartmentField.getValue();
         String patGenderStr = patGenderBox.getValue();
@@ -360,6 +360,110 @@ public class PatientListController {
                 alert.errorMessage("Please enter a valid input");
             }
         }
+    }
+
+    private void updateBtnAction(){
+        if (!checkSelected()){
+            // get selected patient
+            String patID = patListTable.getSelectionModel().getSelectedItem().getPatient_id();
+            String patName = patNameField.getText();
+            String patIC = patICField.getText();
+            int patAge = ageCal(patIC);
+            String patCot = patCotField.getText();
+            String patDepartment = patDepartmentField.getValue();
+            String patGenderStr = patGenderBox.getValue();
+            char patGender = patGenderStr.charAt(0);
+
+            if (!checkEmpty()){
+                if (checkInput.validationPatient(patName, patIC, patGender, patCot, patDepartment) == 1) {
+
+                    // check if patient already exist
+                    for (Patient patient : refreshData()){
+                        if (patient.getName().equals(patName) && !patient.getPatient_id().equals(patID)){
+                            alert.errorMessage("Patient already exists");
+                            return;
+                        }
+                    }
+
+                    // create patient object
+                    Patient updatedPatient = new Patient(patID, patName, patIC, patAge, patGender, patCot, patDepartment);
+
+                    // update patient to csv file
+                    csvhandler.updateCSV(CSVPath.PATIENT_PATH, 0, patID, updatedPatient);
+
+                    // show success message
+                    alert.successMessage("Patient has been updated successfully");
+
+                    // refresh data
+                    refreshData();
+
+                    // refresh table
+                    patientShowListData();
+
+                    // reset all input field
+                    resetBtnAction();
+
+                } else {
+                    // show error message
+                    alert.errorMessage("Please enter a valid input");
+                }
+            }
+        }
+    }
+
+    private void deleteBtnAction(){
+        if (!checkSelected()){
+            // get selected patient
+            String patID = patListTable.getSelectionModel().getSelectedItem().getPatient_id();
+
+            // delete patient from csv file
+            csvhandler.deleteCSV(CSVPath.PATIENT_PATH, 0, patID);
+
+            // show success message
+            alert.successMessage("Patient has been deleted successfully");
+
+            // refresh data
+            refreshData();
+
+            // refresh table
+            patientShowListData();
+
+            // reset all input field
+            resetBtnAction();
+        }
+    }
+
+    private int ageCal(String patIC){
+        // Extract the birth date from the IC number
+        String birthYearPrefixStr = patIC.substring(0, 2);
+        int birthYearPrefix;
+        
+        if (birthYearPrefixStr.startsWith("0")) {
+            birthYearPrefix = Integer.parseInt(birthYearPrefixStr.substring(1, 2));
+        } else {
+            birthYearPrefix = Integer.parseInt(birthYearPrefixStr);
+        }
+
+        // int birthYearPrefix = Integer.parseInt(patIC.substring(0, 2));
+        int birthYear;
+        if (birthYearPrefix >= 0 && birthYearPrefix <= 29) {
+            birthYear = 2000 + birthYearPrefix;
+        } else {    
+            birthYear = 1900 + birthYearPrefix;
+        }
+
+        int birthMonth = Integer.parseInt(patIC.substring(2, 4));
+        int birthDay = Integer.parseInt(patIC.substring(4, 6));
+
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Calculate the age
+        LocalDate birthDate = LocalDate.of(birthYear, birthMonth, birthDay);
+        Period age = Period.between(birthDate, currentDate);
+        int patAge = age.getYears() + 1;
+
+        return patAge;
     }
 
      

@@ -35,8 +35,8 @@ public class CSVHandler {
                 String[] data = line.split(",");
                 Constructor<T> constructor = clazz.getDeclaredConstructor(parameterTypes);
                 int parameterCount = constructor.getParameterCount();
-                System.out.println(constructor);
-                System.out.println(parameterCount);
+                // System.out.println(constructor);
+                // System.out.println(parameterCount);
                 // Check if the number of parameters matches the CSV data columns
                 if (parameterCount == data.length) {
                     Object[] arguments = new Object[parameterCount];
