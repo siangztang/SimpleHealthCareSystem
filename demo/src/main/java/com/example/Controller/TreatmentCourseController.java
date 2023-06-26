@@ -45,6 +45,9 @@ public class TreatmentCourseController {
     private Button addBtn;
 
     @FXML
+    private Button backBtn;
+
+    @FXML
     private Button deleteBtn;
 
     @FXML
@@ -126,6 +129,26 @@ public class TreatmentCourseController {
 
         unFocusAll();
 
+        backBtn.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\PatientHistory.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.show();
+                PatientHistoryController controller = loader.getController();
+                controller.initData(admin, patient_info);
+                Node node = (Node) event.getSource();
+                Stage currentStage = (Stage) node.getScene().getWindow();
+                currentStage.close();
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         treatmentCourseTable.getColumns().forEach(e -> e.setReorderable(false));
 
         treatmentCourseTable.setOnMouseClicked(event -> {
@@ -197,6 +220,7 @@ public class TreatmentCourseController {
 
     public void unFocusAll(){
         managePatientBtn.setFocusTraversable(false);
+        backBtn.setFocusTraversable(false);
         treatmentCourseTable.setFocusTraversable(false);
         treatmentCourseStartDateField.setFocusTraversable(false);
         treatmentCourseEndDateField.setFocusTraversable(false);

@@ -56,7 +56,7 @@
                               <Label layoutX="9.0" layoutY="60.0" text="Patient Name:" />
                               <TextField fx:id="patInfoID" disable="true" editable="false" layoutX="93.0" layoutY="21.0" text="P0000000000" />
                               <TextField fx:id="patInfoName" disable="true" editable="false" layoutX="93.0" layoutY="56.0" text="PATIENT JOHN" />
-                              <Line endX="100.0" layoutX="125.0" layoutY="603.0" startX="-100.0" />
+                              <Line endX="100.0" layoutX="125.0" layoutY="538.0" startX="-100.0" />
                               <Button id="managePatientBtn" fx:id="managePatientBtn" layoutX="13.0" layoutY="616.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Patient list" />
                               <Label layoutX="57.0" layoutY="95.0" text="Age:" />
                               <TextField fx:id="patInfoAge" disable="true" editable="false" layoutX="93.0" layoutY="91.0" text="18" />
@@ -68,6 +68,7 @@
                               <TextField fx:id="patInfoDepartment" disable="true" editable="false" layoutX="94.0" layoutY="196.0" text="ENT" />
                               <Line endX="100.0" layoutX="122.0" layoutY="14.0" startX="-100.0" />
                               <Label layoutX="23.0" layoutY="235.0" text="History ID: " />
+                              <Button id="managePatientBtn" fx:id="backBtn" layoutX="13.0" layoutY="552.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" text="Back" />
                               <TextField fx:id="patInfoHisID" disable="true" editable="false" layoutX="94.0" layoutY="231.0" text="H000000001" />
                            </children>
                         </AnchorPane>

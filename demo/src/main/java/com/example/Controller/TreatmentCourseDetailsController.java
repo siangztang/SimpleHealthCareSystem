@@ -65,6 +65,9 @@ public class TreatmentCourseDetailsController {
     private Button RWAnalysisUpdateBtn;
 
     @FXML
+    private Button backBtn;
+
+    @FXML
     private Button bioBloodAnalysisAddBtn;
 
     @FXML
@@ -558,6 +561,26 @@ public class TreatmentCourseDetailsController {
 
         unFocusAll();
 
+        backBtn.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\TreatmentCourse.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.show();
+                TreatmentCourseController controller = loader.getController();
+                controller.initData(admin, patient_info, history_id);
+                Node node = (Node) event.getSource();
+                Stage currentStage = (Stage) node.getScene().getWindow();
+                currentStage.close();
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         treatCourseDetDiagnosisTable.getColumns().forEach(e -> e.setReorderable(false));
 
         treatCourseDetDiagnosisTable.setOnMouseClicked(event -> {
@@ -811,6 +834,7 @@ public class TreatmentCourseDetailsController {
 
     private void unFocusAll(){
         managePatientBtn.setFocusTraversable(false);
+        backBtn.setFocusTraversable(false);
         treatCourseDetDiagnosisTable.setFocusTraversable(false);
         treatCourseDetProcedureTable.setFocusTraversable(false);
 
