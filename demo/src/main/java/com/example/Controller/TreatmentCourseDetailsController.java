@@ -302,6 +302,9 @@ public class TreatmentCourseDetailsController {
     private ComboBox<String> treatCourseDetProcedureMedicineChoice;
 
     @FXML
+    private Button treatCourseDetProcedureMedicineDeleteBtn;
+
+    @FXML
     private TextArea treatCourseDetProcedureMedicineList;
 
     @FXML
@@ -475,6 +478,10 @@ public class TreatmentCourseDetailsController {
 
         treatCourseDetProcedureMedicineAddBtn.setOnAction(event -> {
             addMedicine();
+        });
+
+        treatCourseDetProcedureMedicineDeleteBtn.setOnAction(event -> {
+            deleteMedicine();
         });
 
         diagnosisAddBtn.setOnAction(event -> {
@@ -1129,6 +1136,7 @@ public class TreatmentCourseDetailsController {
         } else if (treatCourseDetProcedureMedicineList.getText().equals("")) {
             // add medicine to list
             medicineList = new String[]{treatCourseDetProcedureMedicineChoice.getValue()};
+            alert.successMessage("Medicine added");
         } else {
             // add medicine to list
             String medicineName = treatCourseDetProcedureMedicineChoice.getValue();
@@ -1148,6 +1156,27 @@ public class TreatmentCourseDetailsController {
                 medicineList[medicineList.length - 1] = medicineName;
                 alert.successMessage("Medicine added");
             }
+        }
+        // display medicine list
+        String medicineListText = String.join("; ", medicineList);
+        treatCourseDetProcedureMedicineList.setText(medicineListText);
+    }
+
+    private void deleteMedicine() {
+        String medicineName = treatCourseDetProcedureMedicineChoice.getValue();
+        if (medicineName == null) {
+            // show error message
+            alert.errorMessage("No medicine selected");
+            return;
+        }
+        List<String> medicineArrayList = new ArrayList<>(Arrays.asList(medicineList));
+        boolean isRemoved = medicineArrayList.remove(medicineName);
+        if (isRemoved) {
+            medicineList = medicineArrayList.toArray(new String[0]);
+            alert.successMessage("Medicine removed");
+        } else {
+            // show error message
+            alert.errorMessage("Medicine not found");
         }
         // display medicine list
         String medicineListText = String.join("; ", medicineList);
