@@ -79,12 +79,12 @@ public class BioBloodAnalysis extends Analysis{
             System.out.println("Direct Biluribin is not in range");
             return 0;
         }
-        if(AST < 40){
+        if(AST > 40){
             System.out.println(AST);
             System.out.println("AST is not in range");
             return 0;
         }
-        if(ALT < 40){
+        if(ALT > 40){
             System.out.println(ALT);
             System.out.println("ALT is not in range");
             return 0;
