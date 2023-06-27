@@ -44,7 +44,7 @@ public class Medicine {
             return 0;
         }
 
-        if (!(medicine_description.length() > 5)) {
+        if (!(medicine_description.length() > 3)) {
             return 0;
         }
 

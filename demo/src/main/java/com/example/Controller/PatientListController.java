@@ -2,6 +2,7 @@ package com.example.Controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Period;
@@ -314,19 +315,41 @@ public class PatientListController {
         return false;
     }
 
+    public String checkAndConvertToString(String value) {
+        // System.out.println(value);
+        try {
+            new BigInteger(value);
+            System.out.println(value);
+            return value;
+            
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
     public void addBtnAction(){
 
         String patName = patNameField.getText();
         String patIC = patICField.getText();
+        String checkICResult = checkAndConvertToString(patIC);
+        if (checkICResult == null) {
+            alert.errorMessage("Invalid input: " + patIC + " is not an integer");
+            return;
+        }
         int patAge = ageCal(patIC);
         String patCot = patCotField.getText();
+        String checkCotResult = checkAndConvertToString(patCot);
+        if (checkCotResult == null) {
+            alert.errorMessage("Invalid input: " + patCot + " is not an integer");
+            return;
+        }
         String patDepartment = patDepartmentField.getValue();
         String patGenderStr = patGenderBox.getValue();
         char patGender = patGenderStr.charAt(0);
 
         if (!checkEmpty()){
             if (checkInput.validationPatient(patName, patIC, patGender, patCot, patDepartment) == 1) {
-
+                
                 // check if patient already exist
                 for (Patient patient : refreshData()){
                     if (patient.getName().equals(patName)){

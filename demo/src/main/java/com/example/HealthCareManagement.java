@@ -24,10 +24,8 @@ public class HealthCareManagement extends Application {
         stage.setTitle("Health Care Management System");
         stage.centerOnScreen();
         stage.show();
-
     }
-
-
+    
     public static void main(String[] args) {
         launch();
     }
