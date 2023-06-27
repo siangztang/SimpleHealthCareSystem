@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URL;
 import java.time.LocalDate;
+
 import java.time.Period;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -359,7 +361,10 @@ public class PatientListController {
                 }
 
                 // generate patient id
-                String patID = "PAT" + String.format("%d", csvhandler.getMaxId(refreshData(), Patient::getPatient_id, "PAT") + 1);
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                // int timestampInt = (int) (timestamp.getTime() / 1000);
+
+                String patID = "PAT" + (timestamp.getTime()/1000);
 
                 // creata patient object
                 Patient patient = new Patient(patID, patName, patIC, patAge, patGender, patCot, patDepartment);
