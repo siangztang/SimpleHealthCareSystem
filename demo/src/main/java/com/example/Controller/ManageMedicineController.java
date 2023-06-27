@@ -149,7 +149,9 @@ public class ManageMedicineController {
         medicineNameField.setText("");
         medicineAmountField.setText("");
         medicineDescriptionField.setText("");
-        medicineTable.getSelectionModel().clearSelection();        
+        medicineTable.getSelectionModel().clearSelection();
+        medicineTable.setItems(refreshData());
+        medicineShowListData();
     }
 
     public void unFocusAll(){
@@ -248,7 +250,7 @@ public class ManageMedicineController {
                 //check if medicine already exist
                 for (Medicine medicine : refreshData()){
                     if (medicine.getMedicine_name().equals(medicine_name)){
-                        alert.errorMessage("Department already exists");
+                        alert.errorMessage("Medicine already exists");
                         return;
                     }
                 }
@@ -300,9 +302,11 @@ public class ManageMedicineController {
                 if (checkInput.validationMedicine(medicineName,medicineDescription,medicineAmount) == 1 && medicineName != null) {
                 // check if the medicine already exists
                 for (Medicine medicine : refreshData()){
-                    if (medicine.getMedicine_name().equals(medicineName)){
+                    if (medicine.getMedicine_name().equals(medicineName) && !medicine.getMedicine_id().equals(medicineID)){
                         alert.errorMessage("Medicine already exists");
                         return;
+                    } else {
+                        System.out.println("medicine does not exist");
                     }
                 }
                 // creata a new department object
