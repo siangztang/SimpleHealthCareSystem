@@ -447,19 +447,19 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label layoutX="675.0" layoutY="48.0" text="IU/L">
+                                                                        <Label layoutX="675.0" layoutY="48.0" text="U/L">
                                                                            <font>
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label layoutX="675.0" layoutY="88.0" text="IU/L">
+                                                                        <Label layoutX="675.0" layoutY="88.0" text="U/L">
                                                                            <font>
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
                                                                         <Text fill="#8a8a8a" layoutX="502.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.1-0.3 mg/dL" />
-                                                                        <Text fill="#8a8a8a" layoutX="501.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;40 IU/L" />
-                                                                        <Text fill="#8a8a8a" layoutX="501.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;40 IU/L" />
+                                                                        <Text fill="#8a8a8a" layoutX="501.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5-40 U/L" />
+                                                                        <Text fill="#8a8a8a" layoutX="501.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="7-56U/L" />
                                                                      </children></AnchorPane>
                                                                </children>
                                                             </AnchorPane>

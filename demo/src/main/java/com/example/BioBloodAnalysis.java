@@ -42,12 +42,12 @@ public class BioBloodAnalysis extends Analysis{
         return direct_biluribin;
     }
 
-    // Normal range: Typically below 40 IU/L
+    // Normal range: Typically below 5-40 IU/L
     public int getAST(){
         return AST;
     }
 
-    // Normal range: Typically below 40 IU/L
+    // Normal range: Typically below 7-56 IU/L
     public int getALT(){
         return ALT;
     }
@@ -79,12 +79,12 @@ public class BioBloodAnalysis extends Analysis{
             System.out.println("Direct Biluribin is not in range");
             return 0;
         }
-        if(AST > 40){
+        if(AST < 5 || AST > 40){
             System.out.println(AST);
             System.out.println("AST is not in range");
             return 0;
         }
-        if(ALT > 40){
+        if(ALT < 7 || ALT > 56){
             System.out.println(ALT);
             System.out.println("ALT is not in range");
             return 0;
