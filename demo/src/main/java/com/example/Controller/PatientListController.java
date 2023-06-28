@@ -58,6 +58,9 @@ public class PatientListController {
     private Button deleteBtn;
 
     @FXML
+    private Button logOutBtn;
+
+    @FXML
     private Button manageDocBtn;
 
     @FXML
@@ -160,6 +163,24 @@ public class PatientListController {
             deleteBtnAction();
         });
 
+        logOutBtn.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\Login.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.show();
+                Node node = (Node) event.getSource();
+                Stage currentStage = (Stage) node.getScene().getWindow();
+                currentStage.close();
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         patNameField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, patICField));
         patICField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, patGenderBox));
         patGenderBox.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, patCotField));
@@ -252,6 +273,7 @@ public class PatientListController {
         updateBtn.setFocusTraversable(false);
         deleteBtn.setFocusTraversable(false);
         resetBtn.setFocusTraversable(false);
+        logOutBtn.setFocusTraversable(false);
     }
 
     private ObservableList<Patient> refreshData(){
