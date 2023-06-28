@@ -31,6 +31,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -149,6 +151,13 @@ public class PatientHistoryController {
         deleteBtn.setOnAction(event -> {
             deleteBtnAction();
         });
+
+        patHisWardField.addEventFilter(KeyEvent.KEY_PRESSED, this::handleTextFieldKeyPress);
+        patHisMovementMeansField.addEventFilter(KeyEvent.KEY_PRESSED, this::handleTextFieldKeyPress);
+        patHisDirectedByField.addEventFilter(KeyEvent.KEY_PRESSED, this::handleTextFieldKeyPress);
+        patHisMajorComplicationsField.addEventFilter(KeyEvent.KEY_PRESSED, this::handleTextFieldKeyPress);
+        patHisResultsField.addEventFilter(KeyEvent.KEY_PRESSED, this::handleTextFieldKeyPress);
+        patHisSpecialCommentsField.addEventFilter(KeyEvent.KEY_PRESSED, this::handleTextAreaKeyPress);
         
         unFocusAll();
 
@@ -193,6 +202,36 @@ public class PatientHistoryController {
             }
         });
         
+    }
+
+    private void handleTextFieldKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.TAB) {
+            event.consume();
+            jumpToNextField();
+        }
+    }
+
+    private void handleTextAreaKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.TAB) {
+            event.consume();
+            jumpToNextField();
+        }
+    }
+
+    private void jumpToNextField() {
+        if (patHisWardField.isFocused()) {
+            patHisMovementMeansField.requestFocus();
+        } else if (patHisMovementMeansField.isFocused()) {
+            patHisDirectedByField.requestFocus();
+        } else if (patHisDirectedByField.isFocused()) {
+            patHisMajorComplicationsField.requestFocus();
+        } else if (patHisMajorComplicationsField.isFocused()) {
+            patHisResultsField.requestFocus();
+        } else if (patHisResultsField.isFocused()) {
+            patHisSpecialCommentsField.requestFocus();
+        } else if (patHisSpecialCommentsField.isFocused()) {
+            patHisWardField.requestFocus();
+        }
     }
 
     private Admin admin;

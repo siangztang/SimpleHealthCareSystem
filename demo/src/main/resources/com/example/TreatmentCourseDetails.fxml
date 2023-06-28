@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseDetailsController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseDetailsController">
    <children>
       <StackPane fx:id="treatment_course_details_page" prefHeight="150.0" prefWidth="200.0">
          <children>
@@ -115,7 +115,7 @@
                                                          </font>
                                                       </Label>
                                                       <TextField fx:id="treatCourseDetDiagnosisNameField" layoutX="148.0" layoutY="14.0" prefHeight="25.0" prefWidth="173.0" />
-                                                      <DatePicker fx:id="treatCourseDetDiagnosisDiagDateField" layoutX="148.0" layoutY="50.0" />
+                                                      <DatePicker fx:id="treatCourseDetDiagnosisDiagDateField" editable="false" layoutX="148.0" layoutY="50.0" />
                                                       <ComboBox fx:id="treatCourseDetDiagnosisDocNameField" layoutX="148.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
                                                       <Button id="updateBtn" fx:id="diagnosisUpdateBtn" layoutX="679.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                                       <Button id="delBtn" fx:id="diagnosisDeleteBtn" layoutX="770.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
@@ -156,7 +156,7 @@
                                                             <Font size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <DatePicker fx:id="treatCourseDetProcedureDateField" layoutX="84.0" layoutY="8.0" />
+                                                      <DatePicker fx:id="treatCourseDetProcedureDateField" editable="false" layoutX="84.0" layoutY="8.0" />
                                                       <TextField fx:id="treatCourseDetProcedureTimeField" editable="false" layoutX="84.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
                                                       <TextField fx:id="treatCourseDetProcedureTypeField" layoutX="84.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
                                                       <Button fx:id="treatCourseDetProcedureTimeBtn" layoutX="274.0" layoutY="48.0" mnemonicParsing="false" text="Select Time" />
@@ -180,6 +180,11 @@
                                                       </Label>
                                                    </children>
                                                 </AnchorPane>
+                                                <Label layoutX="807.0" layoutY="396.0" text="Double Click Row For More Information.">
+                                                   <font>
+                                                      <Font name="System Italic" size="12.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </AnchorPane>
                                     </content>
@@ -250,7 +255,7 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <DatePicker fx:id="treatCourseDetBloodAnalysisDateDateField" layoutX="118.0" layoutY="8.0" />
+                                                                        <DatePicker fx:id="treatCourseDetBloodAnalysisDateDateField" editable="false" layoutX="118.0" layoutY="8.0" />
                                                                         <TextField fx:id="treatCourseDetBloodAnalysisRedCellsField" layoutX="118.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <TextField fx:id="treatCourseDetBloodAnalysisHaemoglobinField" layoutX="118.0" layoutY="88.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <TextField fx:id="treatCourseDetBloodAnalysisColorField" layoutX="118.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
@@ -330,7 +335,7 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <DatePicker fx:id="treatCourseDetRWAnalysisDateField" layoutX="127.0" layoutY="8.0" />
+                                                                        <DatePicker fx:id="treatCourseDetRWAnalysisDateField" editable="false" layoutX="127.0" layoutY="8.0" />
                                                                         <Label layoutX="14.0" layoutY="48.0" text="RW Result">
                                                                            <font>
                                                                               <Font size="16.0" />
@@ -347,7 +352,7 @@
                                                                            </font>
                                                                         </Label>
                                                                         <ComboBox fx:id="treatCourseDetRWAnalysisRWResultField" layoutX="126.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
-                                                                        <DatePicker fx:id="treatCourseDetRWAnalysisAidsDateField" layoutX="126.0" layoutY="88.0" />
+                                                                        <DatePicker fx:id="treatCourseDetRWAnalysisAidsDateField" editable="false" layoutX="126.0" layoutY="88.0" />
                                                                         <Button id="updateBtn" fx:id="RWAnalysisUpdateBtn" layoutX="743.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                                                         <Button id="delBtn" fx:id="RWAnalysisDeleteBtn" layoutX="834.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                                                         <Button id="resetBtn" fx:id="RWAnalysisResetBtn" layoutX="926.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />
@@ -383,7 +388,7 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <DatePicker fx:id="treatCourseDetBioBloodAnalysisDateField" layoutX="126.0" layoutY="8.0" />
+                                                                        <DatePicker fx:id="treatCourseDetBioBloodAnalysisDateField" editable="false" layoutX="126.0" layoutY="8.0" />
                                                                         <Label layoutX="14.0" layoutY="48.0" text="Createnine: ">
                                                                            <font>
                                                                               <Font size="16.0" />
@@ -506,7 +511,7 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <DatePicker fx:id="treatCourseDetUrineAnalysisDateField" layoutX="141.0" layoutY="8.0" />
+                                                                        <DatePicker fx:id="treatCourseDetUrineAnalysisDateField" editable="false" layoutX="141.0" layoutY="8.0" />
                                                                         <ComboBox fx:id="treatCourseDetUrineAnalysisColorField" layoutX="141.0" layoutY="48.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <TextField fx:id="treatCourseDetUrineAnalysisReactionField" layoutX="141.0" layoutY="87.0" prefHeight="25.0" prefWidth="173.0" />
                                                                         <ComboBox fx:id="treatCourseDetUrineAnalysisTransparencyField" layoutX="141.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />

@@ -30,6 +30,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -127,6 +129,9 @@ public class TreatmentCourseController {
             deleteBtnAction();
         });
 
+        treatmentCourseStartDateField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatmentCourseEndDateField));
+        treatmentCourseEndDateField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatmentCourseStartDateField));
+
         unFocusAll();
 
         backBtn.setOnAction(event -> {
@@ -188,6 +193,13 @@ public class TreatmentCourseController {
             }
         });
 
+    }
+
+    private void handleTextFieldKeyPress(javafx.scene.input.KeyEvent event, javafx.scene.control.Control nextControl) {
+        if (event.getCode() == KeyCode.TAB) {
+            nextControl.requestFocus();
+            event.consume();
+        }
     }
     
     private Admin admin;

@@ -24,6 +24,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class ManageMedicineController {
 
@@ -118,6 +120,9 @@ public class ManageMedicineController {
             deleteBtnAction();
         });
 
+        medicineNameField.addEventFilter(KeyEvent.KEY_PRESSED, this::handleTextFieldKeyPress);
+        medicineDescriptionField.addEventFilter(KeyEvent.KEY_PRESSED, this::handleTextAreaKeyPress);
+        medicineAmountField.addEventFilter(KeyEvent.KEY_PRESSED, this::handleTextFieldKeyPress);
 
         unFocusAll();
 
@@ -132,6 +137,30 @@ public class ManageMedicineController {
         });
         medicineShowListData();
         searchFilter();
+    }
+
+    private void handleTextFieldKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.TAB) {
+            event.consume();
+            jumpToNextField();
+        }
+    }
+
+    private void handleTextAreaKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.TAB) {
+            event.consume();
+            jumpToNextField();
+        }
+    }
+
+    private void jumpToNextField() {
+        if (medicineNameField.isFocused()) {
+            medicineDescriptionField.requestFocus();
+        } else if (medicineDescriptionField.isFocused()) {
+            medicineAmountField.requestFocus();
+        } else if (medicineAmountField.isFocused()) {
+            medicineNameField.requestFocus();
+        }
     }
 
     private CSVHandler csvhandler = new CSVHandler();

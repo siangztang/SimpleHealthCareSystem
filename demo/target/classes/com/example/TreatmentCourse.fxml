@@ -100,13 +100,18 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <DatePicker fx:id="treatmentCourseEndDateField" layoutX="102.0" layoutY="48.0" />
-                                    <DatePicker fx:id="treatmentCourseStartDateField" layoutX="102.0" layoutY="8.0" />
+                                    <DatePicker fx:id="treatmentCourseEndDateField" editable="false" layoutX="102.0" layoutY="48.0" />
+                                    <DatePicker fx:id="treatmentCourseStartDateField" editable="false" layoutX="102.0" layoutY="8.0" />
                                     <Button id="updateBtn" fx:id="updateBtn" layoutX="679.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Update" />
                                     <Button id="delBtn" fx:id="deleteBtn" layoutX="770.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Delete" />
                                     <Button id="resetBtn" fx:id="resetBtn" layoutX="917.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Reset" />
                                     <Button id="addBtn" fx:id="addBtn" layoutX="587.0" layoutY="144.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="Add" />
                                  </children></AnchorPane>
+                              <Label layoutX="807.0" layoutY="423.0" text="Double Click Row For More Information.">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                      </center>

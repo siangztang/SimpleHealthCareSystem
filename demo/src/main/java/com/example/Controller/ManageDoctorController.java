@@ -22,6 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 
 public class ManageDoctorController {
 
@@ -123,6 +124,11 @@ public class ManageDoctorController {
             deleteBtnAction();
         });
 
+        docNameField.setOnKeyPressed(event -> handleTextFieldKeyPress(event, docSpecializationField));
+        docSpecializationField.setOnKeyPressed(event -> handleTextFieldKeyPress(event, docContactField));
+        docContactField.setOnKeyPressed(event -> handleTextFieldKeyPress(event, docQualificationField));
+        docQualificationField.setOnKeyPressed(event -> handleTextFieldKeyPress(event, docNameField));
+
         unFocusAll();
 
         docTable.getColumns().forEach(e -> e.setReorderable(false));
@@ -138,6 +144,13 @@ public class ManageDoctorController {
 
         doctorShowListData();
         searchField();
+    }
+
+    private void handleTextFieldKeyPress(javafx.scene.input.KeyEvent event, javafx.scene.control.Control nextControl) {
+        if (event.getCode() == KeyCode.TAB) {
+            nextControl.requestFocus();
+            event.consume();
+        }
     }
 
     private CSVHandler csvhandler = new CSVHandler();

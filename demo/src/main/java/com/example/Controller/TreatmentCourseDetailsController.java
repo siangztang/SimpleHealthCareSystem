@@ -45,6 +45,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
@@ -557,8 +559,45 @@ public class TreatmentCourseDetailsController {
 
         urineAnalysisDeleteBtn.setOnAction(event -> {
             deleteUrineAnalysisBtnAction();
-        });        
+        });
 
+        treatCourseDetDiagnosisNameField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetDiagnosisDiagDateField));
+        treatCourseDetDiagnosisDiagDateField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetDiagnosisDocNameField));
+        treatCourseDetDiagnosisDocNameField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetDiagnosisNameField));
+
+        treatCourseDetProcedureDateField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetProcedureTimeBtn));
+        treatCourseDetProcedureTimeBtn.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetProcedureTypeField));
+        treatCourseDetProcedureTypeField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetProcedureMedicineAddBtn));
+        treatCourseDetProcedureMedicineAddBtn.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetProcedureDateField));
+
+        treatCourseDetBloodAnalysisDateDateField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBloodAnalysisRedCellsField));
+        treatCourseDetBloodAnalysisRedCellsField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBloodAnalysisHaemoglobinField));
+        treatCourseDetBloodAnalysisHaemoglobinField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBloodAnalysisColorField));
+        treatCourseDetBloodAnalysisColorField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBloodAnalysisParasitesField));
+        treatCourseDetBloodAnalysisParasitesField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBloodAnalysisWhiteCellsField));
+        treatCourseDetBloodAnalysisWhiteCellsField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBloodAnalysisStabNeuthrophilField));
+        treatCourseDetBloodAnalysisStabNeuthrophilField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBloodAnalysisLymphocytesField));
+        treatCourseDetBloodAnalysisLymphocytesField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBloodAnalysisESRField));
+        treatCourseDetBloodAnalysisESRField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBloodAnalysisDateDateField));
+
+        treatCourseDetRWAnalysisDateField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetRWAnalysisRWResultField));
+        treatCourseDetRWAnalysisRWResultField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetRWAnalysisAidsDateField));
+        treatCourseDetRWAnalysisAidsDateField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetRWAnalysisAidsResultField));
+        treatCourseDetRWAnalysisAidsResultField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetRWAnalysisDateField));
+
+        treatCourseDetBioBloodAnalysisDateField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBioBloodAnalysisCreatenineField));
+        treatCourseDetBioBloodAnalysisCreatenineField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBioBloodAnalysisSugarField));
+        treatCourseDetBioBloodAnalysisSugarField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBioBloodAnalysisBiluribinField));
+        treatCourseDetBioBloodAnalysisBiluribinField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBioBloodAnalysisDirectBiluribinField));
+        treatCourseDetBioBloodAnalysisDirectBiluribinField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBioBloodAnalysisASTField));
+        treatCourseDetBioBloodAnalysisASTField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBioBloodAnalysisALTField));
+        treatCourseDetBioBloodAnalysisALTField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetBioBloodAnalysisDateField));
+
+        treatCourseDetUrineAnalysisDateField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetUrineAnalysisColorField));
+        treatCourseDetUrineAnalysisColorField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetUrineAnalysisReactionField));
+        treatCourseDetUrineAnalysisReactionField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetUrineAnalysisTransparencyField));
+        treatCourseDetUrineAnalysisTransparencyField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetUrineAnalysisDensityField));
+        treatCourseDetUrineAnalysisDensityField.addEventFilter(KeyEvent.KEY_PRESSED, event -> handleTextFieldKeyPress(event, treatCourseDetUrineAnalysisDateField));
         unFocusAll();
 
         backBtn.setOnAction(event -> {
@@ -722,6 +761,13 @@ public class TreatmentCourseDetailsController {
                 }
             }
         });
+    }
+
+    private void handleTextFieldKeyPress(javafx.scene.input.KeyEvent event, javafx.scene.control.Control nextControl) {
+        if (event.getCode() == KeyCode.TAB) {
+            nextControl.requestFocus();
+            event.consume();
+        }
     }
 
     private Admin admin;
