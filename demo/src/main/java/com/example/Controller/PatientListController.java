@@ -262,41 +262,42 @@ public class PatientListController {
 
     private void searchFilter(){
         FilteredList<Patient> filteredData = new FilteredList<>(refreshData(), e -> true);
-        searchField.setOnKeyReleased(e->{
+        if (searchField.getText() != null){
+            searchField.setOnKeyReleased(e->{
         
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate((Predicate<? super Patient >) pat -> {
-                if (newValue == null) {
-                    return true;
-                }
-                
-                String toLowerCaseNewValue = newValue.toLowerCase();
-                if(pat.getPatient_id().toLowerCase().contains(toLowerCaseNewValue)){
-                    return true;
-                }else if(pat.getName().toLowerCase().contains(toLowerCaseNewValue)){
-                    return true;
-                }else if(String.valueOf(pat.getIc()).contains(toLowerCaseNewValue)){
-                    return true;
-                }else if(String.valueOf(pat.getAge()).contains(toLowerCaseNewValue)){
-                    return true;
-                }else if(String.valueOf(pat.getGender()).toLowerCase().equals(toLowerCaseNewValue)){
-                    return true;
-                }else if(String.valueOf(pat.getContact_info()).contains(toLowerCaseNewValue)){
-                    return true;
-                }else if(pat.getDepartment().toLowerCase().contains(toLowerCaseNewValue)){
-                    return true;
-                }
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate((Predicate<? super Patient >) pat -> {
+                    if (newValue == null) {
+                        return true;
+                    }
+                    
+                    String toLowerCaseNewValue = newValue.toLowerCase();
+                    if(pat.getPatient_id().toLowerCase().contains(toLowerCaseNewValue)){
+                        return true;
+                    }else if(pat.getName().toLowerCase().contains(toLowerCaseNewValue)){
+                        return true;
+                    }else if(String.valueOf(pat.getIc()).contains(toLowerCaseNewValue)){
+                        return true;
+                    }else if(String.valueOf(pat.getAge()).contains(toLowerCaseNewValue)){
+                        return true;
+                    }else if(String.valueOf(pat.getGender()).toLowerCase().equals(toLowerCaseNewValue)){
+                        return true;
+                    }else if(String.valueOf(pat.getContact_info()).contains(toLowerCaseNewValue)){
+                        return true;
+                    }else if(pat.getDepartment().toLowerCase().contains(toLowerCaseNewValue)){
+                        return true;
+                    }
 
-            return false;
+                return false;
+
+                });
+            });
+                final SortedList<Patient> patients_list = new SortedList<>(filteredData);
+                patients_list.comparatorProperty().bind(patListTable.comparatorProperty());
+                patListTable.setItems(patients_list);
 
             });
-        });
-            final SortedList<Patient> patients_list = new SortedList<>(filteredData);
-            patients_list.comparatorProperty().bind(patListTable.comparatorProperty());
-            patListTable.setItems(patients_list);
-
-        });
-
+        }
     }
 
     private boolean checkEmpty(){
@@ -380,6 +381,13 @@ public class PatientListController {
 
                 // refresh table
                 patientShowListData();
+
+                // search filter reset
+                searchFilter();
+
+                // unfocus all
+                unFocusAll();
+
                 // reset all input field
                 resetBtnAction();
 
@@ -428,6 +436,12 @@ public class PatientListController {
                     // refresh table
                     patientShowListData();
 
+                    // search filter reset
+                    searchFilter();
+
+                    // unfocus all
+                    unFocusAll();
+
                     // reset all input field
                     resetBtnAction();
 
@@ -455,6 +469,12 @@ public class PatientListController {
 
             // refresh table
             patientShowListData();
+
+            // search filter reset
+            searchFilter();
+
+            // unfocus all
+            unFocusAll();
 
             // reset all input field
             resetBtnAction();

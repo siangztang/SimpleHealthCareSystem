@@ -245,7 +245,7 @@ public class PatientHistoryController {
 
     public ObservableList<PatientHistory> refreshData(){
         String patient_id = patient_info.getPatient_id();
-        ObservableList<PatientHistory> listData = csvhandler.readCSVSpecific(CSVPath.PATIENTHISTORY_PATH, PatientHistory.class, "pat_id", patient_id, CustomComparator.createComparator(PatientHistory::getHistory_id, 1), ParameterTypes.PATIENT_HISTORY_PARAMETER_TYPES);
+        ObservableList<PatientHistory> listData = csvhandler.readCSV(CSVPath.PATIENTHISTORY_PATH, PatientHistory.class, "pat_id", patient_id, CustomComparator.createComparator(PatientHistory::getHistory_id, 1), ParameterTypes.PATIENT_HISTORY_PARAMETER_TYPES);
         return listData;
     }
 

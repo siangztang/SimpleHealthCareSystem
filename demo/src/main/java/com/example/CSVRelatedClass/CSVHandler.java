@@ -64,7 +64,7 @@ public class CSVHandler {
         return FXCollections.observableList(objects);
     }
 
-    public <T> ObservableList<T> readCSVSpecific(String filePath, Class<T> clazz, String getColumnName, String getValue, Comparator<T> comparator, Class<?>... parameterTypes) {
+    public <T> ObservableList<T> readCSV(String filePath, Class<T> clazz, String getColumnName, String getValue, Comparator<T> comparator, Class<?>... parameterTypes) {
         ObservableList<T> objects = FXCollections.observableArrayList();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {

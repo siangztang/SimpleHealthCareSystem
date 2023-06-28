@@ -192,34 +192,36 @@ public class ManageDoctorController {
 
     private void searchField(){
         FilteredList<Doctor> filteredData = new FilteredList<>(refreshData(), b -> true);
-        searchField.setOnKeyReleased(e-> {
+        if (searchField.getText() != null){
+            searchField.setOnKeyReleased(e-> {
         
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(doctor -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                if (doctor.getDoctor_name().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-                    return true;
-                } else if (doctor.getDoctor_specialization().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (doctor.getQualification().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (String.valueOf(doctor.getContact_info()).indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (doctor.getDoctor_id().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else {
-                    return false;
-                }
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate(doctor -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (doctor.getDoctor_name().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                        return true;
+                    } else if (doctor.getDoctor_specialization().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                    } else if (doctor.getQualification().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                    } else if (String.valueOf(doctor.getContact_info()).indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                    } else if (doctor.getDoctor_id().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
             });
-        });
 
-            final SortedList<Doctor> doctor_list = new SortedList<>(filteredData);
-            doctor_list.comparatorProperty().bind(docTable.comparatorProperty());
-            docTable.setItems(doctor_list);
-        });
+                final SortedList<Doctor> doctor_list = new SortedList<>(filteredData);
+                doctor_list.comparatorProperty().bind(docTable.comparatorProperty());
+                docTable.setItems(doctor_list);
+            });
+        }
 
     }
 
@@ -278,6 +280,12 @@ public class ManageDoctorController {
                 // reset all fields
                 resetBtnAction();
 
+                // search field refresh
+                searchField();
+
+                // unfocus all
+                unFocusAll();
+
             } else {
                 // show error message
                 alert.errorMessage("Please enter valid input");
@@ -320,6 +328,12 @@ public class ManageDoctorController {
                     // reset all fields
                     resetBtnAction();
 
+                    // search field refresh
+                    searchField();
+
+                    // unfocus all
+                    unFocusAll();
+
                 } else {
                     alert.errorMessage("Please enter valid input");
                 }
@@ -347,6 +361,13 @@ public class ManageDoctorController {
 
             // reset all fields
             resetBtnAction();
+
+            // search field refresh
+            searchField();
+
+            // unfocus all
+            unFocusAll();
+
         }
     }
 

@@ -187,31 +187,33 @@ public class ManageMedicineController {
 
     private void searchFilter(){
         FilteredList<Medicine> filteredData = new FilteredList<>(refreshData(), b -> true);
-        searchField.setOnKeyReleased(e->{
-        
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate((Predicate<? super Medicine>) medicine->{
-                if(newValue == null || newValue.isEmpty()){
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                if(medicine.getMedicine_id().toLowerCase().contains(lowerCaseFilter)){
-                    return true;
-                }else if(medicine.getMedicine_name().toLowerCase().contains(lowerCaseFilter)){
-                    return true;
-                }else if(medicine.getMedicine_description().toLowerCase().contains(lowerCaseFilter)){
-                    return true;
-                }else if(String.valueOf(medicine.getMedicine_amount()).contains(lowerCaseFilter)){
-                    return true;
-                }
-                return false;
-            });
-        });
-            final SortedList<Medicine> medicine_list = new SortedList<>(filteredData);
-            medicine_list.comparatorProperty().bind(medicineTable.comparatorProperty());
-            medicineTable.setItems(medicine_list);  
 
-        });
+        if (searchField.getText() != null){
+            searchField.setOnKeyReleased(e->{
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate((Predicate<? super Medicine>) medicine->{
+                    if(newValue == null || newValue.isEmpty()){
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if(medicine.getMedicine_id().toLowerCase().contains(lowerCaseFilter)){
+                        return true;
+                    }else if(medicine.getMedicine_name().toLowerCase().contains(lowerCaseFilter)){
+                        return true;
+                    }else if(medicine.getMedicine_description().toLowerCase().contains(lowerCaseFilter)){
+                        return true;
+                    }else if(String.valueOf(medicine.getMedicine_amount()).contains(lowerCaseFilter)){
+                        return true;
+                    }
+                    return false;
+                });
+            });
+                final SortedList<Medicine> medicine_list = new SortedList<>(filteredData);
+                medicine_list.comparatorProperty().bind(medicineTable.comparatorProperty());
+                medicineTable.setItems(medicine_list);  
+
+            });
+        }
     }
 
     private boolean checkEmpty(){
@@ -275,6 +277,12 @@ public class ManageMedicineController {
                 
                 // reset input field
                 resetBtnAction();
+
+                // search filter refresh
+                searchFilter();
+
+                // unfocus all
+                unFocusAll();
                                 
             } else {
                 // show error message
@@ -305,8 +313,6 @@ public class ManageMedicineController {
                     if (medicine.getMedicine_name().equals(medicineName) && !medicine.getMedicine_id().equals(medicineID)){
                         alert.errorMessage("Medicine already exists");
                         return;
-                    } else {
-                        System.out.println("medicine does not exist");
                     }
                 }
                 // creata a new department object
@@ -327,6 +333,12 @@ public class ManageMedicineController {
 
                 // reset all fields
                 resetBtnAction();
+
+                // search filter refresh
+                searchFilter();
+
+                // unfocus all
+                unFocusAll();
 
                 } else {
                 // show error message
@@ -356,6 +368,12 @@ public class ManageMedicineController {
 
             // reset all fields
             resetBtnAction();
+
+            // search filter refresh
+            searchFilter();
+
+            // unfocus all
+            unFocusAll();
         }
     }
 

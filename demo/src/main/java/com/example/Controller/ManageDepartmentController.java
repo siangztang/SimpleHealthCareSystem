@@ -162,28 +162,32 @@ public class ManageDepartmentController {
 
     private void searchFilter(){
         FilteredList<Department> filteredData = new FilteredList<>(refreshData(), e -> true);
-        searchField.setOnKeyReleased(e->{
+
+        if (searchField.getText() != null){
+            searchField.setOnKeyReleased(e->{
         
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(Department -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                if (Department.getId().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (Department.getName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate(Department -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (Department.getId().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (Department.getName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
 
-            return false;
+                return false;
 
+                });
             });
-        });
-            final SortedList<Department> department_list = new SortedList<>(filteredData);
-            department_list.comparatorProperty().bind(departmentTable.comparatorProperty());
-            departmentTable.setItems(department_list);
-        });
+                final SortedList<Department> department_list = new SortedList<>(filteredData);
+                department_list.comparatorProperty().bind(departmentTable.comparatorProperty());
+                departmentTable.setItems(department_list);
+            });
+        }
+        
 
     }
 
@@ -242,6 +246,12 @@ public class ManageDepartmentController {
                 // reset all fields
                 resetBtnAction();
 
+                // search filter reset
+                searchFilter();
+
+                // unfocus all
+                unFocusAll();
+
             } else {
 
                 // show error message
@@ -283,6 +293,12 @@ public class ManageDepartmentController {
                 // reset all fields
                 resetBtnAction();
 
+                // search filter reset
+                searchFilter();
+
+                // unfocus all
+                unFocusAll();
+
                 } else {
                     // show error message
                     alert.errorMessage("Please enter valid input");
@@ -311,6 +327,12 @@ public class ManageDepartmentController {
 
             // reset all fields
             resetBtnAction();
+
+            // search filter reset
+            searchFilter();
+
+            // unfocus all
+            unFocusAll();
         }
     }
 

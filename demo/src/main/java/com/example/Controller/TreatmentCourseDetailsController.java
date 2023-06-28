@@ -874,7 +874,7 @@ public class TreatmentCourseDetailsController {
 
     private ObservableList<Diagnosis> diagnosisRefreshData(){
         String treatment_course_id = patInfoCourseID.getText();
-        ObservableList<Diagnosis> listData = csvhandler.readCSVSpecific(CSVPath.DIAGNOSIS_PATH, Diagnosis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(Diagnosis::getDiagnosis_id, 3), ParameterTypes.DIAGNOSIS_PARAMETER_TYPES);
+        ObservableList<Diagnosis> listData = csvhandler.readCSV(CSVPath.DIAGNOSIS_PATH, Diagnosis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(Diagnosis::getDiagnosis_id, 3), ParameterTypes.DIAGNOSIS_PARAMETER_TYPES);
         return listData;
     }
 
@@ -1015,7 +1015,7 @@ public class TreatmentCourseDetailsController {
 
     private ObservableList<Procedure> procedureRefreshData(){
         String treatment_course_id = patInfoCourseID.getText();
-        ObservableList<Procedure> listData = csvhandler.readCSVSpecific(CSVPath.PROCEDURE_PATH, Procedure.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(Procedure::getProcedure_id, 1), ParameterTypes.PROCEDURE_PARAMETER_TYPES);
+        ObservableList<Procedure> listData = csvhandler.readCSV(CSVPath.PROCEDURE_PATH, Procedure.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(Procedure::getProcedure_id, 1), ParameterTypes.PROCEDURE_PARAMETER_TYPES);
         return listData;
     }
 
@@ -1209,7 +1209,7 @@ public class TreatmentCourseDetailsController {
 
     private ObservableList<BloodAnalysis> bloodAnalysisRefreshData(){
         String treatment_course_id = patInfoCourseID.getText();
-        ObservableList<BloodAnalysis> listData = csvhandler.readCSVSpecific(CSVPath.BLOODANALYSIS_PATH, BloodAnalysis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(BloodAnalysis::getAnalysis_id, 2), ParameterTypes.BLOOD_ANALYSIS_PARAMETER_TYPES);
+        ObservableList<BloodAnalysis> listData = csvhandler.readCSV(CSVPath.BLOODANALYSIS_PATH, BloodAnalysis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(BloodAnalysis::getAnalysis_id, 2), ParameterTypes.BLOOD_ANALYSIS_PARAMETER_TYPES);
         return listData;
     }
 
@@ -1447,7 +1447,7 @@ public class TreatmentCourseDetailsController {
 
     private ObservableList<RWAnalysis> RWAnalysisRefreshData(){
         String treatment_course_id = patInfoCourseID.getText();
-        ObservableList<RWAnalysis> listData = csvhandler.readCSVSpecific(CSVPath.RWANALYSIS_PATH, RWAnalysis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(RWAnalysis::getAnalysis_id, 2), ParameterTypes.RW_ANALYSIS_PARAMETER_TYPES);
+        ObservableList<RWAnalysis> listData = csvhandler.readCSV(CSVPath.RWANALYSIS_PATH, RWAnalysis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(RWAnalysis::getAnalysis_id, 2), ParameterTypes.RW_ANALYSIS_PARAMETER_TYPES);
         return listData;
     }
 
@@ -1582,7 +1582,7 @@ public class TreatmentCourseDetailsController {
 
     private ObservableList<BioBloodAnalysis> BioBloodAnalysisRefreshData(){
         String treatment_course_id = patInfoCourseID.getText();
-        ObservableList<BioBloodAnalysis> listData = csvhandler.readCSVSpecific(CSVPath.BIOBLOODANALYSIS_PATH, BioBloodAnalysis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(BioBloodAnalysis::getAnalysis_id, 2), ParameterTypes.BIO_BLOOD_ANALYSIS_PARAMETER_TYPES);
+        ObservableList<BioBloodAnalysis> listData = csvhandler.readCSV(CSVPath.BIOBLOODANALYSIS_PATH, BioBloodAnalysis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(BioBloodAnalysis::getAnalysis_id, 2), ParameterTypes.BIO_BLOOD_ANALYSIS_PARAMETER_TYPES);
         return listData;
     }
 
@@ -1808,7 +1808,7 @@ public class TreatmentCourseDetailsController {
 
     private ObservableList<UrineAnalysis> urineAnalysisRefreshData(){
         String treatment_course_id = patInfoCourseID.getText();
-        ObservableList<UrineAnalysis> listData = csvhandler.readCSVSpecific(CSVPath.URINEANALYSIS_PATH, UrineAnalysis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(UrineAnalysis::getAnalysis_id, 2), ParameterTypes.URINE_ANALYSIS_PARAMETER_TYPES);
+        ObservableList<UrineAnalysis> listData = csvhandler.readCSV(CSVPath.URINEANALYSIS_PATH, UrineAnalysis.class, "treatment_course_id", treatment_course_id, CustomComparator.createComparator(UrineAnalysis::getAnalysis_id, 2), ParameterTypes.URINE_ANALYSIS_PARAMETER_TYPES);
         return listData;
     }
 

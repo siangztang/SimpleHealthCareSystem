@@ -232,7 +232,7 @@ public class TreatmentCourseController {
 
     private ObservableList<TreatmentCourse> refreshData(){
         String history_id = patInfoHisID.getText();
-        ObservableList<TreatmentCourse> listData = csvhandler.readCSVSpecific(CSVPath.TREATMENTCOURSE_PATH, TreatmentCourse.class, "history_id", history_id, CustomComparator.createComparator(TreatmentCourse::getTreatment_course_id, 2), ParameterTypes. TREATMENT_COURSE_PARAMETER_TYPES);
+        ObservableList<TreatmentCourse> listData = csvhandler.readCSV(CSVPath.TREATMENTCOURSE_PATH, TreatmentCourse.class, "history_id", history_id, CustomComparator.createComparator(TreatmentCourse::getTreatment_course_id, 2), ParameterTypes. TREATMENT_COURSE_PARAMETER_TYPES);
         return listData;
     }
 
