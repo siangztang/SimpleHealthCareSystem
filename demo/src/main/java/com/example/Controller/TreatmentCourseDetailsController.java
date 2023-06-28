@@ -1285,7 +1285,7 @@ public class TreatmentCourseDetailsController {
                 alert.errorMessage("Please enter a valid number for white cells");
                 return;
             }
-            int stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
+            int stab_neuthrophil = -1;
             try {
                 stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
             } catch (NumberFormatException e) {

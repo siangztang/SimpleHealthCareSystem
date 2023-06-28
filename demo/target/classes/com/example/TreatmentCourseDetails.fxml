@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseDetailsController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller.TreatmentCourseDetailsController">
    <children>
       <StackPane fx:id="treatment_course_details_page" prefHeight="150.0" prefWidth="200.0">
          <children>
@@ -171,8 +171,13 @@
                                                       </Label>
                                                       <ComboBox fx:id="treatCourseDetProcedureMedicineChoice" layoutX="87.0" layoutY="128.0" prefHeight="25.0" prefWidth="173.0" />
                                                       <Button fx:id="treatCourseDetProcedureMedicineAddBtn" layoutX="274.0" layoutY="128.0" mnemonicParsing="false" text="Add Medicine" />
-                                                      <TextArea fx:id="treatCourseDetProcedureMedicineList" editable="false" layoutX="376.0" layoutY="8.0" prefHeight="77.0" prefWidth="608.0" />
+                                                      <TextArea fx:id="treatCourseDetProcedureMedicineList" editable="false" layoutX="375.0" layoutY="35.0" prefHeight="77.0" prefWidth="608.0" />
                                                       <Button fx:id="treatCourseDetProcedureMedicineDeleteBtn" layoutX="376.0" layoutY="128.0" mnemonicParsing="false" text="Delete Medicine" />
+                                                      <Label layoutX="375.0" layoutY="8.0" text="Added Medicine:">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Label>
                                                    </children>
                                                 </AnchorPane>
                                              </children>
@@ -442,19 +447,19 @@
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label layoutX="675.0" layoutY="48.0" text="IU/L">
+                                                                        <Label layoutX="675.0" layoutY="48.0" text="U/L">
                                                                            <font>
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label layoutX="675.0" layoutY="88.0" text="IU/L">
+                                                                        <Label layoutX="675.0" layoutY="88.0" text="U/L">
                                                                            <font>
                                                                               <Font size="16.0" />
                                                                            </font>
                                                                         </Label>
                                                                         <Text fill="#8a8a8a" layoutX="502.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.1-0.3 mg/dL" />
-                                                                        <Text fill="#8a8a8a" layoutX="501.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;40 IU/L" />
-                                                                        <Text fill="#8a8a8a" layoutX="501.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;40 IU/L" />
+                                                                        <Text fill="#8a8a8a" layoutX="501.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5-40 U/L" />
+                                                                        <Text fill="#8a8a8a" layoutX="501.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="7-56U/L" />
                                                                      </children></AnchorPane>
                                                                </children>
                                                             </AnchorPane>

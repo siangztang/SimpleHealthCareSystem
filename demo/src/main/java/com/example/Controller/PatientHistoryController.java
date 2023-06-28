@@ -343,7 +343,7 @@ public class PatientHistoryController {
                 String history_id = "H" + String.format("%d", csvhandler.getMaxId(refreshAllData(), PatientHistory::getHistory_id, "H") + 1);
 
                 // create new patient history object
-                PatientHistory newpatient_history = new PatientHistory(history_id, patient_id, ward_no, movement_means, directed_by,major_complications, results, special_comments);
+                PatientHistory newpatient_history = new PatientHistory(history_id, patient_id, ward_no, movement_means, directed_by, major_complications, results, special_comments);
 
                 // add new patient history to csv filemajor_complications
                 csvhandler.writeCSV(CSVPath.PATIENTHISTORY_PATH, newpatient_history);
@@ -388,7 +388,7 @@ public class PatientHistoryController {
             if(!checkEmpty()){
                 if(checkInput.validationPatientHistory(patient_id, ward_no, movement_means, directed_by, major_complications, results, special_comments) == 1){
                     // create new patient history object
-                    PatientHistory newpatient_history = new PatientHistory(history_id, patient_id, ward_no, directed_by, major_complications, movement_means, results, special_comments);
+                    PatientHistory newpatient_history = new PatientHistory(history_id, patient_id, ward_no, movement_means, directed_by, major_complications, results, special_comments);
 
                     // update patient history in csv file
                     csvhandler.updateCSV(CSVPath.PATIENTHISTORY_PATH, 0, history_id, newpatient_history);
