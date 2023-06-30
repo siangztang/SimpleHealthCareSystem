@@ -19,10 +19,6 @@ public class Patient {
         this.contact_info = contact_info;
         this.department = department;
     }
-
-    public Patient(String patient_id) {
-        this.patient_id = patient_id;
-    }
     
     public Patient() {
     }

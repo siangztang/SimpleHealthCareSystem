@@ -109,9 +109,6 @@ public class PatientListController {
     private TextField patNameField;
 
     @FXML
-    private StackPane patient_list_page;
-
-    @FXML
     private Button resetBtn;
 
     @FXML
