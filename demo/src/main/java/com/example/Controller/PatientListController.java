@@ -532,6 +532,7 @@ public class PatientListController {
             birthYear = 1900 + birthYearPrefix;
         }
 
+
         int birthMonth = Integer.parseInt(patIC.substring(2, 4));
         int birthDay = Integer.parseInt(patIC.substring(4, 6));
 

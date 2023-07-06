@@ -960,12 +960,13 @@ public class TreatmentCourseDetailsController {
 
     private void addDiagnosisBtnAction(){
 
-        String diagnosis_name = treatCourseDetDiagnosisNameField.getText();
-        String diagnosis_date = treatCourseDetDiagnosisDiagDateField.getValue().toString();
-        String doctor_name = treatCourseDetDiagnosisDocNameField.getValue();
+        
 
         // check if any field is empty
         if (!diagnosisCheckEmpty()) {
+            String diagnosis_name = treatCourseDetDiagnosisNameField.getText();
+            String diagnosis_date = treatCourseDetDiagnosisDiagDateField.getValue().toString();
+            String doctor_name = treatCourseDetDiagnosisDocNameField.getValue();
             if (diagnosisCheckInput.validationDiagnosis(diagnosis_name, diagnosis_date, doctor_name) == 1) {
 
                 // generate new diagnosis id
@@ -1000,12 +1001,14 @@ public class TreatmentCourseDetailsController {
     private void updateDiagnosisBtnAction(){
 
         if (!diagnosisCheckSelected()){
-            // get selected diagnosis
-            String diagnosisId = treatCourseDetDiagnosisTable.getSelectionModel().getSelectedItem().getDiagnosis_id();
-            String diagnosis_name = treatCourseDetDiagnosisNameField.getText();
-            String diagnosis_date = treatCourseDetDiagnosisDiagDateField.getValue().toString();
-            String doctor_name = treatCourseDetDiagnosisDocNameField.getValue();
+            
             if (!diagnosisCheckEmpty()){
+                // get selected diagnosis
+                String diagnosisId = treatCourseDetDiagnosisTable.getSelectionModel().getSelectedItem().getDiagnosis_id();
+                String diagnosis_name = treatCourseDetDiagnosisNameField.getText();
+                String diagnosis_date = treatCourseDetDiagnosisDiagDateField.getValue().toString();
+                String doctor_name = treatCourseDetDiagnosisDocNameField.getValue();
+
                 if (diagnosisCheckInput.validationDiagnosis(diagnosis_name, diagnosis_date, doctor_name) == 1) {
                     
 
@@ -1082,7 +1085,7 @@ public class TreatmentCourseDetailsController {
     }
 
     private boolean procedureCheckEmpty(){
-        if (treatCourseDetProcedureTypeField.getText().isEmpty() || treatCourseDetProcedureDateField == null || treatCourseDetProcedureTimeField.getText().isEmpty() || treatCourseDetProcedureMedicineList.getText().equals("")) {
+        if (treatCourseDetProcedureTypeField.getText().isEmpty() || treatCourseDetProcedureDateField.getValue() == null || treatCourseDetProcedureDateField.getValue().toString().isEmpty() || treatCourseDetProcedureTimeField.getText().isEmpty() || treatCourseDetProcedureMedicineList.getText().equals("")) {
             // show error message
             alert.errorMessage("Please fill in all the fields");
             return true;
@@ -1100,13 +1103,15 @@ public class TreatmentCourseDetailsController {
     }
 
     private void addProcedureBtnAction(){
-        String procedureType = treatCourseDetProcedureTypeField.getText();
-        String procedureDate = treatCourseDetProcedureDateField.getValue().toString();
-        String procedureTime = treatCourseDetProcedureTimeField.getText();
-        String procedureMedicine = treatCourseDetProcedureMedicineList.getText();
+        
 
         // check if any field is empty
         if (!procedureCheckEmpty()){
+            String procedureType = treatCourseDetProcedureTypeField.getText();
+            String procedureDate = treatCourseDetProcedureDateField.getValue().toString();
+            String procedureTime = treatCourseDetProcedureTimeField.getText();
+            String procedureMedicine = treatCourseDetProcedureMedicineList.getText();
+
             if (procedureCheckInput.validationProcedure(procedureType, procedureDate, procedureTime, procedureMedicine) == 1) {
                 
                 // generate new procedure id
@@ -1139,15 +1144,15 @@ public class TreatmentCourseDetailsController {
 
     private void updateProcedureBtnAction(){
         if (!procedureCheckSelected()){
-            // get selected procedure
-            String procedureId = treatCourseDetProcedureTable.getSelectionModel().getSelectedItem().getProcedure_id();
-            String procedureType = treatCourseDetProcedureTypeField.getText();
-            String procedureDate = treatCourseDetProcedureDateField.getValue().toString();
-            String procedureTime = treatCourseDetProcedureTimeField.getText();
-            String procedureMedicine = treatCourseDetProcedureMedicineList.getText();
-
             // check if any field is empty
             if (!procedureCheckEmpty()){
+                // get selected procedure
+                String procedureId = treatCourseDetProcedureTable.getSelectionModel().getSelectedItem().getProcedure_id();
+                String procedureType = treatCourseDetProcedureTypeField.getText();
+                String procedureDate = treatCourseDetProcedureDateField.getValue().toString();
+                String procedureTime = treatCourseDetProcedureTimeField.getText();
+                String procedureMedicine = treatCourseDetProcedureMedicineList.getText();
+
                 if (procedureCheckInput.validationProcedure(procedureType, procedureDate, procedureTime, procedureMedicine) == 1) {
                     
                     // create new procedure object
@@ -1282,7 +1287,7 @@ public class TreatmentCourseDetailsController {
     }
 
     private boolean bloodAnalysisCheckEmpty(){
-        if (treatCourseDetBloodAnalysisDateDateField == null || treatCourseDetBloodAnalysisRedCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisHaemoglobinField.getText().isEmpty() || treatCourseDetBloodAnalysisColorField.getText().isEmpty() || treatCourseDetBloodAnalysisParasitesField == null || treatCourseDetBloodAnalysisWhiteCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisLymphocytesField.getText().isEmpty() || treatCourseDetBloodAnalysisESRField.getText().isEmpty()) {
+        if (treatCourseDetBloodAnalysisDateDateField.getValue() == null || treatCourseDetBloodAnalysisRedCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisHaemoglobinField.getText().isEmpty() || treatCourseDetBloodAnalysisColorField.getText().isEmpty() || treatCourseDetBloodAnalysisParasitesField == null || treatCourseDetBloodAnalysisWhiteCellsField.getText().isEmpty() || treatCourseDetBloodAnalysisLymphocytesField.getText().isEmpty() || treatCourseDetBloodAnalysisESRField.getText().isEmpty()) {
             // show error message
             alert.errorMessage("Please fill in all the fields");
             return true;
@@ -1387,59 +1392,59 @@ public class TreatmentCourseDetailsController {
     private void updateBloodAnalysisBtnAction(){
 
         if (!bloodAnalysisCheckSelected()){
-            // get selected diagnosis
-            String analysis_id = treatCourseDetBloodAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
-            String analysis_date = treatCourseDetBloodAnalysisDateDateField.getValue().toString();
-
-            double red_cells = -1.0;
-            try {
-                red_cells = Double.parseDouble(treatCourseDetBloodAnalysisRedCellsField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid number for red cells");
-                return;
-            }
-
-            double haemoglobin = -1.0;
-            try {
-                haemoglobin = Double.parseDouble(treatCourseDetBloodAnalysisHaemoglobinField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid number for haemoglobin");
-                return;
-            }
-
-            String color = treatCourseDetBloodAnalysisColorField.getText();
-            String parasites = treatCourseDetBloodAnalysisParasitesField.getValue().toString();
-
-            int white_cells = -1;
-            try {
-                white_cells = Integer.parseInt(treatCourseDetBloodAnalysisWhiteCellsField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid number for white cells");
-                return;
-            }
-            int stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
-            try {
-                stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid number for stab neuthrophil");
-                return;
-            }
-            int lymphocytes = -1;
-            try {
-                lymphocytes = Integer.parseInt(treatCourseDetBloodAnalysisLymphocytesField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid number for lymphocytes");
-                return;
-            }
-            int ESR = -1;
-            try {
-                ESR = Integer.parseInt(treatCourseDetBloodAnalysisESRField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid unit for ESR");
-                return;
-            }
-
             if (!bloodAnalysisCheckEmpty()){
+                // get selected diagnosis
+                String analysis_id = treatCourseDetBloodAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
+                String analysis_date = treatCourseDetBloodAnalysisDateDateField.getValue().toString();
+
+                double red_cells = -1.0;
+                try {
+                    red_cells = Double.parseDouble(treatCourseDetBloodAnalysisRedCellsField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid number for red cells");
+                    return;
+                }
+
+                double haemoglobin = -1.0;
+                try {
+                    haemoglobin = Double.parseDouble(treatCourseDetBloodAnalysisHaemoglobinField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid number for haemoglobin");
+                    return;
+                }
+
+                String color = treatCourseDetBloodAnalysisColorField.getText();
+                String parasites = treatCourseDetBloodAnalysisParasitesField.getValue().toString();
+
+                int white_cells = -1;
+                try {
+                    white_cells = Integer.parseInt(treatCourseDetBloodAnalysisWhiteCellsField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid number for white cells");
+                    return;
+                }
+                int stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
+                try {
+                    stab_neuthrophil = Integer.parseInt(treatCourseDetBloodAnalysisStabNeuthrophilField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid number for stab neuthrophil");
+                    return;
+                }
+                int lymphocytes = -1;
+                try {
+                    lymphocytes = Integer.parseInt(treatCourseDetBloodAnalysisLymphocytesField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid number for lymphocytes");
+                    return;
+                }
+                int ESR = -1;
+                try {
+                    ESR = Integer.parseInt(treatCourseDetBloodAnalysisESRField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid unit for ESR");
+                    return;
+                }
+
                 if (bloodAnalysisCheckInput.validationBloodAnalysis(analysis_date, red_cells, haemoglobin, color, parasites, white_cells, stab_neuthrophil, lymphocytes, ESR) == 1) {
                     
 
@@ -1537,7 +1542,7 @@ public class TreatmentCourseDetailsController {
             String aids_result = treatCourseDetRWAnalysisAidsResultField.getValue().toString();
             String aids_date = treatCourseDetRWAnalysisAidsDateField.getValue().toString();
             
-            if (rwAnalysisCheckInput.validationRWAnalysis(analysis_date, rw_result, aids_result, aids_date) == 1) {
+            if (rwAnalysisCheckInput.validationRWAnalysis(analysis_date, rw_result, aids_date, aids_result) == 1) {
                 // generate new diagnosis id
                 String analysis_id = "RW" + String.format("%d", csvhandler.getMaxId(RWAnalysisRefreshAllData(), RWAnalysis::getAnalysis_id, "RW") + 1);
 
@@ -1568,16 +1573,15 @@ public class TreatmentCourseDetailsController {
 
     private void updateRWAnalysisBtnAction(){
         if(!RWAnalysisCheckSelected()){
-            // get selected diagnosis
-            String analysis_id = treatCourseDetRWAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
-
-            String analysis_date = treatCourseDetRWAnalysisDateField.getValue().toString();
-            String rw_result = treatCourseDetRWAnalysisRWResultField.getValue().toString();
-            String aids_result = treatCourseDetRWAnalysisAidsResultField.getValue().toString();
-            String aids_date = treatCourseDetRWAnalysisAidsDateField.getValue().toString();
-
             if (!RWAnalysisCheckEmpty()){
-                if (rwAnalysisCheckInput.validationRWAnalysis(analysis_date, rw_result, aids_result, aids_date) == 1) {
+                // get selected diagnosis
+                String analysis_id = treatCourseDetRWAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
+
+                String analysis_date = treatCourseDetRWAnalysisDateField.getValue().toString();
+                String rw_result = treatCourseDetRWAnalysisRWResultField.getValue().toString();
+                String aids_result = treatCourseDetRWAnalysisAidsResultField.getValue().toString();
+                String aids_date = treatCourseDetRWAnalysisAidsDateField.getValue().toString();
+                if (rwAnalysisCheckInput.validationRWAnalysis(analysis_date, rw_result, aids_date, aids_result) == 1) {
                     // create new diagnosis object
                     RWAnalysis newRWAnalysis = new RWAnalysis(rw_result, aids_date, aids_result, analysis_id, analysis_date, treatment_course_id);
 
@@ -1750,59 +1754,58 @@ public class TreatmentCourseDetailsController {
 
     private void updateBioBloodAnalysisBtnAction(){
         if (!BioBloodAnalysisCheckSelected()){
-            // get selected bio blood analysis
-            String analysis_id = treatCourseDetBioBloodAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
-
-            String analysis_date = treatCourseDetBioBloodAnalysisDateField.getValue().toString();
-            double createnine = -1.0;
-            try {
-                createnine = Double.parseDouble(treatCourseDetBioBloodAnalysisCreatenineField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid createnine value");
-                return;
-            }
-
-            int sugar = -1;
-            try {
-                sugar = Integer.parseInt(treatCourseDetBioBloodAnalysisSugarField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid sugar value");
-                return;
-            }
-
-            double biluribin = -1.0;
-            try {
-                biluribin = Double.parseDouble(treatCourseDetBioBloodAnalysisBiluribinField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid biluribin value");
-                return;
-            }
-
-            double direct_biluribin = -1.0;
-            try {
-                direct_biluribin = Double.parseDouble(treatCourseDetBioBloodAnalysisDirectBiluribinField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid direct biluribin value");
-                return;
-            }
-
-            int AST = -1;
-            try {
-                AST = Integer.parseInt(treatCourseDetBioBloodAnalysisASTField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid AST value");
-                return;
-            }
-
-            int ALT = -1;
-            try {
-                ALT = Integer.parseInt(treatCourseDetBioBloodAnalysisALTField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid ALT value");
-                return;
-            }
-
             if(!BioBloodAnalysisCheckEmpty()){
+                // get selected bio blood analysis
+                String analysis_id = treatCourseDetBioBloodAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
+
+                String analysis_date = treatCourseDetBioBloodAnalysisDateField.getValue().toString();
+                double createnine = -1.0;
+                try {
+                    createnine = Double.parseDouble(treatCourseDetBioBloodAnalysisCreatenineField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid createnine value");
+                    return;
+                }
+
+                int sugar = -1;
+                try {
+                    sugar = Integer.parseInt(treatCourseDetBioBloodAnalysisSugarField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid sugar value");
+                    return;
+                }
+
+                double biluribin = -1.0;
+                try {
+                    biluribin = Double.parseDouble(treatCourseDetBioBloodAnalysisBiluribinField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid biluribin value");
+                    return;
+                }
+
+                double direct_biluribin = -1.0;
+                try {
+                    direct_biluribin = Double.parseDouble(treatCourseDetBioBloodAnalysisDirectBiluribinField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid direct biluribin value");
+                    return;
+                }
+
+                int AST = -1;
+                try {
+                    AST = Integer.parseInt(treatCourseDetBioBloodAnalysisASTField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid AST value");
+                    return;
+                }
+
+                int ALT = -1;
+                try {
+                    ALT = Integer.parseInt(treatCourseDetBioBloodAnalysisALTField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid ALT value");
+                    return;
+                }
                 if (bioBloodAnalysisCheckInput.validationBioBloodAnalysis(analysis_date, createnine, sugar, biluribin, direct_biluribin, AST, ALT) == 1){
                     // create new diagnosis object
                     BioBloodAnalysis newBioBloodAnalysis = new BioBloodAnalysis(createnine, sugar, biluribin, direct_biluribin, AST, ALT, analysis_id, analysis_date, treatment_course_id);
@@ -1946,32 +1949,31 @@ public class TreatmentCourseDetailsController {
 
     private void updateUrineAnalysisBtnAction(){
         if (!UrineAnalysisCheckSelected()){
-            // get selected urine analysis
-            String analysis_id = treatCourseDetUrineAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
-
-            String analysis_date = treatCourseDetUrineAnalysisDateField.getValue().toString();
-            String color = treatCourseDetUrineAnalysisColorField.getValue().toString();
-
-            Double reaction = -1.0;
-            try {
-                reaction = Double.parseDouble(treatCourseDetUrineAnalysisReactionField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid reaction value");
-                return;
-            }
-
-            String transparency = treatCourseDetUrineAnalysisTransparencyField.getValue().toString();
-
-            Double density = -1.0;
-            try {
-                density = Double.parseDouble(treatCourseDetUrineAnalysisDensityField.getText());
-            } catch (NumberFormatException e) {
-                alert.errorMessage("Please enter a valid density value");
-                return;
-            }
-
             // check if all fields are filled
             if (!UrineAnalysisCheckEmpty()){
+                // get selected urine analysis
+                String analysis_id = treatCourseDetUrineAnalysisTable.getSelectionModel().getSelectedItem().getAnalysis_id();
+
+                String analysis_date = treatCourseDetUrineAnalysisDateField.getValue().toString();
+                String color = treatCourseDetUrineAnalysisColorField.getValue().toString();
+
+                Double reaction = -1.0;
+                try {
+                    reaction = Double.parseDouble(treatCourseDetUrineAnalysisReactionField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid reaction value");
+                    return;
+                }
+
+                String transparency = treatCourseDetUrineAnalysisTransparencyField.getValue().toString();
+
+                Double density = -1.0;
+                try {
+                    density = Double.parseDouble(treatCourseDetUrineAnalysisDensityField.getText());
+                } catch (NumberFormatException e) {
+                    alert.errorMessage("Please enter a valid density value");
+                    return;
+                }
                 if (urineAnalysisCheckInput.validationUrineAnalysis(analysis_date, color, reaction, transparency, density) == 1){
                     // create new diagnosis object
                     UrineAnalysis newUrineAnalysis = new UrineAnalysis(color, reaction, transparency, density, analysis_id, analysis_date, treatment_course_id);

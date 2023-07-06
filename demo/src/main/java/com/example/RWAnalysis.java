@@ -1,5 +1,8 @@
 package com.example;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 //import java.time.LocalDate;
 //import java.time.format.DateTimeFormatter;
 
@@ -55,6 +58,13 @@ public class RWAnalysis extends Analysis{
             return 0;
         }
 
+        LocalDate analysisDate = LocalDate.parse(analysis_date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate aidsDate = LocalDate.parse(aids_date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        if (aidsDate.isBefore(analysisDate)){
+            return 0;
+        }
+        
         return 1;
     }
 }
