@@ -603,7 +603,7 @@ public class TreatmentCourseDetailsController {
         backBtn.setOnAction(event -> {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\TreatmentCourse.fxml"));
+                Parent root = loader.load(new FileInputStream("demo/src/main/resources/com/example/TreatmentCourse.fxml"));
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
@@ -659,7 +659,7 @@ public class TreatmentCourseDetailsController {
                     try {
                         System.out.println("Selected procedure ID: " + selectedProcedure.getProcedure_id());
                         FXMLLoader loader = new FXMLLoader();
-                        Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ProcedureDetails.fxml"));
+                        Parent root = loader.load(new FileInputStream("demo/src/main/resources/com/example/ProcedureDetails.fxml"));
                         Scene scene = new Scene(root);
                         Stage stage = new Stage();
                         stage.setScene(scene);

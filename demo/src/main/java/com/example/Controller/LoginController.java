@@ -76,7 +76,7 @@ public class LoginController {
                 alert.successMessage("Login Successful");
                 try {
                     FXMLLoader loader = new FXMLLoader();
-                    Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\PatientList.fxml"));
+                    Parent root = loader.load(new FileInputStream("demo/src/main/resources/com/example/PatientList.fxml"));
                     
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();

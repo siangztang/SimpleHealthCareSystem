@@ -183,7 +183,7 @@ public class PatientHistoryController {
                     System.out.println("Selected patient history ID: " + selectedPatientHistory.getHistory_id());
                     try {
                         FXMLLoader loader = new FXMLLoader();
-                        Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\TreatmentCourse.fxml"));
+                        Parent root = loader.load(new FileInputStream("demo/src/main/resources/com/example/TreatmentCourse.fxml"));
                         Scene scene = new Scene(root);
                         Stage stage = new Stage();
                         stage.setScene(scene);

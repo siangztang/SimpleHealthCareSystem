@@ -89,7 +89,7 @@ public class ProcedureDetailsController {
         backBtn.setOnAction(event -> {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\TreatmentCourseDetails.fxml"));
+                Parent root = loader.load(new FileInputStream("demo/src/main/resources/com/example/TreatmentCourseDetails.fxml"));
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);

@@ -30,7 +30,7 @@ public class SwitchPage {
             
             try {
                 FXMLLoader loader = new FXMLLoader();
-                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ManageDepartment.fxml"));
+                Parent root = loader.load(new FileInputStream("demo/src/main/resources/com/example/ManageDepartment.fxml"));
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
@@ -49,7 +49,7 @@ public class SwitchPage {
 
             try {
                 FXMLLoader loader = new FXMLLoader();
-                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ManageDoctor.fxml"));
+                Parent root = loader.load(new FileInputStream("demo/src/main/resources/com/example/ManageDoctor.fxml"));
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
@@ -68,7 +68,7 @@ public class SwitchPage {
 
             try {
                 FXMLLoader loader = new FXMLLoader();
-                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\ManageMedicine.fxml"));
+                Parent root = loader.load(new FileInputStream("demo/src/main/resources/com/example/ManageMedicine.fxml"));
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
@@ -87,7 +87,7 @@ public class SwitchPage {
         } else if (buttonId.equals("managePatientBtn")){
             try {
                 FXMLLoader loader = new FXMLLoader();
-                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\PatientList.fxml"));
+                Parent root = loader.load(new FileInputStream("demo/src/main/resources/com/example/PatientList.fxml"));
                 
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();

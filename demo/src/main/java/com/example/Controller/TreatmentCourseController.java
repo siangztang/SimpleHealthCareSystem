@@ -137,7 +137,7 @@ public class TreatmentCourseController {
         backBtn.setOnAction(event -> {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\PatientHistory.fxml"));
+                Parent root = loader.load(new FileInputStream("demo/src/main/resources/com/example/PatientHistory.fxml"));
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
@@ -174,7 +174,7 @@ public class TreatmentCourseController {
                     System.out.println("Selected treatment course ID: " + selectedTreatmentCourse.getTreatment_course_id());
                     try {
                         FXMLLoader loader = new FXMLLoader();
-                        Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\TreatmentCourseDetails.fxml"));
+                        Parent root = loader.load(new FileInputStream("demo/src/main/resources/com/example/TreatmentCourseDetails.fxml"));
                         Scene scene = new Scene(root);
                         Stage stage = new Stage();
                         stage.setScene(scene);

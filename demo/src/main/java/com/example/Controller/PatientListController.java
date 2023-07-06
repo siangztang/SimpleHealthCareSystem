@@ -163,7 +163,7 @@ public class PatientListController {
         logOutBtn.setOnAction(event -> {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\Login.fxml"));
+                Parent root = loader.load(new FileInputStream("demo/src/main/resources/com/example/Login.fxml"));
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
@@ -204,7 +204,7 @@ public class PatientListController {
                     System.out.println("Selected patient ID: " + selectedPatient.getPatient_id());
                     try {
                         FXMLLoader loader = new FXMLLoader();
-                        Parent root = loader.load(new FileInputStream("demo\\src\\main\\resources\\com\\example\\PatientHistory.fxml"));
+                        Parent root = loader.load(new FileInputStream("demo/src/main/resources/com/example/PatientHistory.fxml"));
                         Scene scene = new Scene(root);
                         Stage stage = new Stage();
                         stage.setScene(scene);
