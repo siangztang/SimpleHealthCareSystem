@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 
 import com.example.Admin;
 import com.example.AlertMessage;
@@ -312,24 +311,24 @@ public class PatientHistoryController {
         searchField.setOnKeyReleased(e ->{
         
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate((Predicate<? super PatientHistory>) patientHistory -> {
+            filteredData.setPredicate(PatientHistory -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                if (patientHistory.getDirected_by().toLowerCase().contains(lowerCaseFilter)) {
+                if (PatientHistory.getDirected_by().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (patientHistory.getMajor_complications().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (PatientHistory.getMajor_complications().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (patientHistory.getMovement_means().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (PatientHistory.getMovement_means().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (patientHistory.getResults().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (PatientHistory.getResults().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (patientHistory.getSpecial_comments().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (PatientHistory.getSpecial_comments().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (String.valueOf(patientHistory.getWard_no()).contains(lowerCaseFilter)) {
+                } else if (String.valueOf(PatientHistory.getWard_no()).contains(lowerCaseFilter)) {
                     return true;
-                } else if (patientHistory.getHistory_id().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (PatientHistory.getHistory_id().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
 
